@@ -2,6 +2,7 @@
 #define MUNITWORD_H
 
 #include "mcommon.h"
+#include "mtextbook.h"
 
 struct MUnitWord
 {
@@ -19,6 +20,8 @@ struct MUnitWord
     int LEVEL = 0;
     int CORRECT = 0;
     int TOTAL = 0;
+
+    const MTextbook *pTextbook = nullptr;
 };
 
 struct MUnitWords

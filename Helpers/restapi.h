@@ -133,6 +133,27 @@ struct RestApiBase {
         });
     }
 
+    observable<string_t> updateObject(const string_t& url, const string_t& body) {
+        return observable<>::create<string_t>(
+        [&](subscriber<string_t> s){
+            client
+            .request(methods::PUT, url, body, U("text"))
+            .then([](http_response response) -> pplx::task<string_t> {
+                return response.extract_string();
+            })
+            .then([&](pplx::task<string_t> previousTask) {
+                try {
+                    string_t const & v = previousTask.get();
+                    s.on_next(v);
+                    s.on_completed();
+                } catch (http_exception const & e) {
+                    s.on_error(std::current_exception());
+                }
+            })
+            .wait();
+        });
+    }
+
     observable<string_t> deleteObject(const string_t& url) {
         return observable<>::create<string_t>(
         [&](subscriber<string_t> s){

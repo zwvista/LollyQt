@@ -9,6 +9,7 @@ void to_json(json& j, const MAutoCorrect& p) {
         {"EXTENDED", p.EXTENDED},
         {"BASIC", p.BASIC}
     };
+    if (p.ID == 0) j["ID"] = nullptr;
 }
 
 void from_json(const json& j, MAutoCorrect& p) {

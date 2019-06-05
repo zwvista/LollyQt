@@ -45,7 +45,6 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     lollydb.cpp \
     selectunitsdialog.cpp \
-    sunitphrase.cpp \
     Services/swordfami.cpp \
     wordsonlinedialog.cpp \
     wordsonlineviewmodel.cpp \
@@ -75,7 +74,6 @@ HEADERS  += mainwindow.h \
     Services/svoice.h \
     lollydb.h \
     selectunitsdialog.h \
-    sunitphrase.h \
     Services/swordfami.h \
     wordsonlinedialog.h \
     wordsonlineviewmodel.h \

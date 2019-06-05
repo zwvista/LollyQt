@@ -17,6 +17,7 @@ void to_json(json& j, const MUnitWord& p) {
         {"CORRECT", p.CORRECT},
         {"TOTAL", p.TOTAL},
     };
+    if (p.ID == 0) j["ID"] = nullptr;
 }
 
 void from_json(const json& j, MUnitWord& p) {
