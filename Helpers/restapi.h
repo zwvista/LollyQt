@@ -11,23 +11,15 @@ using namespace web::http;                  // Common HTTP functionality
 using namespace web::http::client;          // HTTP client features
 using namespace concurrency::streams;       // Asynchronous streams
 
-#include "rxcpp/rx.hpp"
-namespace Rx {
-    using namespace rxcpp;
-    using namespace rxcpp::sources;
-    using namespace rxcpp::operators;
-    using namespace rxcpp::util;
-}
-using namespace Rx;
-
+#include "rx.h"
 #include <nlohmann/json.hpp>
 using nlohmann::json;
 
 template<class T>
-struct RestApi {
+struct RestApiBase {
     http_client client;
 
-    RestApi(const uri &base_uri) : client(base_uri) {}
+    RestApiBase(const uri &base_uri) : client(base_uri) {}
 
     observable<string_t> getString(const string_t &path_query_fragment) {
         return observable<>::create<string_t>(
@@ -161,6 +153,11 @@ struct RestApi {
             .wait();
         });
     }
+};
+
+template<class T>
+struct RestApi : RestApiBase<T> {
+    RestApi() : RestApiBase<T>("https://zwvista.tk/lolly/api.php/records/") {}
 };
 
 #endif // RESTAPI_H

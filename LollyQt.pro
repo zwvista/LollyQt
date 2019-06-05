@@ -26,21 +26,57 @@ LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.13/lib \
 
 SOURCES += main.cpp \
     Models/mautocorrect.cpp \
+    Models/mdictionary.cpp \
+    Models/mlangphrase.cpp \
+    Models/mlangword.cpp \
+    Models/mtextbook.cpp \
+    Models/munitphrase.cpp \
     Models/munitword.cpp \
+    Models/mvoice.cpp \
+    Models/mwordfami.cpp \
+    Services/sautocorrect.cpp \
+    Services/sdictionary.cpp \
+    Services/slangphrase.cpp \
+    Services/slangword.cpp \
+    Services/stextbook.cpp \
+    Services/sunitphrase.cpp \
+    Services/sunitword.cpp \
+    Services/svoice.cpp \
     mainwindow.cpp \
     lollydb.cpp \
     selectunitsdialog.cpp \
+    sunitphrase.cpp \
+    Services/swordfami.cpp \
     wordsonlinedialog.cpp \
     wordsonlineviewmodel.cpp \
     selectunitsviewmodel.cpp
 
 HEADERS  += mainwindow.h \
     Helpers/optional2json.h \
+    Helpers/restapi.h \
+    Helpers/rx.h \
     Models/mautocorrect.h \
+    Models/mcommon.h \
+    Models/mdictionary.h \
+    Models/mlangphrase.h \
+    Models/mlangword.h \
+    Models/mtextbook.h \
+    Models/munitphrase.h \
     Models/munitword.h \
+    Models/mvoice.h \
+    Models/mwordfami.h \
+    Services/sautocorrect.h \
+    Services/sdictionary.h \
+    Services/slangphrase.h \
+    Services/slangword.h \
+    Services/stextbook.h \
+    Services/sunitphrase.h \
+    Services/sunitword.h \
+    Services/svoice.h \
     lollydb.h \
-    restapi.h \
     selectunitsdialog.h \
+    sunitphrase.h \
+    Services/swordfami.h \
     wordsonlinedialog.h \
     wordsonlineviewmodel.h \
     selectunitsviewmodel.h

@@ -1,11 +1,7 @@
 #ifndef MAUTOCORRECT_H
 #define MAUTOCORRECT_H
 
-#include <nlohmann/json.hpp>
-#include <vector>
-#include <string>
-using namespace std;
-using nlohmann::json;
+#include "mcommon.h"
 
 struct MAutoCorrect
 {

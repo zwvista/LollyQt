@@ -1,12 +1,7 @@
 #ifndef MUNITWORD_H
 #define MUNITWORD_H
 
-#include <vector>
-#include <string>
-#include "Helpers/optional2json.h"
-#include <nlohmann/json.hpp>
-using namespace std;
-using nlohmann::json;
+#include "mcommon.h"
 
 struct MUnitWord
 {
