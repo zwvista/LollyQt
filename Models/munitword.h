@@ -30,7 +30,7 @@ struct MUnitWords
 };
 
 void to_json(json& j, const MUnitWord& p);
-void from_json(const json& j, MUnitWords& p);
+void from_json(const json& j, MUnitWord& p);
 void from_json(const json& j, MUnitWords& p);
 
 #endif // MUNITWORD_H

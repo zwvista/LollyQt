@@ -25,6 +25,7 @@ LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.13/lib \
     -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto
 
 SOURCES += main.cpp \
+    Helpers/uri.cpp \
     Models/mautocorrect.cpp \
     Models/mdictionary.cpp \
     Models/mlangphrase.cpp \
@@ -32,6 +33,7 @@ SOURCES += main.cpp \
     Models/mtextbook.cpp \
     Models/munitphrase.cpp \
     Models/munitword.cpp \
+    Models/musersetting.cpp \
     Models/mvoice.cpp \
     Models/mwordfami.cpp \
     Services/sautocorrect.cpp \
@@ -41,6 +43,7 @@ SOURCES += main.cpp \
     Services/stextbook.cpp \
     Services/sunitphrase.cpp \
     Services/sunitword.cpp \
+    Services/susersetting.cpp \
     Services/svoice.cpp \
     mainwindow.cpp \
     lollydb.cpp \
@@ -54,6 +57,7 @@ HEADERS  += mainwindow.h \
     Helpers/optional2json.h \
     Helpers/restapi.h \
     Helpers/rx.h \
+    Helpers/uri.h \
     Models/mautocorrect.h \
     Models/mcommon.h \
     Models/mdictionary.h \
@@ -62,6 +66,7 @@ HEADERS  += mainwindow.h \
     Models/mtextbook.h \
     Models/munitphrase.h \
     Models/munitword.h \
+    Models/musersetting.h \
     Models/mvoice.h \
     Models/mwordfami.h \
     Services/sautocorrect.h \
@@ -71,6 +76,7 @@ HEADERS  += mainwindow.h \
     Services/stextbook.h \
     Services/sunitphrase.h \
     Services/sunitword.h \
+    Services/susersetting.h \
     Services/svoice.h \
     lollydb.h \
     selectunitsdialog.h \
