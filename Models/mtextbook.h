@@ -2,6 +2,7 @@
 #define MTEXTBOOK_H
 
 #include "mcommon.h"
+#include "mselectitem.h"
 
 struct MTextbook
 {
@@ -10,6 +11,9 @@ struct MTextbook
     string TEXTBOOKNAME;
     string UNITS;
     string PARTS;
+
+    vector<MSelectItem> units;
+    vector<MSelectItem> parts;
 };
 
 struct MTextbooks

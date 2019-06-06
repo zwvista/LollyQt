@@ -29,6 +29,7 @@ SOURCES += main.cpp \
     Models/mautocorrect.cpp \
     Models/mdictionary.cpp \
     Models/mlangphrase.cpp \
+    Models/mlanguage.cpp \
     Models/mlangword.cpp \
     Models/mtextbook.cpp \
     Models/munitphrase.cpp \
@@ -39,6 +40,7 @@ SOURCES += main.cpp \
     Services/sautocorrect.cpp \
     Services/sdictionary.cpp \
     Services/slangphrase.cpp \
+    Services/slanguage.cpp \
     Services/slangword.cpp \
     Services/stextbook.cpp \
     Services/sunitphrase.cpp \
@@ -62,7 +64,9 @@ HEADERS  += mainwindow.h \
     Models/mcommon.h \
     Models/mdictionary.h \
     Models/mlangphrase.h \
+    Models/mlanguage.h \
     Models/mlangword.h \
+    Models/mselectitem.h \
     Models/mtextbook.h \
     Models/munitphrase.h \
     Models/munitword.h \
@@ -72,6 +76,7 @@ HEADERS  += mainwindow.h \
     Services/sautocorrect.h \
     Services/sdictionary.h \
     Services/slangphrase.h \
+    Services/slanguage.h \
     Services/slangword.h \
     Services/stextbook.h \
     Services/sunitphrase.h \

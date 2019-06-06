@@ -15,6 +15,8 @@ observable<vector<MLangWord> > SLangWord::getDataByLangWord(int langid, string w
     auto url = boost::format("VLANGWORDS?filter=LANGID,eq,%1%&filter=WORD,eq,%2%") % langid % urlencode(word);
     return apis.getObject(url.str()).map([&](MLangWords& o){
         return o.records;
+    }).filter([&](MLangWord& o){
+        return o.WORD == word;
     });
 }
 

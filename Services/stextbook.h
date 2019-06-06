@@ -6,6 +6,9 @@
 
 struct STextbook
 {
+    observable<vector<MTextbook>> getDataByLang(int langid);
+
+    RestApi<MTextbooks> apis;
 };
 
 #endif // STEXTBOOK_H

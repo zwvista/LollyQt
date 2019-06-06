@@ -15,6 +15,8 @@ observable<vector<MLangPhrase> > SLangPhrase::getDataByLangPhrase(int langid, st
     auto url = boost::format("LANGPHRASES?filter=LANGID,eq,%1%&filter=Phrase,eq,%2%") % langid % urlencode(phrase);
     return apis.getObject(url.str()).map([&](MLangPhrases& o){
         return o.records;
+    }).filter([&](MLangPhrase& o){
+        return o.PHRASE == phrase;
     });
 }
 

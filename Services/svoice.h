@@ -6,6 +6,9 @@
 
 struct SVoice
 {
+    observable<vector<MVoice>> getDataByLang(int langid);
+
+    RestApi<MVoices> apis;
 };
 
 #endif // SVOICE_H
