@@ -1,2 +1,60 @@
 #include "mdictionary.h"
 
+void to_json(json& j, const MDictionary& p) {
+    j = json{
+        {"ID", p.ID},
+        {"DICTID", p.DICTID},
+        {"LANGIDFROM", p.LANGIDFROM},
+        {"LANGNAMEFROM", p.LANGNAMEFROM},
+        {"LANGIDTO", p.LANGIDTO},
+        {"LANGNAMETO", p.LANGNAMETO},
+        {"SEQNUM", p.SEQNUM},
+        {"DICTTYPEID", p.DICTTYPEID},
+        {"DICTTYPENAME", p.DICTTYPENAME},
+        {"DICTNAME", p.DICTNAME},
+        {"URL", p.URL},
+        {"CHCONV", p.CHCONV},
+        {"AUTOMATION", p.AUTOMATION},
+        {"DICTTABLE", p.DICTTABLE},
+        {"TRANSFORM_WIN", p.TRANSFORM_WIN},
+        {"TRANSFORM", p.TRANSFORM},
+        {"WAIT", p.WAIT},
+        {"TEMPLATE", p.TEMPLATE},
+        {"TEMPLATE2", p.TEMPLATE2},
+    };
+    if (p.ID == 0) j["ID"] = nullptr;
+}
+
+void from_json(const json& j, MDictionary& p) {
+    p.ID = j.at("ID").get<int>();
+    p.DICTID = j.at("DICTID").get<int>();
+    p.LANGIDFROM = j.at("LANGIDFROM").get<int>();
+    p.LANGNAMEFROM = j.at("LANGNAMEFROM").get<string>();
+    p.LANGIDTO = j.at("LANGIDTO").get<int>();
+    p.LANGNAMETO = j.at("LANGNAMETO").get<string>();
+    p.SEQNUM = j.at("SEQNUM").get<int>();
+    p.DICTTYPEID = j.at("DICTTYPEID").get<int>();
+    p.DICTTYPENAME = j.at("DICTTYPENAME").get<string>();
+    p.DICTNAME = j.at("DICTNAME").get<string>();
+    p.URL = j.at("URL").get<boost::optional<string>>();
+    p.CHCONV = j.at("CHCONV").get<boost::optional<string>>();
+    p.AUTOMATION = j.at("AUTOMATION").get<boost::optional<string>>();
+    p.DICTTABLE = j.at("DICTTABLE").get<boost::optional<string>>();
+    p.TRANSFORM_WIN = j.at("TRANSFORM_WIN").get<boost::optional<string>>();
+    p.TRANSFORM = j.at("TRANSFORM").get<boost::optional<string>>();
+    p.WAIT = j.at("WAIT").get<int>();
+    p.TEMPLATE = j.at("TEMPLATE").get<boost::optional<string>>();
+    p.TEMPLATE2 = j.at("TEMPLATE2").get<boost::optional<string>>();
+}
+
+void from_json(const json& j, MDictsReference& p) {
+    p.records = j.at("records").get<vector<MDictReference>>();
+}
+
+void from_json(const json& j, MDictsNote& p) {
+    p.records = j.at("records").get<vector<MDictNote>>();
+}
+
+void from_json(const json& j, MDictsTranslation& p) {
+    p.records = j.at("records").get<vector<MDictTranslation>>();
+}

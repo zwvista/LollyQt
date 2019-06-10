@@ -1,11 +1,12 @@
 #include "slangword.h"
 #include <boost/format.hpp>
 #include "Helpers/uri.h"
+#include <boost/range/adaptors.hpp>
 
 observable<vector<MLangWord> > SLangWord::getDataByLang(int langid)
 {
     auto url = boost::format("VLANGWORDS?filter=LANGID,eq,%1%&order=WORD") % langid;
-    return apis.getObject(url.str()).map([&](MLangWords& o){
+    return apis.getObject(url.str()).map([&](const MLangWords& o){
         return o.records;
     });
 }
@@ -13,17 +14,17 @@ observable<vector<MLangWord> > SLangWord::getDataByLang(int langid)
 observable<vector<MLangWord> > SLangWord::getDataByLangWord(int langid, string word)
 {
     auto url = boost::format("VLANGWORDS?filter=LANGID,eq,%1%&filter=WORD,eq,%2%") % langid % urlencode(word);
-    return apis.getObject(url.str()).map([&](MLangWords& o){
-        return o.records;
-    }).filter([&](MLangWord& o){
-        return o.WORD == word;
+    return apis.getObject(url.str()).map([&](const MLangWords& o){
+        return boost::copy_range<vector<MLangWord>>(o.records | boost::adaptors::filtered([&](const MLangWord& o){
+            return o.WORD == word;
+        }));
     });
 }
 
 observable<vector<MLangWord> > SLangWord::getDataById(int id)
 {
     auto url = boost::format("VLANGWORDS?filter=ID,eq,%1%") % id;
-    return apis.getObject(url.str()).map([&](MLangWords& o){
+    return apis.getObject(url.str()).map([&](const MLangWords& o){
         return o.records;
     });
 }

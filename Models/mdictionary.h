@@ -26,6 +26,9 @@ struct MDictionary
     boost::optional<string> TEMPLATE2;
 };
 
+void to_json(json& j, const MDictionary& p);
+void from_json(const json& j, MDictionary& p);
+
 struct MDictReference : MDictionary {
 
 };
@@ -34,6 +37,8 @@ struct MDictsReference
 {
     vector<MDictReference> records;
 };
+
+void from_json(const json& j, MDictsReference& p);
 
 struct MDictNote : MDictionary {
 
@@ -44,6 +49,8 @@ struct MDictsNote
     vector<MDictNote> records;
 };
 
+void from_json(const json& j, MDictsNote& p);
+
 struct MDictTranslation : MDictionary {
 
 };
@@ -52,5 +59,7 @@ struct MDictsTranslation
 {
     vector<MDictTranslation> records;
 };
+
+void from_json(const json& j, MDictsTranslation& p);
 
 #endif // MDICTIONARY_H

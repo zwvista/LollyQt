@@ -8,8 +8,6 @@ struct MSelectItem
 {
     int value = 0;
     string label;
-
-    MSelectItem(int value, const string& label) : value(value), label(label) {}
 };
 
 #endif // MSELECTITEM_H

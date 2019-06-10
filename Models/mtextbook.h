@@ -21,4 +21,8 @@ struct MTextbooks
     vector<MTextbook> records;
 };
 
+void to_json(json& j, const MTextbook& p);
+void from_json(const json& j, MTextbook& p);
+void from_json(const json& j, MTextbooks& p);
+
 #endif // MTEXTBOOK_H

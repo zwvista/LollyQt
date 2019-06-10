@@ -22,7 +22,7 @@ INCLUDEPATH += /usr/local/Cellar/cpprestsdk/2.10.13/include \
 LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.13/lib \
     -L/usr/local/Cellar/boost/1.69.0_2/lib \
     -L/usr/local/Cellar/libressl/2.8.3/lib \
-    -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto
+    -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
 
 SOURCES += main.cpp \
     Helpers/uri.cpp \
