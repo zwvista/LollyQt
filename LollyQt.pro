@@ -47,6 +47,7 @@ SOURCES += main.cpp \
     Services/sunitword.cpp \
     Services/susersetting.cpp \
     Services/svoice.cpp \
+    ViewModels/vmsettings.cpp \
     mainwindow.cpp \
     lollydb.cpp \
     selectunitsdialog.cpp \
@@ -83,6 +84,7 @@ HEADERS  += mainwindow.h \
     Services/sunitword.h \
     Services/susersetting.h \
     Services/svoice.h \
+    ViewModels/vmsettings.h \
     lollydb.h \
     selectunitsdialog.h \
     Services/swordfami.h \

@@ -2,6 +2,7 @@
 #define MDICTIONARY_H
 
 #include "mcommon.h"
+#include <boost/algorithm/string.hpp>
 
 struct MDictionary
 {
@@ -36,6 +37,17 @@ struct MDictReference : MDictionary {
 struct MDictsReference
 {
     vector<MDictReference> records;
+};
+
+struct MDictItem
+{
+    string DICTID;
+    string DICTNAME;
+    vector<string> dictids() {
+        vector<string> result;
+        boost::algorithm::split(result, DICTID, boost::is_any_of(","));
+        return result;
+    }
 };
 
 void from_json(const json& j, MDictsReference& p);
