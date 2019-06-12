@@ -21,11 +21,11 @@ struct RestApiBase {
 
     RestApiBase(const uri &base_uri) : client(base_uri) {}
 
-    observable<string_t> getString(const string_t &path_query_fragment) {
+    observable<string_t> getString(const string_t &url) {
         return observable<>::create<string_t>(
-        [&](subscriber<string_t> s){
+        [&, url](subscriber<string_t> s){
             client
-            .request(methods::GET, path_query_fragment)
+            .request(methods::GET, url)
             .then([](http_response response) -> pplx::task<string_t> {
                 return response.extract_string();
             })
@@ -34,7 +34,7 @@ struct RestApiBase {
                     string_t const & v = previousTask.get();
                     s.on_next(v);
                     s.on_completed();
-                } catch (http_exception const & e) {
+                } catch (http_exception const&) {
                     s.on_error(std::current_exception());
                 }
             })
@@ -42,11 +42,11 @@ struct RestApiBase {
         });
     }
 
-    observable<T> getObject(const string_t &path_query_fragment) {
+    observable<T> getObject(const string_t &url) {
         return observable<>::create<T>(
-        [&](subscriber<T> s){
+        [&, url](subscriber<T> s){
             client
-            .request(methods::GET, path_query_fragment)
+            .request(methods::GET, url)
             .then([](http_response response) -> pplx::task<string_t> {
                 return response.extract_string();
             })
@@ -57,7 +57,7 @@ struct RestApiBase {
                     T t = j;
                     s.on_next(t);
                     s.on_completed();
-                } catch (http_exception const & e) {
+                } catch (http_exception const&) {
                     s.on_error(std::current_exception());
                 }
             })
@@ -65,11 +65,11 @@ struct RestApiBase {
         });
     }
 
-    observable<T> getArray(const string_t &path_query_fragment) {
+    observable<T> getArray(const string_t &url) {
         return observable<>::create<T>(
-        [&](subscriber<T> s){
+        [&, url](subscriber<T> s){
             client
-            .request(methods::GET, path_query_fragment)
+            .request(methods::GET, url)
             .then([](http_response response) -> pplx::task<string_t> {
                 return response.extract_string();
             })
@@ -81,7 +81,7 @@ struct RestApiBase {
                     for(const auto& t : vec)
                         s.on_next(t);
                     s.on_completed();
-                } catch (http_exception const & e) {
+                } catch (http_exception const&) {
                     s.on_error(std::current_exception());
                 }
             })
@@ -91,7 +91,7 @@ struct RestApiBase {
 
     observable<string_t> createObject(const string_t& url, const T& obj) {
         return observable<>::create<string_t>(
-        [&](subscriber<string_t> s){
+        [&, url](subscriber<string_t> s){
             json j = obj;
             client
             .request(methods::POST, url, j.dump(), U("application/json"))
@@ -103,7 +103,7 @@ struct RestApiBase {
                     string_t const & v = previousTask.get();
                     s.on_next(v);
                     s.on_completed();
-                } catch (http_exception const & e) {
+                } catch (http_exception const&) {
                     s.on_error(std::current_exception());
                 }
             })
@@ -113,7 +113,7 @@ struct RestApiBase {
 
     observable<string_t> updateObject(const string_t& url, const T& obj) {
         return observable<>::create<string_t>(
-        [&](subscriber<string_t> s){
+        [&, url](subscriber<string_t> s){
             json j = obj;
             client
             .request(methods::PUT, url, j.dump(), U("application/json"))
@@ -125,7 +125,7 @@ struct RestApiBase {
                     string_t const & v = previousTask.get();
                     s.on_next(v);
                     s.on_completed();
-                } catch (http_exception const & e) {
+                } catch (http_exception const&) {
                     s.on_error(std::current_exception());
                 }
             })
@@ -135,7 +135,7 @@ struct RestApiBase {
 
     observable<string_t> updateObject(const string_t& url, const string_t& body) {
         return observable<>::create<string_t>(
-        [&](subscriber<string_t> s){
+        [&, url](subscriber<string_t> s){
             client
             .request(methods::PUT, url, body, U("text"))
             .then([](http_response response) -> pplx::task<string_t> {
@@ -146,7 +146,7 @@ struct RestApiBase {
                     string_t const & v = previousTask.get();
                     s.on_next(v);
                     s.on_completed();
-                } catch (http_exception const & e) {
+                } catch (http_exception const&) {
                     s.on_error(std::current_exception());
                 }
             })
@@ -156,7 +156,7 @@ struct RestApiBase {
 
     observable<string_t> deleteObject(const string_t& url) {
         return observable<>::create<string_t>(
-        [&](subscriber<string_t> s){
+        [&, url](subscriber<string_t> s){
             client
             .request(methods::DEL, url)
             .then([](http_response response) -> pplx::task<string_t> {
@@ -167,7 +167,7 @@ struct RestApiBase {
                     string_t const & v = previousTask.get();
                     s.on_next(v);
                     s.on_completed();
-                } catch (http_exception const & e) {
+                } catch (http_exception const&) {
                     s.on_error(std::current_exception());
                 }
             })

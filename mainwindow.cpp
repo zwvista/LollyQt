@@ -2,12 +2,12 @@
 #include "ui_mainwindow.h"
 #include "wordsonlinedialog.h"
 #include "selectunitsdialog.h"
-
+#include "settingsdialog.h"
 
 #include "Models/mautocorrect.h"
 #include "Models/munitword.h"
 #include "Helpers/restapi.h"
-
+#include "Models/mlanguage.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,14 +25,15 @@ void MainWindow::on_actionWordsOnline_triggered()
 {
 //    WordsOnlineDialog dlg;
 //    dlg.exec();
-//    RestApi<MAutoCorrects> api;
-//    api.getObject("AUTOCORRECT?filter=LANGID,eq,3").subscribe([](const MAutoCorrects& o){
+    SettingsDialog dlg;
+    dlg.exec();
+//    RestApi<MLanguages> apis;
+//    auto url = "LANGUAGES?filter=ID,neq,0";
+//    apis.getObject(url).map([](const MLanguages& o){
+//        return o.records;
+//    }).subscribe([](const auto& o){
 //        int i = 0;
 //    });
-    RestApi<MUnitWords> api;
-    api.getObject("VUNITWORDS?filter=TEXTBOOKID,eq,703&filter=UNITPART,bt,11,11&order=UNITPART&order=SEQNUM").subscribe([](const MUnitWords& o){
-        int i = 0;
-    });
 }
 
 void MainWindow::on_actionSelectUnits_triggered()

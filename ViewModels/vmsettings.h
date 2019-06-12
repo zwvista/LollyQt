@@ -3,11 +3,13 @@
 
 #include <vector>
 #include <map>
-#include "Models/musersetting.h"
-#include "Models/mlanguage.h"
-#include "Models/mvoice.h"
-#include "Models/mdictionary.h"
-#include "Models/mtextbook.h"
+#include "Services/susersetting.h"
+#include "Services/sautocorrect.h"
+#include "Services/sdictionary.h"
+#include "Services/slanguage.h"
+#include "Services/stextbook.h"
+#include "Services/svoice.h"
+#include "Helpers/restapi.h"
 using namespace std;
 
 class VMSettings
@@ -19,15 +21,19 @@ class VMSettings
     MUserSetting* selectedUSLang2 = nullptr;
     MUserSetting* selectedUSLang3 = nullptr;
     MUserSetting* selectedUSTextbook = nullptr;
-    MDictItem* selectedDictItem = nullptr;
-    MDictNote* selectedDictNote = nullptr;
-    MDictTranslation* selectedDictTranslation = nullptr;
-    MTextbook* selectedTextbook = nullptr;
+
+    SLanguage slanguage;
+    SUserSetting susersetting;
+    SVoice svoice;
+    SDictReference sdictreference;
+    SDictNote sdictnote;
+    SDictTranslation sdicttranslation;
+    STextbook stextbook;
 public:
     vector<MUserSetting> userSettings;
     vector<int> getUSROWSPERPAGEOPTIONS() const;
     int getUSROWSPERPAGED() const { return stoi(selectedUSUser0->VALUE3.get()); }
-    map<int, vector<string>> USLEVELCOLORS;
+    std::map<int, vector<string>> USLEVELCOLORS;
     int getUSREADINTERVAL() const { return stoi(selectedUSUser1->VALUE1.get()); }
     int getUSREVIEWINTERVAL() const { return stoi(selectedUSUser1->VALUE2.get()); }
     int getUSTEXTBOOKID() const { return stoi(selectedUSLang2->VALUE1.get()); }
@@ -51,34 +57,47 @@ public:
     int getUSPARTTO() const { return stoi(selectedUSTextbook->VALUE4.get()); }
     void setUSPARTTO(int value) const { selectedUSTextbook->VALUE4 = to_string(value); }
     vector<MLanguage> languages;
-    MLanguage* selectedLang = nullptr;
+    int selectedLangIndex = 0;
+    const MLanguage& getSelectedLang() const { return languages[selectedLangIndex]; }
+    observable<string> setSelectedLang(int langIndex);
     vector<MVoice> macVoices;
-    MVoice* selectedMacVoice = nullptr;
+    int selectedMacVoiceIndex = 0;
+    const MVoice& getSelectedMacVoice() const { return macVoices[selectedMacVoiceIndex]; }
+    void setSelectedMacVoice(int index) {
+        selectedMacVoiceIndex = index;
+        setUSMACVOICEID(getSelectedMacVoice().ID);
+    }
     vector<MDictReference> dictsReference;
     vector<MDictItem> dictItems;
-    MDictItem* getSelectedDictItem() { return selectedDictItem; }
-    void setSelectedDictItem(MDictItem* value) {
-        selectedDictItem = value;
-        setUSDICTITEM(value->DICTID);
+    int selectedDictItemIndex = 0;
+    const MDictItem& getSelectedDictItem() const { return dictItems[selectedDictItemIndex]; }
+    void setSelectedDictItem(int index) {
+        selectedDictItemIndex = index;
+        setUSDICTITEM(getSelectedDictItem().DICTID);
     }
     vector<MDictNote> dictsNote;
-    MDictNote* getSelectedDictNote() { return selectedDictNote; }
-    void setSelectedDictNote(MDictNote* value) {
-        selectedDictNote = value;
-        setUSDICTNOTEID(value->DICTID);
+    int selectedDictNoteIndex = 0;
+    const MDictNote& getSelectedDictNote() const { return dictsNote[selectedDictNoteIndex]; }
+    void setSelectedDictNote(int index) {
+        selectedDictNoteIndex = index;
+        setUSDICTNOTEID(getSelectedDictNote().DICTID);
     }
     vector<MDictTranslation> dictsTranslation;
-    MDictTranslation* getSelectedDictTranslation() { return selectedDictTranslation; }
-    void setSelectedDictTranslation(MDictTranslation* value) {
-        selectedDictTranslation = value;
-        setUSDICTTRANSLATIONID(value->DICTID);
+    int selectedDictTranslationIndex = 0;
+    const MDictTranslation& getSelectedDictTranslation() const { return dictsTranslation[selectedDictTranslationIndex]; }
+    void setSelectedDictTranslation(int index) {
+        selectedDictTranslationIndex = index;
+        setUSDICTTRANSLATIONID(getSelectedDictTranslation().DICTID);
     }
     vector<MTextbook> textbooks;
-    MTextbook* getSelectedTextbook() { return selectedTextbook; }
-    void setSelectedTextbook(MTextbook* value) {
-        selectedTextbook = value;
-        setUSTEXTBOOKID(value->ID);
+    int selectedTextbookIndex = 0;
+    const MTextbook& getSelectedTextbook() const { return textbooks[selectedTextbookIndex]; }
+    void setSelectedTextbook(int index) {
+        selectedTextbookIndex = index;
+        setUSTEXTBOOKID(getSelectedTextbook().ID);
     }
+
+    observable<string> getData();
 };
 
 #endif // VMSETTINGS_H

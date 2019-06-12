@@ -52,11 +52,13 @@ SOURCES += main.cpp \
     lollydb.cpp \
     selectunitsdialog.cpp \
     Services/swordfami.cpp \
+    settingsdialog.cpp \
     wordsonlinedialog.cpp \
     wordsonlineviewmodel.cpp \
     selectunitsviewmodel.cpp
 
 HEADERS  += mainwindow.h \
+    Helpers/flattened.h \
     Helpers/optional2json.h \
     Helpers/restapi.h \
     Helpers/rx.h \
@@ -88,10 +90,12 @@ HEADERS  += mainwindow.h \
     lollydb.h \
     selectunitsdialog.h \
     Services/swordfami.h \
+    settingsdialog.h \
     wordsonlinedialog.h \
     wordsonlineviewmodel.h \
     selectunitsviewmodel.h
 
 FORMS    += mainwindow.ui \
     selectunitsdialog.ui \
+    settingsdialog.ui \
     wordsonlinedialog.ui
