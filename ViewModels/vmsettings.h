@@ -10,6 +10,7 @@
 #include "Services/stextbook.h"
 #include "Services/svoice.h"
 #include "Helpers/restapi.h"
+#include <boost/format.hpp>
 using namespace std;
 
 class VMSettings
@@ -63,39 +64,32 @@ public:
     vector<MVoice> macVoices;
     int selectedMacVoiceIndex = 0;
     const MVoice& getSelectedMacVoice() const { return macVoices[selectedMacVoiceIndex]; }
-    void setSelectedMacVoice(int index) {
-        selectedMacVoiceIndex = index;
-        setUSMACVOICEID(getSelectedMacVoice().ID);
-    }
+    void setSelectedMacVoice(int index);
     vector<MDictReference> dictsReference;
     vector<MDictItem> dictItems;
     int selectedDictItemIndex = 0;
     const MDictItem& getSelectedDictItem() const { return dictItems[selectedDictItemIndex]; }
-    void setSelectedDictItem(int index) {
-        selectedDictItemIndex = index;
-        setUSDICTITEM(getSelectedDictItem().DICTID);
-    }
+    void setSelectedDictItem(int index);
     vector<MDictNote> dictsNote;
     int selectedDictNoteIndex = 0;
     const MDictNote& getSelectedDictNote() const { return dictsNote[selectedDictNoteIndex]; }
-    void setSelectedDictNote(int index) {
-        selectedDictNoteIndex = index;
-        setUSDICTNOTEID(getSelectedDictNote().DICTID);
-    }
+    void setSelectedDictNote(int index);
     vector<MDictTranslation> dictsTranslation;
     int selectedDictTranslationIndex = 0;
     const MDictTranslation& getSelectedDictTranslation() const { return dictsTranslation[selectedDictTranslationIndex]; }
-    void setSelectedDictTranslation(int index) {
-        selectedDictTranslationIndex = index;
-        setUSDICTTRANSLATIONID(getSelectedDictTranslation().DICTID);
-    }
+    void setSelectedDictTranslation(int index);
     vector<MTextbook> textbooks;
     int selectedTextbookIndex = 0;
     const MTextbook& getSelectedTextbook() const { return textbooks[selectedTextbookIndex]; }
-    void setSelectedTextbook(int index) {
-        selectedTextbookIndex = index;
-        setUSTEXTBOOKID(getSelectedTextbook().ID);
-    }
+    void setSelectedTextbook(int index);
+
+    const vector<MSelectItem>& getUnits() const { return getSelectedTextbook().units; }
+    int getUnitCount() const { return getUnits().size(); }
+    string getUnitsInAll() const { return (boost::format("(%1%) in all)") % getUnitCount()).str(); }
+    const vector<MSelectItem>& getParts() const { return getSelectedTextbook().parts; }
+    int getPartCount() const { return getParts().size(); }
+    bool isSingleUnit() const { return getUSUNITFROM() == getUSUNITTO() && getUSPARTFROM() == 1 && getUSPARTTO() == getPartCount(); }
+    bool isSinglePart() const { return getPartCount() == 1; }
 
     observable<string> getData();
 };

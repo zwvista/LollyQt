@@ -1,5 +1,4 @@
 #include "vmsettings.h"
-#include <boost/format.hpp>
 #include <boost/range/adaptors.hpp>
 #include <boost/range/algorithm.hpp>
 #include <boost/algorithm/string_regex.hpp>
@@ -101,5 +100,39 @@ observable<string> VMSettings::setSelectedLang(int langIndex)
         }) - macVoices.begin();
         setSelectedMacVoice(index);
         return string{};
+    });
+}
+
+void VMSettings::setSelectedMacVoice(int index)
+{
+   selectedMacVoiceIndex = index;
+   setUSMACVOICEID(getSelectedMacVoice().ID);
+}
+
+void VMSettings::setSelectedDictItem(int index)
+{
+   selectedDictItemIndex = index;
+   setUSDICTITEM(getSelectedDictItem().DICTID);
+}
+
+void VMSettings::setSelectedDictNote(int index)
+{
+   selectedDictNoteIndex = index;
+   setUSDICTNOTEID(getSelectedDictNote().DICTID);
+}
+
+void VMSettings::setSelectedDictTranslation(int index)
+{
+    selectedDictTranslationIndex = index;
+    setUSDICTTRANSLATIONID(getSelectedDictTranslation().DICTID);
+}
+
+void VMSettings::setSelectedTextbook(int index)
+{
+    selectedTextbookIndex = index;
+    int textbookid = getSelectedTextbook().ID;
+    setUSTEXTBOOKID(textbookid);
+    selectedUSTextbook = &*boost::find_if(userSettings, [&](const MUserSetting& o){
+        return o.KIND == 11 && o.ENTITYID == textbookid;
     });
 }

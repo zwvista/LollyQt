@@ -37,12 +37,12 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
     auto url = boost::format("TEXTBOOKS?filter=LANGID,eq,%1%") % langid;
     return apis.getObject(url.str()).map([&](MTextbooks& o){
         for (auto& o2 : o.records) {
-            boost::range::overwrite(o2.units, f(o2.UNITS) | boost::adaptors::indexed(1) | boost::adaptors::transformed([&](const auto& o3){
+            o2.units = boost::copy_range<vector<MSelectItem>>(f(o2.UNITS) | boost::adaptors::indexed(1) | boost::adaptors::transformed([&](const auto& o3){
                 return MSelectItem { static_cast<int>(o3.index()), o3.value() };
             }));
             vector<string> result;
             boost::algorithm::split(result, o2.PARTS, boost::is_any_of(","));
-            boost::range::overwrite(o2.parts, result | boost::adaptors::indexed(1) | boost::adaptors::transformed([&](const auto& o3){
+            o2.parts = boost::copy_range<vector<MSelectItem>>(result | boost::adaptors::indexed(1) | boost::adaptors::transformed([&](const auto& o3){
                 return MSelectItem { static_cast<int>(o3.index()), o3.value() };
             }));
         }
