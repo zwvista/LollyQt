@@ -58,3 +58,14 @@ void from_json(const json& j, MDictsNote& p) {
 void from_json(const json& j, MDictsTranslation& p) {
     p.records = j.at("records").get<vector<MDictTranslation>>();
 }
+
+void from_json(const nlohmann::json &j, MDictType &p)
+{
+    p.ID = j.at("ID").get<int>();
+    p.NAME = j.at("NAME").get<string>();
+}
+
+void from_json(const nlohmann::json &j, MDictTypes &p)
+{
+    p.records = j.at("records").get<vector<MDictType>>();
+}

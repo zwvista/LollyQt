@@ -24,3 +24,11 @@ observable<vector<MDictTranslation> > SDictTranslation::getDataByLang(int langid
         return o.records;
     });
 }
+
+observable<vector<MDictType> > SDictType::getData()
+{
+    auto url = "DICTTYPES";
+    return apis.getObject(url).map([](const MDictTypes& o){
+        return o.records;
+    });
+}

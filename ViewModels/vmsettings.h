@@ -25,11 +25,13 @@ class VMSettings
 
     SLanguage slanguage;
     SUserSetting susersetting;
+    SDictType sdicttype;
     SVoice svoice;
     SDictReference sdictreference;
     SDictNote sdictnote;
     SDictTranslation sdicttranslation;
     STextbook stextbook;
+    SAutoCorrect sautocorrect;
 public:
     vector<MUserSetting> userSettings;
     vector<int> getUSROWSPERPAGEOPTIONS() const;
@@ -85,11 +87,15 @@ public:
 
     const vector<MSelectItem>& getUnits() const { return getSelectedTextbook().units; }
     int getUnitCount() const { return getUnits().size(); }
-    string getUnitsInAll() const { return (boost::format("(%1%) in all)") % getUnitCount()).str(); }
+    string getUnitsInAll() const { return (boost::format("(%1% in all)") % getUnitCount()).str(); }
     const vector<MSelectItem>& getParts() const { return getSelectedTextbook().parts; }
     int getPartCount() const { return getParts().size(); }
     bool isSingleUnit() const { return getUSUNITFROM() == getUSUNITTO() && getUSPARTFROM() == 1 && getUSPARTTO() == getPartCount(); }
     bool isSinglePart() const { return getPartCount() == 1; }
+
+    vector<MAutoCorrect> autoCorrects;
+    vector<MDictType> dictTypes;
+    vector<string> toTypes = { "Unit", "Part", "To" };
 
     observable<string> getData();
 };

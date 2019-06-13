@@ -56,8 +56,3 @@ void SelectUnitsDialog::on_cboTextbook_currentIndexChanged(int index)
     ui->cboPartTo->addItems(parts);
     ui->cboPartTo->setCurrentIndex(partto - 1);
 }
-
-void SelectUnitsDialog::on_buttonBox_accepted()
-{
-
-}

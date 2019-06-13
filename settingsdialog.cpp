@@ -1,6 +1,5 @@
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
-#include "Services/slanguage.h"
 #include <boost/range/algorithm.hpp>
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
@@ -8,6 +7,9 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui(new Ui::SettingsDialog)
 {
     ui->setupUi(this);
+
+    for (auto& s : vm.toTypes)
+        ui->cboToType->addItem(QString::fromStdString(s));
 
     vm.getData().subscribe([&](const auto&){
         for (auto& o : vm.languages)

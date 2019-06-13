@@ -27,13 +27,6 @@ void MainWindow::on_actionWordsOnline_triggered()
 //    dlg.exec();
     SettingsDialog dlg;
     dlg.exec();
-//    RestApi<MLanguages> apis;
-//    auto url = "LANGUAGES?filter=ID,neq,0";
-//    apis.getObject(url).map([](const MLanguages& o){
-//        return o.records;
-//    }).subscribe([](const auto& o){
-//        int i = 0;
-//    });
 }
 
 void MainWindow::on_actionSelectUnits_triggered()

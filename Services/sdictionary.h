@@ -30,4 +30,10 @@ struct SDictTranslation
     RestApi<MDictsTranslation> apis;
 };
 
+struct SDictType
+{
+    observable<vector<MDictType>> getData();
+    RestApi<MDictTypes> apis;
+};
+
 #endif // SDICTIONARY_H

@@ -21,8 +21,6 @@ private slots:
 
     void on_cboTextbook_currentIndexChanged(int index);
 
-    void on_buttonBox_accepted();
-
 private:
     Ui::SelectUnitsDialog *ui;
     SelectUnitsViewModel vm;

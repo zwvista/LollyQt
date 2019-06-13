@@ -74,4 +74,18 @@ struct MDictsTranslation
 
 void from_json(const json& j, MDictsTranslation& p);
 
+struct MDictType
+{
+    int ID = 0;
+    string NAME;
+};
+
+struct MDictTypes
+{
+    vector<MDictType> records;
+};
+
+void from_json(const json& j, MDictType& p);
+void from_json(const json& j, MDictTypes& p);
+
 #endif // MDICTIONARY_H

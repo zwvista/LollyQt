@@ -16,9 +16,10 @@ vector<int> VMSettings::getUSROWSPERPAGEOPTIONS() const
 
 observable<string> VMSettings::getData()
 {
-    return slanguage.getData().zip(susersetting.getData(1)).flat_map([&](const auto& o){
+    return slanguage.getData().zip(susersetting.getData(1), sdicttype.getData()).flat_map([&](const auto& o){
         languages = get<0>(o);
         userSettings = get<1>(o);
+        dictTypes = get<2>(o);
         selectedUSUser0 = &*boost::find_if(userSettings, [](const MUserSetting& o){
             return o.KIND == 1 && o.ENTITYID == 0;
         });
@@ -55,6 +56,7 @@ observable<string> VMSettings::setSelectedLang(int langIndex)
                 sdictnote.getDataByLang(langid),
                 sdicttranslation.getDataByLang(langid),
                 stextbook.getDataByLang(langid),
+                sautocorrect.getDataByLang(langid),
                 svoice.getDataByLang(langid)).map([&, dicts](const auto& o){
         dictsReference = get<0>(o);
         dictItems.clear();
@@ -92,7 +94,8 @@ observable<string> VMSettings::setSelectedLang(int langIndex)
             return o.ID == getUSTEXTBOOKID();
         }) - textbooks.begin();
         setSelectedTextbook(index);
-        macVoices = boost::copy_range<vector<MVoice>>(get<4>(o) | boost::adaptors::filtered([](const MVoice& o) {
+        autoCorrects = get<4>(o);
+        macVoices = boost::copy_range<vector<MVoice>>(get<5>(o) | boost::adaptors::filtered([](const MVoice& o) {
             return o.VOICETYPEID == 2;
         }));
         index = boost::find_if(macVoices, [&](const MVoice& o){
