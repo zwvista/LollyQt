@@ -1,6 +1,7 @@
+#include <range/v3/all.hpp>
+using namespace ranges;
 #include "settingsdialog.h"
 #include "ui_settingsdialog.h"
-#include <boost/range/algorithm.hpp>
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent),
@@ -10,13 +11,8 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 
     for (auto& s : vm.toTypes)
         ui->cboToType->addItem(QString::fromStdString(s));
-
-    vm.getData().subscribe([&](const auto&){
-        for (auto& o : vm.languages)
-            ui->cboLang->addItem(QString::fromStdString(o.LANGNAME));
-        ui->cboLang->setCurrentIndex(vm.selectedLangIndex);
-        on_cboLang_currentIndexChanged(vm.selectedLangIndex);
-    });
+    vm.delegate = this;
+    vm.getData().subscribe();
 }
 
 SettingsDialog::~SettingsDialog()
@@ -24,7 +20,14 @@ SettingsDialog::~SettingsDialog()
     delete ui;
 }
 
-void SettingsDialog::on_cboLang_currentIndexChanged(int index)
+void SettingsDialog::onGetData()
+{
+    for (auto& o : vm.languages)
+        ui->cboLang->addItem(QString::fromStdString(o.LANGNAME));
+    ui->cboLang->setCurrentIndex(vm.selectedLangIndex);
+}
+
+void SettingsDialog::onUpdateLang()
 {
     ui->cboVoice->clear();
     for (auto& o : vm.macVoices)
@@ -46,10 +49,10 @@ void SettingsDialog::on_cboLang_currentIndexChanged(int index)
     for (auto& o : vm.textbooks)
         ui->cboTextbook->addItem(QString::fromStdString(o.TEXTBOOKNAME));
     ui->cboTextbook->setCurrentIndex(vm.selectedTextbookIndex);
-    on_cboTextbook_currentIndexChanged(vm.selectedTextbookIndex);
+    onUpdateTextbook();
 }
 
-void SettingsDialog::on_cboTextbook_currentIndexChanged(int)
+void SettingsDialog::onUpdateTextbook()
 {
     ui->cboUnitFrom->clear();
     ui->cboUnitTo->clear();
@@ -57,11 +60,11 @@ void SettingsDialog::on_cboTextbook_currentIndexChanged(int)
         ui->cboUnitFrom->addItem(QString::fromStdString(o.label));
         ui->cboUnitTo->addItem(QString::fromStdString(o.label));
     }
-    int index = boost::find_if(vm.getUnits(), [&](const MSelectItem& o){
+    int index = ranges::find_if(vm.getUnits(), [&](const MSelectItem& o){
         return o.value == vm.getUSUNITFROM();
     }) - vm.getUnits().begin();
     ui->cboUnitFrom->setCurrentIndex(index);
-    index = boost::find_if(vm.getUnits(), [&](const MSelectItem& o){
+    index = ranges::find_if(vm.getUnits(), [&](const MSelectItem& o){
         return o.value == vm.getUSUNITTO();
     }) - vm.getUnits().begin();
     ui->cboUnitTo->setCurrentIndex(index);
@@ -71,11 +74,11 @@ void SettingsDialog::on_cboTextbook_currentIndexChanged(int)
         ui->cboPartFrom->addItem(QString::fromStdString(o.label));
         ui->cboPartTo->addItem(QString::fromStdString(o.label));
     }
-    index = boost::find_if(vm.getParts(), [&](const MSelectItem& o){
+    index = ranges::find_if(vm.getParts(), [&](const MSelectItem& o){
         return o.value == vm.getUSPARTFROM();
     }) - vm.getParts().begin();
     ui->cboPartFrom->setCurrentIndex(index);
-    index = boost::find_if(vm.getParts(), [&](const MSelectItem& o){
+    index = ranges::find_if(vm.getParts(), [&](const MSelectItem& o){
         return o.value == vm.getUSPARTTO();
     }) - vm.getParts().begin();
     ui->cboPartTo->setCurrentIndex(index);

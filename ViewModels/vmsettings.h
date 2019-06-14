@@ -13,6 +13,22 @@
 #include <boost/format.hpp>
 using namespace std;
 
+struct VMSettingsDelegate
+{
+    virtual ~VMSettingsDelegate();
+    virtual void onGetData();
+    virtual void onUpdateLang();
+    virtual void onUpdateDictItem();
+    virtual void onUpdateDictNote();
+    virtual void onUpdateDictTranslation();
+    virtual void onUpdateTextbook();
+    virtual void onUpdateUnitFrom();
+    virtual void onUpdatePartFrom();
+    virtual void onUpdateUnitTo();
+    virtual void onUpdatePartTo();
+    virtual void onUpdateMacVoice();
+};
+
 class VMSettings
 {
     MUserSetting* selectedUSUser0 = nullptr;
@@ -96,14 +112,15 @@ public:
     vector<MAutoCorrect> autoCorrects;
     vector<MDictType> dictTypes;
     vector<string> toTypes = { "Unit", "Part", "To" };
+    VMSettingsDelegate* delegate = nullptr;
 
     observable<string> getData();
-    observable<string> updateLang() { return susersetting.updateLang(selectedUSUser0->ID, getUSLANGID()); }
-    observable<string> updateDictItem() { return susersetting.updateDictItem(selectedUSLang2->ID, getUSDICTITEM()); }
-    observable<string> updateDictNote() { return susersetting.updateDictNote(selectedUSLang2->ID, getUSDICTNOTEID()); }
-    observable<string> updateDictTranslation() { return susersetting.updateDictTranslation(selectedUSLang3->ID, getUSDICTTRANSLATIONID()); }
-    observable<string> updateTextbook() { return susersetting.updateTextbook(selectedUSLang2->ID, getUSTEXTBOOKID()); }
-    observable<string> updateMacVoice() { return susersetting.updateMacVoice(selectedUSLang3->ID, getUSMACVOICEID()); }
+    observable<string> updateLang();
+    observable<string> updateDictItem();
+    observable<string> updateDictNote();
+    observable<string> updateDictTranslation();
+    observable<string> updateTextbook();
+    observable<string> updateMacVoice();
 };
 
 #endif // VMSETTINGS_H

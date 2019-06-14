@@ -8,21 +8,22 @@ namespace Ui {
 class SettingsDialog;
 }
 
-class SettingsDialog : public QDialog
+class SettingsDialog : public QDialog, public VMSettingsDelegate
 {
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget *parent = 0);
+    explicit SettingsDialog(QWidget *parent = nullptr);
     ~SettingsDialog();
 
 private slots:
 
-    void on_cboLang_currentIndexChanged(int index);
-
-    void on_cboTextbook_currentIndexChanged(int index);
-
 private:
+
+    virtual void onGetData() override;
+    virtual void onUpdateLang() override;
+    virtual void onUpdateTextbook() override;
+
     Ui::SettingsDialog *ui;
     VMSettings vm;
 };

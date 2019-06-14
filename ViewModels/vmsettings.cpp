@@ -2,12 +2,25 @@
 using namespace ranges;
 #include "vmsettings.h"
 
+VMSettingsDelegate::~VMSettingsDelegate() {}
+void VMSettingsDelegate::onGetData() {}
+void VMSettingsDelegate::onUpdateLang() {}
+void VMSettingsDelegate::onUpdateDictItem() {}
+void VMSettingsDelegate::onUpdateDictNote() {}
+void VMSettingsDelegate::onUpdateDictTranslation() {}
+void VMSettingsDelegate::onUpdateTextbook() {}
+void VMSettingsDelegate::onUpdateUnitFrom() {}
+void VMSettingsDelegate::onUpdatePartFrom() {}
+void VMSettingsDelegate::onUpdateUnitTo() {}
+void VMSettingsDelegate::onUpdatePartTo() {}
+void VMSettingsDelegate::onUpdateMacVoice() {}
+
 vector<int> VMSettings::getUSROWSPERPAGEOPTIONS() const
 {
     vector<string> result = selectedUSUser0->VALUE2.get() | view::split(',');
     return result | view::transform([](const string& s){
         return stoi(s);
-    }) | ranges::to_vector;
+    });
 }
 
 observable<string> VMSettings::getData()
@@ -27,17 +40,19 @@ observable<string> VMSettings::getData()
             vector<string> colors = s | view::split(',');
             USLEVELCOLORS[stoi(colors[0])] = {colors[1], colors[2]};
         }
+        if (delegate) delegate->onGetData();
         int langIndex = ranges::find_if(languages, [&](const MLanguage& o){
             return o.ID == getUSLANGID();
         }) - languages.begin();
         return setSelectedLang(langIndex);
-    });
+});
 }
 
 observable<string> VMSettings::setSelectedLang(int langIndex)
 {
     selectedLangIndex = langIndex;
     int langid = getSelectedLang().ID;
+    bool isinit = getUSLANGID() == langid;
     setUSLANGID(langid);
     selectedUSLang2 = &*ranges::find_if(userSettings, [&](const MUserSetting& o){
         return o.KIND == 2 && o.ENTITYID == langid;
@@ -52,7 +67,7 @@ observable<string> VMSettings::setSelectedLang(int langIndex)
                 sdicttranslation.getDataByLang(langid),
                 stextbook.getDataByLang(langid),
                 sautocorrect.getDataByLang(langid),
-                svoice.getDataByLang(langid)).map([&, dicts](const auto& o){
+                svoice.getDataByLang(langid)).flat_map([&, dicts](const auto& o) -> observable<string> {
         dictsReference = get<0>(o);
         dictItems.clear();
         int i = 0;
@@ -87,12 +102,17 @@ observable<string> VMSettings::setSelectedLang(int langIndex)
         autoCorrects = get<4>(o);
         macVoices = get<5>(o) | view::filter([](const MVoice& o) {
             return o.VOICETYPEID == 2;
-        }) | ranges::to_vector;
+        });
         index = ranges::find_if(macVoices, [&](const MVoice& o){
             return o.ID == getUSMACVOICEID();
         }) - macVoices.begin();
         setSelectedMacVoice(index);
-        return string{};
+        if (isinit) {
+            if (delegate) delegate->onUpdateLang();
+            return just(string{});
+        } else {
+            return updateLang();
+        }
     });
 }
 
@@ -127,5 +147,53 @@ void VMSettings::setSelectedTextbook(int index)
     setUSTEXTBOOKID(textbookid);
     selectedUSTextbook = &*ranges::find_if(userSettings, [&](const MUserSetting& o){
         return o.KIND == 11 && o.ENTITYID == textbookid;
+    });
+}
+
+observable<string> VMSettings::updateLang()
+{
+    return susersetting.updateLang(selectedUSUser0->ID, getUSLANGID()).map([&](const auto& s){
+        if (delegate) delegate->onUpdateLang();
+        return s;
+    });
+}
+
+observable<string> VMSettings::updateDictItem()
+{
+    return susersetting.updateDictItem(selectedUSLang2->ID, getUSDICTITEM()).map([&](const auto& s){
+        if (delegate) delegate->onUpdateDictItem();
+        return s;
+    });
+}
+
+observable<string> VMSettings::updateDictNote()
+{
+    return susersetting.updateDictNote(selectedUSLang2->ID, getUSDICTNOTEID()).map([&](const auto& s){
+        if (delegate) delegate->onUpdateDictNote();
+        return s;
+    });
+}
+
+observable<string> VMSettings::updateDictTranslation()
+{
+    return susersetting.updateDictTranslation(selectedUSLang3->ID, getUSDICTTRANSLATIONID()).map([&](const auto& s){
+        if (delegate) delegate->onUpdateDictTranslation();
+        return s;
+    });
+}
+
+observable<string> VMSettings::updateTextbook()
+{
+    return susersetting.updateTextbook(selectedUSLang2->ID, getUSTEXTBOOKID()).map([&](const auto& s){
+        if (delegate) delegate->onUpdateTextbook();
+        return s;
+    });
+}
+
+observable<string> VMSettings::updateMacVoice()
+{
+    return susersetting.updateMacVoice(selectedUSLang3->ID, getUSMACVOICEID()).map([&](const auto& s){
+        if (delegate) delegate->onUpdateMacVoice();
+        return s;
     });
 }
