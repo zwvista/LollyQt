@@ -1,6 +1,7 @@
+#include <range/v3/all.hpp>
+using namespace ranges;
 #include "sunitphrase.h"
 #include <boost/format.hpp>
-#include <boost/range/algorithm.hpp>
 
 observable<vector<MUnitPhrase> > SUnitPhrase::getDataByTextbookUnitPart(const MTextbook &textbook, int unitPartFrom, int unitPartTo)
 {
@@ -17,7 +18,7 @@ observable<vector<MUnitPhrase> > SUnitPhrase::getDataByLang(int langid, const ve
     auto url = boost::format("VUNITPHRASES?filter=LANGID,eq,%1%&order=TEXTBOOKID&order=UNIT&order=PART&order=SEQNUM") % langid;
     return apis.getObject(url.str()).map([&](MUnitPhrases& o){
         for (auto& o2 : o.records)
-            o2.pTextbook = &*boost::find_if(textbooks, [&](const MTextbook& o){
+            o2.pTextbook = &*ranges::find_if(textbooks, [&](const MTextbook& o){
                 return o.ID == o2.TEXTBOOKID;
             });
         return o.records;

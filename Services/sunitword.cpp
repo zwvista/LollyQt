@@ -1,6 +1,7 @@
+#include <range/v3/all.hpp>
+using namespace ranges;
 #include "sunitword.h"
 #include <boost/format.hpp>
-#include <boost/range/algorithm.hpp>
 
 observable<vector<MUnitWord> > SUnitWord::getDataByTextbookUnitPart(const MTextbook &textbook, int unitPartFrom, int unitPartTo)
 {
@@ -17,7 +18,7 @@ observable<vector<MUnitWord> > SUnitWord::getDataByLang(int langid, const vector
     auto url = boost::format("VUNITWORDS?filter=LANGID,eq,%1%&order=TEXTBOOKID&order=UNIT&order=PART&order=SEQNUM") % langid;
     return apis.getObject(url.str()).map([&](MUnitWords& o){
         for (auto& o2 : o.records)
-            o2.pTextbook = &*boost::find_if(textbooks, [&](const MTextbook& o){
+            o2.pTextbook = &*ranges::find_if(textbooks, [&](const MTextbook& o){
                 return o.ID == o2.TEXTBOOKID;
             });
         return o.records;

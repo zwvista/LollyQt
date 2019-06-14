@@ -1,3 +1,5 @@
+#include <range/v3/all.hpp>
+using namespace ranges;
 #include "mdictionary.h"
 
 void to_json(json& j, const MDictionary& p) {
@@ -53,6 +55,10 @@ void from_json(const json& j, MDictsReference& p) {
 
 void from_json(const json& j, MDictsNote& p) {
     p.records = j.at("records").get<vector<MDictNote>>();
+}
+
+vector<string> MDictItem::dictids() {
+    return DICTID | view::split(',');
 }
 
 void from_json(const json& j, MDictsTranslation& p) {

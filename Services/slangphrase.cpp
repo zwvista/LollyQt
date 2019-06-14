@@ -1,7 +1,8 @@
+#include <range/v3/all.hpp>
+using namespace ranges;
 #include "slangphrase.h"
 #include <boost/format.hpp>
 #include "Helpers/uri.h"
-#include <boost/range/adaptors.hpp>
 
 observable<vector<MLangPhrase> > SLangPhrase::getDataByLang(int langid)
 {
@@ -15,9 +16,9 @@ observable<vector<MLangPhrase> > SLangPhrase::getDataByLangPhrase(int langid, st
 {
     auto url = boost::format("LANGPHRASES?filter=LANGID,eq,%1%&filter=Phrase,eq,%2%") % langid % urlencode(phrase);
     return apis.getObject(url.str()).map([&](const MLangPhrases& o){
-        return boost::copy_range<vector<MLangPhrase>>(o.records | boost::adaptors::filtered([&](const MLangPhrase& o){
+        return o.records | view::filter([&](const MLangPhrase& o){
             return o.PHRASE == phrase;
-        }));
+        }) | ranges::to_vector;
     });
 }
 

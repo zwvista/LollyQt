@@ -69,7 +69,7 @@ observable<string> SUserSetting::updatePartTo(int id, int partto)
     return updateObject(id, body.str());
 }
 
-observable<string> SUserSetting::updateVoice(int id, int voiceid)
+observable<string> SUserSetting::updateMacVoice(int id, int voiceid)
 {
     auto body = boost::format("VALUE2=%1%") % voiceid;
     return updateObject(id, body.str());

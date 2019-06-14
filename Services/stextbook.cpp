@@ -1,11 +1,9 @@
+#include <range/v3/all.hpp>
+using namespace ranges;
 #include "stextbook.h"
 #include "Models/mselectitem.h"
 #include <boost/format.hpp>
 #include <boost/regex.hpp>
-#include <boost/range/irange.hpp>
-#include <boost/range/algorithm_ext.hpp>
-#include <boost/range/adaptors.hpp>
-#include <boost/algorithm/string.hpp>
 
 observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
 {
@@ -14,22 +12,23 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
         boost::regex_search(units, mr, boost::regex(R"(UNITS,(\d+))"));
         if (!mr.empty()) {
             int n = stoi(mr[1]);
-            return boost::copy_range<vector<string>>(boost::irange(1, n + 1) | boost::adaptors::transformed([](int i){
+            auto v = view::iota(1, n + 1) | ranges::to_vector;
+            return v | view::transform([](int i){
                 return to_string(i);
-            }));
+            }) | ranges::to_vector;
         }
         boost::regex_search(units, mr, boost::regex(R"(PAGES,(\d+),(\d+))"));
         if (!mr.empty()) {
             int n1 = stoi(mr[1]), n2 = stoi(mr[2]);
             int n = n = (n1 + n2 - 1) / n2;
-            return boost::copy_range<vector<string>>(boost::irange(1, n + 1) | boost::adaptors::transformed([&](int i){
+            auto v = view::iota(1, n + 1) | ranges::to_vector;
+            return v | view::transform([&](int i){
                 return (boost::format("%1%~%2%") % (i * n2 - n2 + 1) % (i * n2)).str();
-            }));
+            }) | ranges::to_vector;
         }
         boost::regex_search(units, mr, boost::regex(R"(CUSTOM,(.+))"));
         if (!mr.empty()) {
-            vector<string> result;
-            boost::algorithm::split(result, mr[1], boost::is_any_of(","));
+            vector<string> result = mr[1] | view::split(',');
             return result;
         }
         return {};
@@ -37,14 +36,16 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
     auto url = boost::format("TEXTBOOKS?filter=LANGID,eq,%1%") % langid;
     return apis.getObject(url.str()).map([&](MTextbooks& o){
         for (auto& o2 : o.records) {
-            o2.units = boost::copy_range<vector<MSelectItem>>(f(o2.UNITS) | boost::adaptors::indexed(1) | boost::adaptors::transformed([&](const auto& o3){
-                return MSelectItem { static_cast<int>(o3.index()), o3.value() };
-            }));
-            vector<string> result;
-            boost::algorithm::split(result, o2.PARTS, boost::is_any_of(","));
-            o2.parts = boost::copy_range<vector<MSelectItem>>(result | boost::adaptors::indexed(1) | boost::adaptors::transformed([&](const auto& o3){
-                return MSelectItem { static_cast<int>(o3.index()), o3.value() };
-            }));
+            auto v = f(o2.UNITS);
+            auto v2 = v | view::enumerate | ranges::to_vector;
+            o2.units = v2 | view::transform([&](const auto& o3){
+                return MSelectItem { static_cast<int>(o3.first + 1), o3.second };
+            }) | ranges::to_vector;
+            vector<string> result = o2.PARTS | view::split(',');
+            v2 = result | view::enumerate | ranges::to_vector;
+            o2.parts = v2 | view::transform([&](const auto& o3){
+                return MSelectItem { static_cast<int>(o3.first + 1), o3.second };
+            }) | ranges::to_vector;
         }
         return o.records;
     });

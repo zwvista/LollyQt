@@ -17,7 +17,7 @@ struct SUserSetting
     observable<string> updatePartFrom(int id, int partfrom);
     observable<string> updateUnitTo(int id, int unitto);
     observable<string> updatePartTo(int id, int partto);
-    observable<string> updateVoice(int id, int voiceid);
+    observable<string> updateMacVoice(int id, int voiceid);
 
     RestApi<MUserSettings> apis;
     RestApi<MUserSetting> api;
