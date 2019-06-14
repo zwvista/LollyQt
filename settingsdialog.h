@@ -18,6 +18,18 @@ public:
 
 private slots:
 
+    void on_cboLang_currentIndexChanged(int index);
+
+    void on_cboVoice_currentIndexChanged(int index);
+
+    void on_cboDictItem_currentIndexChanged(int index);
+
+    void on_cboDictNote_currentIndexChanged(int index);
+
+    void on_cboDictTranslation_currentIndexChanged(int index);
+
+    void on_cboTextbook_currentIndexChanged(int index);
+
 private:
 
     virtual void onGetData() override;

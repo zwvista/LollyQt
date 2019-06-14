@@ -85,3 +85,38 @@ void SettingsDialog::onUpdateTextbook()
     ui->lblUnitsInAllFrom->setText(QString::fromStdString(vm.getUnitsInAll()));
     ui->lblUnitsInAllTo->setText(QString::fromStdString(vm.getUnitsInAll()));
 }
+
+void SettingsDialog::on_cboLang_currentIndexChanged(int index)
+{
+    vm.setSelectedLang(index).subscribe();
+}
+
+void SettingsDialog::on_cboVoice_currentIndexChanged(int index)
+{
+    vm.setSelectedMacVoice(index);
+    vm.updateMacVoice().subscribe();
+}
+
+void SettingsDialog::on_cboDictItem_currentIndexChanged(int index)
+{
+    vm.setSelectedDictItem(index);
+    vm.updateDictItem().subscribe();
+}
+
+void SettingsDialog::on_cboDictNote_currentIndexChanged(int index)
+{
+    vm.setSelectedDictNote(index);
+    vm.updateDictItem().subscribe();
+}
+
+void SettingsDialog::on_cboDictTranslation_currentIndexChanged(int index)
+{
+    vm.setSelectedDictTranslation(index);
+    vm.updateDictTranslation().subscribe();
+}
+
+void SettingsDialog::on_cboTextbook_currentIndexChanged(int index)
+{
+    vm.setSelectedTextbook(index);
+    vm.updateTextbook().subscribe();
+}

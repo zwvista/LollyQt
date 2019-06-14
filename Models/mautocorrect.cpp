@@ -1,4 +1,7 @@
+#include <range/v3/all.hpp>
+using namespace ranges;
 #include "mautocorrect.h"
+#include <boost/algorithm/string/replace.hpp>
 
 void to_json(json& j, const MAutoCorrect& p) {
     j = json{
@@ -23,4 +26,11 @@ void from_json(const json& j, MAutoCorrect& p) {
 
 void from_json(const json& j, MAutoCorrects& p) {
     p.records = j.at("records").get<vector<MAutoCorrect>>();
+}
+
+string autoCorrect(const string& text, const vector<MAutoCorrect> &autoCorrects, function<string (const MAutoCorrect &)> f1, function<string (const MAutoCorrect &)> f2)
+{
+    return ranges::accumulate(autoCorrects, text, [&](const string& str, const MAutoCorrect& row){
+       return boost::replace_all_copy<string>(str, f1(row), f2(row));
+    });
 }

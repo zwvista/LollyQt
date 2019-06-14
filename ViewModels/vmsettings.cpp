@@ -197,3 +197,44 @@ observable<string> VMSettings::updateMacVoice()
         return s;
     });
 }
+
+string VMSettings::autoCorrectInput(const string &text)
+{
+    return autoCorrect(text, autoCorrects, [](const MAutoCorrect& row){
+        return row.INPUT;
+    }, [](const MAutoCorrect& row){
+        return row.EXTENDED;
+    });
+}
+
+observable<string> VMSettings::updateUnitFrom()
+{
+    return susersetting.updateUnitFrom(selectedUSLang3->ID, getUSUNITFROM()).map([&](const auto& s){
+        if (delegate) delegate->onUpdateUnitFrom();
+        return s;
+    });
+}
+
+observable<string> VMSettings::updatePartFrom()
+{
+    return susersetting.updatePartFrom(selectedUSLang3->ID, getUSPARTFROM()).map([&](const auto& s){
+        if (delegate) delegate->onUpdatePartFrom();
+        return s;
+    });
+}
+
+observable<string> VMSettings::updateUnitTo()
+{
+    return susersetting.updateUnitTo(selectedUSLang3->ID, getUSUNITTO()).map([&](const auto& s){
+        if (delegate) delegate->onUpdateUnitTo();
+        return s;
+    });
+}
+
+observable<string> VMSettings::updatePartTo()
+{
+    return susersetting.updatePartTo(selectedUSLang3->ID, getUSPARTTO()).map([&](const auto& s){
+        if (delegate) delegate->onUpdatePartTo();
+        return s;
+    });
+}

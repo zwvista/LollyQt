@@ -75,6 +75,11 @@ public:
     void setUSUNITTO(int value) const { selectedUSTextbook->VALUE3 = to_string(value); }
     int getUSPARTTO() const { return stoi(selectedUSTextbook->VALUE4.get()); }
     void setUSPARTTO(int value) const { selectedUSTextbook->VALUE4 = to_string(value); }
+    int getUSUNITPARTFROM() const { return getUSUNITFROM() * 10 + getUSPARTFROM(); }
+    int getUSUNITPARTTO() const { return getUSUNITTO() * 10 + getUSPARTTO(); }
+    bool isSingleUnitPart() const { return getUSUNITPARTFROM() == getUSUNITPARTTO(); }
+    bool isInvalidUnitPart() const { return getUSUNITPARTFROM() > getUSUNITPARTTO(); }
+
     vector<MLanguage> languages;
     int selectedLangIndex = 0;
     const MLanguage& getSelectedLang() const { return languages[selectedLangIndex]; }
@@ -121,6 +126,11 @@ public:
     observable<string> updateDictTranslation();
     observable<string> updateTextbook();
     observable<string> updateMacVoice();
+    string autoCorrectInput(const string& text);
+    observable<string> updateUnitFrom();
+    observable<string> updatePartFrom();
+    observable<string> updateUnitTo();
+    observable<string> updatePartTo();
 };
 
 #endif // VMSETTINGS_H
