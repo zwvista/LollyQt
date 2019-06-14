@@ -238,3 +238,112 @@ observable<string> VMSettings::updatePartTo()
         return s;
     });
 }
+
+observable<string> VMSettings::updateToType()
+{
+    if (toType == 0)
+        return doUpdateSingleUnit();
+    else if (toType == 1)
+        return doUpdateUnitPartTo();
+    else
+        return empty<string>();
+}
+
+observable<string> VMSettings::previousUnitPart()
+{
+    if (toType == 0)
+        if (getUSUNITFROM() > 1)
+            return doUpdateUnitFrom(getUSUNITFROM() - 1).zip(doUpdateUnitTo(getUSUNITFROM())).map([](const auto&){
+                return string{};
+            });
+        else
+            return empty<string>();
+    else if (getUSPARTFROM() > 1)
+        return doUpdatePartFrom(getUSPARTFROM() - 1).zip(doUpdateUnitPartTo()).map([](const auto&){
+            return string{};
+        });
+    else if (getUSUNITFROM() > 1)
+        return doUpdateUnitFrom(getUSUNITFROM() - 1).zip(doUpdatePartFrom(getPartCount()), doUpdateUnitPartTo()).map([](const auto&){
+            return string{};
+        });
+    else
+        return empty<string>();
+}
+
+observable<string> VMSettings::nextUnitPart()
+{
+    if (toType == 0)
+        if (getUSUNITFROM() < getUnitCount())
+            return doUpdateUnitFrom(getUSUNITFROM() + 1).zip(doUpdateUnitTo(getUSUNITFROM())).map([](const auto&){
+                return string{};
+            });
+        else
+            return empty<string>();
+    else if (getUSPARTFROM() < getPartCount())
+        return doUpdatePartFrom(getUSPARTFROM() + 1).zip(doUpdateUnitPartTo()).map([](const auto&){
+            return string{};
+        });
+    else if (getUSUNITFROM() < getUnitCount())
+        return doUpdateUnitFrom(getUSUNITFROM() + 1).zip(doUpdatePartFrom(1), doUpdateUnitPartTo()).map([](const auto&){
+            return string{};
+        });
+    else
+        return empty<string>();
+}
+
+observable<string> VMSettings::doUpdateUnitPartFrom()
+{
+    return doUpdateUnitFrom(getUSUNITTO()).zip(doUpdatePartFrom(getUSPARTTO())).map([](const auto&){
+        return string{};
+    });
+}
+
+observable<string> VMSettings::doUpdateUnitPartTo()
+{
+    return doUpdateUnitTo(getUSUNITFROM()).zip(doUpdatePartTo(getUSPARTFROM())).map([](const auto&){
+        return string{};
+    });
+}
+
+observable<string> VMSettings::doUpdateSingleUnit()
+{
+    return doUpdateUnitTo(getUSUNITFROM()).zip(doUpdatePartFrom(1), doUpdatePartTo(getPartCount())).map([](const auto&){
+        return string{};
+    });
+}
+
+observable<string> VMSettings::doUpdateUnitFrom(int v)
+{
+    setUSUNITFROM(v);
+    return susersetting.updateUnitFrom(selectedUSLang3->ID, v).map([&](const auto& s){
+        if (delegate) delegate->onUpdateUnitFrom();
+        return s;
+    });
+}
+
+observable<string> VMSettings::doUpdatePartFrom(int v)
+{
+    setUSPARTFROM(v);
+    return susersetting.updatePartFrom(selectedUSLang3->ID, v).map([&](const auto& s){
+        if (delegate) delegate->onUpdatePartFrom();
+        return s;
+    });
+}
+
+observable<string> VMSettings::doUpdateUnitTo(int v)
+{
+    setUSUNITTO(v);
+    return susersetting.updateUnitTo(selectedUSLang3->ID, v).map([&](const auto& s){
+        if (delegate) delegate->onUpdateUnitTo();
+        return s;
+    });
+}
+
+observable<string> VMSettings::doUpdatePartTo(int v)
+{
+    setUSPARTTO(v);
+    return susersetting.updatePartTo(selectedUSLang3->ID, v).map([&](const auto& s){
+        if (delegate) delegate->onUpdatePartTo();
+        return s;
+    });
+}

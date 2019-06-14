@@ -48,6 +48,15 @@ class VMSettings
     SDictTranslation sdicttranslation;
     STextbook stextbook;
     SAutoCorrect sautocorrect;
+
+    observable<string> doUpdateUnitPartFrom();
+    observable<string> doUpdateUnitPartTo();
+    observable<string> doUpdateSingleUnit();
+    observable<string> doUpdateUnitFrom(int v);
+    observable<string> doUpdatePartFrom(int v);
+    observable<string> doUpdateUnitTo(int v);
+    observable<string> doUpdatePartTo(int v);
+
 public:
     vector<MUserSetting> userSettings;
     vector<int> getUSROWSPERPAGEOPTIONS() const;
@@ -117,6 +126,7 @@ public:
     vector<MAutoCorrect> autoCorrects;
     vector<MDictType> dictTypes;
     vector<string> toTypes = { "Unit", "Part", "To" };
+    int toType = 1;
     VMSettingsDelegate* delegate = nullptr;
 
     observable<string> getData();
@@ -131,6 +141,9 @@ public:
     observable<string> updatePartFrom();
     observable<string> updateUnitTo();
     observable<string> updatePartTo();
+    observable<string> updateToType();
+    observable<string> previousUnitPart();
+    observable<string> nextUnitPart();
 };
 
 #endif // VMSETTINGS_H
