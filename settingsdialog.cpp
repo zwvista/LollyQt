@@ -11,6 +11,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 
     for (auto& s : vm.toTypes)
         ui->cboToType->addItem(QString::fromStdString(s));
+
     vm.delegate = this;
     vm.getData().subscribe();
 }
@@ -29,26 +30,31 @@ void SettingsDialog::onGetData()
 
 void SettingsDialog::onUpdateLang()
 {
-    ui->cboVoice->clear();
+    ui->cboMacVoice->clear();
     for (auto& o : vm.macVoices)
-        ui->cboVoice->addItem(QString::fromStdString(o.VOICENAME));
-    ui->cboVoice->setCurrentIndex(vm.selectedMacVoiceIndex);
+        ui->cboMacVoice->addItem(QString::fromStdString(o.VOICENAME));
+    ui->cboMacVoice->setCurrentIndex(vm.selectedMacVoiceIndex);
+
     ui->cboDictItem->clear();
     for (auto& o : vm.dictItems)
         ui->cboDictItem->addItem(QString::fromStdString(o.DICTNAME));
     ui->cboDictItem->setCurrentIndex(vm.selectedDictItemIndex);
+
     ui->cboDictNote->clear();
     for (auto& o : vm.dictsNote)
         ui->cboDictNote->addItem(QString::fromStdString(o.DICTNAME));
     ui->cboDictNote->setCurrentIndex(vm.selectedDictNoteIndex);
+
     ui->cboDictTranslation->clear();
     for (auto& o : vm.dictsTranslation)
         ui->cboDictTranslation->addItem(QString::fromStdString(o.DICTNAME));
     ui->cboDictTranslation->setCurrentIndex(vm.selectedDictTranslationIndex);
+
     ui->cboTextbook->clear();
     for (auto& o : vm.textbooks)
         ui->cboTextbook->addItem(QString::fromStdString(o.TEXTBOOKNAME));
     ui->cboTextbook->setCurrentIndex(vm.selectedTextbookIndex);
+
     onUpdateTextbook();
 }
 
@@ -68,6 +74,7 @@ void SettingsDialog::onUpdateTextbook()
         return o.value == vm.getUSUNITTO();
     }) - vm.getUnits().begin();
     ui->cboUnitTo->setCurrentIndex(index);
+
     ui->cboPartFrom->clear();
     ui->cboPartTo->clear();
     for (auto& o : vm.getParts()) {
@@ -82,41 +89,91 @@ void SettingsDialog::onUpdateTextbook()
         return o.value == vm.getUSPARTTO();
     }) - vm.getParts().begin();
     ui->cboPartTo->setCurrentIndex(index);
+
     ui->lblUnitsInAllFrom->setText(QString::fromStdString(vm.getUnitsInAll()));
     ui->lblUnitsInAllTo->setText(QString::fromStdString(vm.getUnitsInAll()));
+
+    ui->cboToType->setCurrentIndex(vm.toType);
+    on_cboToType_activated(vm.toType);
 }
 
-void SettingsDialog::on_cboLang_currentIndexChanged(int index)
+void SettingsDialog::on_cboLang_activated(int index)
 {
     vm.setSelectedLang(index).subscribe();
 }
 
-void SettingsDialog::on_cboVoice_currentIndexChanged(int index)
+void SettingsDialog::on_cboMacVoice_activated(int index)
 {
     vm.setSelectedMacVoice(index);
     vm.updateMacVoice().subscribe();
 }
 
-void SettingsDialog::on_cboDictItem_currentIndexChanged(int index)
+void SettingsDialog::on_cboDictItem_activated(int index)
 {
     vm.setSelectedDictItem(index);
     vm.updateDictItem().subscribe();
 }
 
-void SettingsDialog::on_cboDictNote_currentIndexChanged(int index)
+void SettingsDialog::on_cboDictNote_activated(int index)
 {
     vm.setSelectedDictNote(index);
     vm.updateDictItem().subscribe();
 }
 
-void SettingsDialog::on_cboDictTranslation_currentIndexChanged(int index)
+void SettingsDialog::on_cboDictTranslation_activated(int index)
 {
     vm.setSelectedDictTranslation(index);
     vm.updateDictTranslation().subscribe();
 }
 
-void SettingsDialog::on_cboTextbook_currentIndexChanged(int index)
+void SettingsDialog::on_cboTextbook_activated(int index)
 {
     vm.setSelectedTextbook(index);
     vm.updateTextbook().subscribe();
+}
+
+void SettingsDialog::on_cboUnitFrom_activated(int index)
+{
+    vm.setUSUNITFROM(vm.getUnits()[index].value);
+    vm.updateUnitFrom().subscribe();
+}
+
+void SettingsDialog::on_cboPartFrom_activated(int index)
+{
+    vm.setUSPARTFROM(vm.getParts()[index].value);
+    vm.updatePartFrom().subscribe();
+}
+
+void SettingsDialog::on_cboToType_activated(int index)
+{
+    vm.toType = index;
+    bool b = vm.toType == 2;
+    ui->cboUnitTo->setEnabled(b);
+    ui->cboPartTo->setEnabled(b && !vm.isSinglePart());
+    ui->btnPrevious->setEnabled(!b);
+    ui->btnNext->setEnabled(!b);
+    ui->cboPartFrom->setEnabled(vm.toType == 0 && !vm.isSinglePart());
+    vm.updateToType().subscribe();
+}
+
+void SettingsDialog::on_cboUnitTo_activated(int index)
+{
+    vm.setUSUNITTO(vm.getUnits()[index].value);
+    vm.updateUnitTo().subscribe();
+}
+
+void SettingsDialog::on_cboPartTo_activated(int index)
+{
+    vm.setUSPARTFROM(vm.getParts()[index].value);
+    vm.updatePartTo().subscribe();
+}
+
+void SettingsDialog::on_btnPrevious_clicked()
+{
+    vm.previousUnitPart().subscribe();
+}
+
+void SettingsDialog::on_btnNext_clicked()
+{
+    vm.nextUnitPart().subscribe();
 }

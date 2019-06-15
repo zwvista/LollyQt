@@ -23,7 +23,7 @@ SelectUnitsDialog::~SelectUnitsDialog()
     delete ui;
 }
 
-void SelectUnitsDialog::on_cboLang_currentIndexChanged(int index)
+void SelectUnitsDialog::on_cboLang_activated(int index)
 {
     auto row = vm.mdlLang->record(index);
     auto langid = row.value("ID").toInt();
@@ -35,7 +35,7 @@ void SelectUnitsDialog::on_cboLang_currentIndexChanged(int index)
     ui->cboTextbook->setCurrentIndex(indexes.first().row());
 }
 
-void SelectUnitsDialog::on_cboTextbook_currentIndexChanged(int index)
+void SelectUnitsDialog::on_cboTextbook_activated(int index)
 {
     auto row = vm.mdlTextBook->record(index);
     auto units = row.value("UNITS").toInt();

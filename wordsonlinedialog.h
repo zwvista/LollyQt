@@ -18,7 +18,7 @@ public:
     ~WordsOnlineDialog();
 
 private slots:
-    void on_cboLang_currentIndexChanged(int index);
+    void on_cboLang_activated(int index);
 
     void on_btnGo_clicked();
 

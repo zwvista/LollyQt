@@ -17,7 +17,7 @@ WordsOnlineDialog::~WordsOnlineDialog()
     delete ui;
 }
 
-void WordsOnlineDialog::on_cboLang_currentIndexChanged(int index)
+void WordsOnlineDialog::on_cboLang_activated(int index)
 {
     int langid = vm.mdlLang->record(index).value("ID").toInt();
     vm.setQueryDict(langid);

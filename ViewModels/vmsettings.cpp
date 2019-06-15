@@ -40,12 +40,12 @@ observable<string> VMSettings::getData()
             vector<string> colors = s | view::split(',');
             USLEVELCOLORS[stoi(colors[0])] = {colors[1], colors[2]};
         }
-        if (delegate) delegate->onGetData();
-        int langIndex = ranges::find_if(languages, [&](const MLanguage& o){
+        selectedLangIndex = ranges::find_if(languages, [&](const MLanguage& o){
             return o.ID == getUSLANGID();
         }) - languages.begin();
-        return setSelectedLang(langIndex);
-});
+        if (delegate) delegate->onGetData();
+        return setSelectedLang(selectedLangIndex);
+    });
 }
 
 observable<string> VMSettings::setSelectedLang(int langIndex)
@@ -148,6 +148,7 @@ void VMSettings::setSelectedTextbook(int index)
     selectedUSTextbook = &*ranges::find_if(userSettings, [&](const MUserSetting& o){
         return o.KIND == 11 && o.ENTITYID == textbookid;
     });
+    toType = isSingleUnit() ? 0 : isSingleUnitPart() ? 1 : 2;
 }
 
 observable<string> VMSettings::updateLang()

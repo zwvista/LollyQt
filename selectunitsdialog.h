@@ -17,9 +17,9 @@ public:
     ~SelectUnitsDialog();
 
 private slots:
-    void on_cboLang_currentIndexChanged(int index);
+    void on_cboLang_activated(int index);
 
-    void on_cboTextbook_currentIndexChanged(int index);
+    void on_cboTextbook_activated(int index);
 
 private:
     Ui::SelectUnitsDialog *ui;

@@ -18,17 +18,31 @@ public:
 
 private slots:
 
-    void on_cboLang_currentIndexChanged(int index);
+    void on_cboLang_activated(int index);
 
-    void on_cboVoice_currentIndexChanged(int index);
+    void on_cboMacVoice_activated(int index);
 
-    void on_cboDictItem_currentIndexChanged(int index);
+    void on_cboDictItem_activated(int index);
 
-    void on_cboDictNote_currentIndexChanged(int index);
+    void on_cboDictNote_activated(int index);
 
-    void on_cboDictTranslation_currentIndexChanged(int index);
+    void on_cboDictTranslation_activated(int index);
 
-    void on_cboTextbook_currentIndexChanged(int index);
+    void on_cboTextbook_activated(int index);
+
+    void on_cboUnitFrom_activated(int index);
+
+    void on_cboPartFrom_activated(int index);
+
+    void on_cboToType_activated(int index);
+
+    void on_cboUnitTo_activated(int index);
+
+    void on_cboPartTo_activated(int index);
+
+    void on_btnPrevious_clicked();
+
+    void on_btnNext_clicked();
 
 private:
 
