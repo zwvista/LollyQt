@@ -22,8 +22,7 @@ struct RestApiBase {
     RestApiBase(const uri &base_uri) : client(base_uri) {}
 
     observable<string_t> getString(const string_t &url) {
-        return observable<>::create<string_t>(
-        [&, url](subscriber<string_t> s){
+        return observable<>::create<string_t>([=](subscriber<string_t> s){
             client
             .request(methods::GET, url)
             .then([](http_response response) -> pplx::task<string_t> {
@@ -43,8 +42,7 @@ struct RestApiBase {
     }
 
     observable<T> getObject(const string_t &url) {
-        return observable<>::create<T>(
-        [&, url](subscriber<T> s){
+        return observable<>::create<T>([=](subscriber<T> s){
             client
             .request(methods::GET, url)
             .then([](http_response response) -> pplx::task<string_t> {
@@ -66,8 +64,7 @@ struct RestApiBase {
     }
 
     observable<T> getArray(const string_t &url) {
-        return observable<>::create<T>(
-        [&, url](subscriber<T> s){
+        return observable<>::create<T>([=](subscriber<T> s){
             client
             .request(methods::GET, url)
             .then([](http_response response) -> pplx::task<string_t> {
@@ -90,8 +87,7 @@ struct RestApiBase {
     }
 
     observable<string_t> createObject(const string_t& url, const T& obj) {
-        return observable<>::create<string_t>(
-        [&, url](subscriber<string_t> s){
+        return observable<>::create<string_t>([=](subscriber<string_t> s){
             json j = obj;
             client
             .request(methods::POST, url, j.dump(), U("application/json"))
@@ -112,8 +108,7 @@ struct RestApiBase {
     }
 
     observable<string_t> updateObject(const string_t& url, const T& obj) {
-        return observable<>::create<string_t>(
-        [&, url](subscriber<string_t> s){
+        return observable<>::create<string_t>([=](subscriber<string_t> s){
             json j = obj;
             client
             .request(methods::PUT, url, j.dump(), U("application/json"))
@@ -134,8 +129,7 @@ struct RestApiBase {
     }
 
     observable<string_t> updateObject(const string_t& url, const string_t& body) {
-        return observable<>::create<string_t>(
-        [&, url](subscriber<string_t> s){
+        return observable<>::create<string_t>([=](subscriber<string_t> s){
             client
             .request(methods::PUT, url, body, U("text"))
             .then([](http_response response) -> pplx::task<string_t> {
@@ -155,8 +149,7 @@ struct RestApiBase {
     }
 
     observable<string_t> deleteObject(const string_t& url) {
-        return observable<>::create<string_t>(
-        [&, url](subscriber<string_t> s){
+        return observable<>::create<string_t>([=](subscriber<string_t> s){
             client
             .request(methods::DEL, url)
             .then([](http_response response) -> pplx::task<string_t> {

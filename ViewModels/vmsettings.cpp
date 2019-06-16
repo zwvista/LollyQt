@@ -50,9 +50,9 @@ observable<string> VMSettings::getData()
 
 observable<string> VMSettings::setSelectedLang(int langIndex)
 {
+    bool isinit = selectedLangIndex == langIndex;
     selectedLangIndex = langIndex;
     int langid = getSelectedLang().ID;
-    bool isinit = getUSLANGID() == langid;
     setUSLANGID(langid);
     selectedUSLang2 = &*ranges::find_if(userSettings, [&](const MUserSetting& o){
         return o.KIND == 2 && o.ENTITYID == langid;
@@ -69,15 +69,15 @@ observable<string> VMSettings::setSelectedLang(int langIndex)
                 sautocorrect.getDataByLang(langid),
                 svoice.getDataByLang(langid)).flat_map([&, dicts](const auto& o) -> observable<string> {
         dictsReference = get<0>(o);
-        dictItems.clear();
         int i = 0;
-        for (const string& d : dicts) {
-            if (d == "0")
-                for (const auto& o2 :dictsReference)
-                    dictItems.push_back({ to_string(o2.DICTID), o2.DICTNAME });
-            else
-                dictItems.push_back({ d, (boost::format("Custom%1%") % ++i).str() });
-        }
+        // https://stackoverflow.com/questions/36051851/how-to-implement-flatmap-using-rangev3-ranges
+        dictItems = dicts | view::transform([&](const string& d){
+            return d == "0" ?
+                dictsReference | view::transform([](const auto& o2){
+                    return MDictItem{ to_string(o2.DICTID), o2.DICTNAME };
+                }) | ranges::to_vector :
+                vector{MDictItem{ d, (boost::format("Custom%1%") % ++i).str() }};
+        }) | action::join;
         int index = ranges::find_if(dictItems, [&](const MDictItem& o){
             return o.DICTID == getUSDICTITEM();
         }) - dictItems.begin();
@@ -86,14 +86,14 @@ observable<string> VMSettings::setSelectedLang(int langIndex)
         index = ranges::find_if(dictsNote, [&](const MDictNote& o){
             return o.DICTID == getUSDICTNOTEID();
         }) - dictsNote.begin();
-        setSelectedDictNote(index);
         if (dictsNote.empty()) dictsNote.emplace_back();
+        setSelectedDictNote(index);
         dictsTranslation = get<2>(o);
         index = ranges::find_if(dictsTranslation, [&](const MDictTranslation& o){
             return o.DICTID == getUSDICTTRANSLATIONID();
         }) - dictsTranslation.begin();
-        setSelectedDictTranslation(index);
         if (dictsTranslation.empty()) dictsTranslation.emplace_back();
+        setSelectedDictTranslation(index);
         textbooks = get<3>(o);
         index = ranges::find_if(textbooks, [&](const MTextbook& o){
             return o.ID == getUSTEXTBOOKID();

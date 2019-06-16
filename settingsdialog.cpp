@@ -152,7 +152,7 @@ void SettingsDialog::on_cboToType_activated(int index)
     ui->cboPartTo->setEnabled(b && !vm.isSinglePart());
     ui->btnPrevious->setEnabled(!b);
     ui->btnNext->setEnabled(!b);
-    ui->cboPartFrom->setEnabled(vm.toType == 0 && !vm.isSinglePart());
+    ui->cboPartFrom->setEnabled(vm.toType != 0 && !vm.isSinglePart());
     vm.updateToType().subscribe();
 }
 
