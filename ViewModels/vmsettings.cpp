@@ -153,49 +153,43 @@ void VMSettings::setSelectedTextbook(int index)
 
 observable<string> VMSettings::updateLang()
 {
-    return susersetting.updateLang(selectedUSUser0->ID, getUSLANGID()).map([&](const auto& s){
+    return susersetting.updateLang(selectedUSUser0->ID, getUSLANGID()).tap([&](const auto& ){
         if (delegate) delegate->onUpdateLang();
-        return s;
     });
 }
 
 observable<string> VMSettings::updateDictItem()
 {
-    return susersetting.updateDictItem(selectedUSLang2->ID, getUSDICTITEM()).map([&](const auto& s){
+    return susersetting.updateDictItem(selectedUSLang2->ID, getUSDICTITEM()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictItem();
-        return s;
     });
 }
 
 observable<string> VMSettings::updateDictNote()
 {
-    return susersetting.updateDictNote(selectedUSLang2->ID, getUSDICTNOTEID()).map([&](const auto& s){
+    return susersetting.updateDictNote(selectedUSLang2->ID, getUSDICTNOTEID()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictNote();
-        return s;
     });
 }
 
 observable<string> VMSettings::updateDictTranslation()
 {
-    return susersetting.updateDictTranslation(selectedUSLang3->ID, getUSDICTTRANSLATIONID()).map([&](const auto& s){
+    return susersetting.updateDictTranslation(selectedUSLang3->ID, getUSDICTTRANSLATIONID()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictTranslation();
-        return s;
     });
 }
 
 observable<string> VMSettings::updateTextbook()
 {
-    return susersetting.updateTextbook(selectedUSLang2->ID, getUSTEXTBOOKID()).map([&](const auto& s){
+    return susersetting.updateTextbook(selectedUSLang2->ID, getUSTEXTBOOKID()).tap([&](const auto&){
         if (delegate) delegate->onUpdateTextbook();
-        return s;
     });
 }
 
 observable<string> VMSettings::updateMacVoice()
 {
-    return susersetting.updateMacVoice(selectedUSLang3->ID, getUSMACVOICEID()).map([&](const auto& s){
+    return susersetting.updateMacVoice(selectedUSLang3->ID, getUSMACVOICEID()).tap([&](const auto&){
         if (delegate) delegate->onUpdateMacVoice();
-        return s;
     });
 }
 
@@ -210,33 +204,29 @@ string VMSettings::autoCorrectInput(const string &text)
 
 observable<string> VMSettings::updateUnitFrom()
 {
-    return susersetting.updateUnitFrom(selectedUSLang3->ID, getUSUNITFROM()).map([&](const auto& s){
+    return susersetting.updateUnitFrom(selectedUSLang3->ID, getUSUNITFROM()).tap([&](const auto&){
         if (delegate) delegate->onUpdateUnitFrom();
-        return s;
     });
 }
 
 observable<string> VMSettings::updatePartFrom()
 {
-    return susersetting.updatePartFrom(selectedUSLang3->ID, getUSPARTFROM()).map([&](const auto& s){
+    return susersetting.updatePartFrom(selectedUSLang3->ID, getUSPARTFROM()).tap([&](const auto&){
         if (delegate) delegate->onUpdatePartFrom();
-        return s;
     });
 }
 
 observable<string> VMSettings::updateUnitTo()
 {
-    return susersetting.updateUnitTo(selectedUSLang3->ID, getUSUNITTO()).map([&](const auto& s){
+    return susersetting.updateUnitTo(selectedUSLang3->ID, getUSUNITTO()).tap([&](const auto&){
         if (delegate) delegate->onUpdateUnitTo();
-        return s;
     });
 }
 
 observable<string> VMSettings::updatePartTo()
 {
-    return susersetting.updatePartTo(selectedUSLang3->ID, getUSPARTTO()).map([&](const auto& s){
+    return susersetting.updatePartTo(selectedUSLang3->ID, getUSPARTTO()).tap([&](const auto&){
         if (delegate) delegate->onUpdatePartTo();
-        return s;
     });
 }
 
@@ -316,35 +306,31 @@ observable<string> VMSettings::doUpdateSingleUnit()
 observable<string> VMSettings::doUpdateUnitFrom(int v)
 {
     setUSUNITFROM(v);
-    return susersetting.updateUnitFrom(selectedUSLang3->ID, v).map([&](const auto& s){
+    return susersetting.updateUnitFrom(selectedUSLang3->ID, v).tap([&](const auto&){
         if (delegate) delegate->onUpdateUnitFrom();
-        return s;
     });
 }
 
 observable<string> VMSettings::doUpdatePartFrom(int v)
 {
     setUSPARTFROM(v);
-    return susersetting.updatePartFrom(selectedUSLang3->ID, v).map([&](const auto& s){
+    return susersetting.updatePartFrom(selectedUSLang3->ID, v).tap([&](const auto&){
         if (delegate) delegate->onUpdatePartFrom();
-        return s;
     });
 }
 
 observable<string> VMSettings::doUpdateUnitTo(int v)
 {
     setUSUNITTO(v);
-    return susersetting.updateUnitTo(selectedUSLang3->ID, v).map([&](const auto& s){
+    return susersetting.updateUnitTo(selectedUSLang3->ID, v).tap([&](const auto&){
         if (delegate) delegate->onUpdateUnitTo();
-        return s;
     });
 }
 
 observable<string> VMSettings::doUpdatePartTo(int v)
 {
     setUSPARTTO(v);
-    return susersetting.updatePartTo(selectedUSLang3->ID, v).map([&](const auto& s){
+    return susersetting.updatePartTo(selectedUSLang3->ID, v).tap([&](const auto&){
         if (delegate) delegate->onUpdatePartTo();
-        return s;
     });
 }
