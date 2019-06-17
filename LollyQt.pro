@@ -18,7 +18,8 @@ INCLUDEPATH += /usr/local/Cellar/cpprestsdk/2.10.13/include \
     /usr/local/Cellar/libressl/2.8.3/include\
     /usr/local/Cellar/nlohmann_json/3.6.1/include \
     /usr/local/Cellar/range-v3/0.5.0/include \
-    /Users/zhaowei/Documents/Programs/OSS/RxCpp/Rx/v2/src
+    /Users/zhaowei/Documents/Programs/OSS/RxCpp/Rx/v2/src \
+    /Users/zhaowei/Documents/Programs/OSS/rxqt/include
 
 LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.13/lib \
     -L/usr/local/Cellar/boost/1.69.0_2/lib \

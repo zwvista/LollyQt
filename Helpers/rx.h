@@ -1,7 +1,7 @@
 #ifndef RX_H
 #define RX_H
 
-#include <rxcpp/rx.hpp>
+#include <rxqt.hpp>
 namespace Rx {
     using namespace rxcpp;
     using namespace rxcpp::sources;
@@ -9,5 +9,7 @@ namespace Rx {
     using namespace rxcpp::util;
 }
 using namespace Rx;
+
+extern const rxqt::run_loop* pLoop;
 
 #endif // RX_H

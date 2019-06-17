@@ -66,14 +66,8 @@ void SettingsDialog::onUpdateTextbook()
         ui->cboUnitFrom->addItem(QString::fromStdString(o.label));
         ui->cboUnitTo->addItem(QString::fromStdString(o.label));
     }
-    int index = ranges::find_if(vm.getUnits(), [&](const MSelectItem& o){
-        return o.value == vm.getUSUNITFROM();
-    }) - vm.getUnits().begin();
-    ui->cboUnitFrom->setCurrentIndex(index);
-    index = ranges::find_if(vm.getUnits(), [&](const MSelectItem& o){
-        return o.value == vm.getUSUNITTO();
-    }) - vm.getUnits().begin();
-    ui->cboUnitTo->setCurrentIndex(index);
+    onUpdateUnitFrom();
+    onUpdatePartFrom();
 
     ui->cboPartFrom->clear();
     ui->cboPartTo->clear();
@@ -81,20 +75,46 @@ void SettingsDialog::onUpdateTextbook()
         ui->cboPartFrom->addItem(QString::fromStdString(o.label));
         ui->cboPartTo->addItem(QString::fromStdString(o.label));
     }
-    index = ranges::find_if(vm.getParts(), [&](const MSelectItem& o){
-        return o.value == vm.getUSPARTFROM();
-    }) - vm.getParts().begin();
-    ui->cboPartFrom->setCurrentIndex(index);
-    index = ranges::find_if(vm.getParts(), [&](const MSelectItem& o){
-        return o.value == vm.getUSPARTTO();
-    }) - vm.getParts().begin();
-    ui->cboPartTo->setCurrentIndex(index);
+    onUpdateUnitTo();
+    onUpdatePartTo();
 
     ui->lblUnitsInAllFrom->setText(QString::fromStdString(vm.getUnitsInAll()));
     ui->lblUnitsInAllTo->setText(QString::fromStdString(vm.getUnitsInAll()));
 
     ui->cboToType->setCurrentIndex(vm.toType);
     on_cboToType_activated(vm.toType);
+}
+
+void SettingsDialog::onUpdateUnitFrom()
+{
+    int index = ranges::find_if(vm.getUnits(), [&](const MSelectItem& o){
+        return o.value == vm.getUSUNITFROM();
+    }) - vm.getUnits().begin();
+    ui->cboUnitFrom->setCurrentIndex(index);
+}
+
+void SettingsDialog::onUpdatePartFrom()
+{
+    int index = ranges::find_if(vm.getUnits(), [&](const MSelectItem& o){
+        return o.value == vm.getUSUNITTO();
+    }) - vm.getUnits().begin();
+    ui->cboUnitTo->setCurrentIndex(index);
+}
+
+void SettingsDialog::onUpdateUnitTo()
+{
+    int index = ranges::find_if(vm.getParts(), [&](const MSelectItem& o){
+        return o.value == vm.getUSPARTFROM();
+    }) - vm.getParts().begin();
+    ui->cboPartFrom->setCurrentIndex(index);
+}
+
+void SettingsDialog::onUpdatePartTo()
+{
+    int index = ranges::find_if(vm.getParts(), [&](const MSelectItem& o){
+        return o.value == vm.getUSPARTTO();
+    }) - vm.getParts().begin();
+    ui->cboPartTo->setCurrentIndex(index);
 }
 
 void SettingsDialog::on_cboLang_activated(int index)
