@@ -49,10 +49,10 @@ private:
     virtual void onGetData() override;
     virtual void onUpdateLang() override;
     virtual void onUpdateTextbook() override;
-    virtual void onUpdateUnitFrom();
-    virtual void onUpdatePartFrom();
-    virtual void onUpdateUnitTo();
-    virtual void onUpdatePartTo();
+    virtual void onUpdateUnitFrom() override;
+    virtual void onUpdatePartFrom() override;
+    virtual void onUpdateUnitTo() override;
+    virtual void onUpdatePartTo() override;
 
     Ui::SettingsDialog *ui;
     VMSettings vm;

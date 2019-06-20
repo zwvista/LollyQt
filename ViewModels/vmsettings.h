@@ -10,6 +10,7 @@
 #include "Services/stextbook.h"
 #include "Services/svoice.h"
 #include "Helpers/restapi.h"
+#include "Shared/commonapi.h"
 #include <boost/format.hpp>
 using namespace std;
 
@@ -126,7 +127,7 @@ public:
     vector<MAutoCorrect> autoCorrects;
     vector<MDictType> dictTypes;
     vector<string> toTypes = { "Unit", "Part", "To" };
-    int toType = 1;
+    UnitPartToType toType = UnitPartToType::PART;
     VMSettingsDelegate* delegate = nullptr;
 
     observable<string> getData();

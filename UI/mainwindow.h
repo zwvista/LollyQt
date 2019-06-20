@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "lollydb.h"
+#include "Old/lollydb.h"
 
 namespace Ui {
 class MainWindow;

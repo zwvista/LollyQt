@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "wordsonlinedialog.h"
-#include "selectunitsdialog.h"
+#include "../Old/wordsonlinedialog.h"
+#include "../Old/selectunitsdialog.h"
 #include "settingsdialog.h"
 
 #include "Models/mautocorrect.h"

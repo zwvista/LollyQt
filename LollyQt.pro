@@ -39,6 +39,11 @@ SOURCES += main.cpp \
     Models/musersetting.cpp \
     Models/mvoice.cpp \
     Models/mwordfami.cpp \
+    Old/lollydb.cpp \
+    Old/selectunitsdialog.cpp \
+    Old/selectunitsviewmodel.cpp \
+    Old/wordsonlinedialog.cpp \
+    Old/wordsonlineviewmodel.cpp \
     Services/sautocorrect.cpp \
     Services/sdictionary.cpp \
     Services/slangphrase.cpp \
@@ -49,15 +54,12 @@ SOURCES += main.cpp \
     Services/sunitword.cpp \
     Services/susersetting.cpp \
     Services/svoice.cpp \
-    ViewModels/vmsettings.cpp \
-    mainwindow.cpp \
-    lollydb.cpp \
-    selectunitsdialog.cpp \
     Services/swordfami.cpp \
-    settingsdialog.cpp \
-    wordsonlinedialog.cpp \
-    wordsonlineviewmodel.cpp \
-    selectunitsviewmodel.cpp
+    Shared/commonapi.cpp \
+    UI/mainwindow.cpp \
+    UI/settingsdialog.cpp \
+    UI/wordsunitwindow.cpp \
+    ViewModels/vmsettings.cpp \
 
 HEADERS  += mainwindow.h \
     Helpers/optional2json.h \
@@ -77,6 +79,11 @@ HEADERS  += mainwindow.h \
     Models/musersetting.h \
     Models/mvoice.h \
     Models/mwordfami.h \
+    Old/lollydb.h \
+    Old/selectunitsdialog.h \
+    Old/selectunitsviewmodel.h \
+    Old/wordsonlinedialog.h \
+    Old/wordsonlineviewmodel.h \
     Services/sautocorrect.h \
     Services/sdictionary.h \
     Services/slangphrase.h \
@@ -87,16 +94,17 @@ HEADERS  += mainwindow.h \
     Services/sunitword.h \
     Services/susersetting.h \
     Services/svoice.h \
+    Shared/commonapi.h \
+    UI/mainwindow.h \
+    UI/settingsdialog.h \
+    UI/wordsunitwindow.h \
     ViewModels/vmsettings.h \
-    lollydb.h \
-    selectunitsdialog.h \
     Services/swordfami.h \
-    settingsdialog.h \
-    wordsonlinedialog.h \
-    wordsonlineviewmodel.h \
-    selectunitsviewmodel.h
 
-FORMS    += mainwindow.ui \
-    selectunitsdialog.ui \
-    settingsdialog.ui \
-    wordsonlinedialog.ui
+FORMS += \
+    Old/selectunitsdialog.ui \
+    Old/wordsonlinedialog.ui \
+    UI/mainwindow.ui \
+    UI/settingsdialog.ui \
+    UI/wordsunitwindow.ui
+

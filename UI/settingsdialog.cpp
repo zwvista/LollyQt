@@ -81,8 +81,8 @@ void SettingsDialog::onUpdateTextbook()
     ui->lblUnitsInAllFrom->setText(QString::fromStdString(vm.getUnitsInAll()));
     ui->lblUnitsInAllTo->setText(QString::fromStdString(vm.getUnitsInAll()));
 
-    ui->cboToType->setCurrentIndex(vm.toType);
-    on_cboToType_activated(vm.toType);
+    ui->cboToType->setCurrentIndex(static_cast<int>(vm.toType));
+    on_cboToType_activated(static_cast<int>(vm.toType));
 }
 
 void SettingsDialog::onUpdateUnitFrom()
@@ -166,13 +166,13 @@ void SettingsDialog::on_cboPartFrom_activated(int index)
 
 void SettingsDialog::on_cboToType_activated(int index)
 {
-    vm.toType = index;
-    bool b = vm.toType == 2;
+    vm.toType = static_cast<UnitPartToType>(index);
+    bool b = vm.toType == UnitPartToType::TO;
     ui->cboUnitTo->setEnabled(b);
     ui->cboPartTo->setEnabled(b && !vm.isSinglePart());
     ui->btnPrevious->setEnabled(!b);
     ui->btnNext->setEnabled(!b);
-    ui->cboPartFrom->setEnabled(vm.toType != 0 && !vm.isSinglePart());
+    ui->cboPartFrom->setEnabled(vm.toType != UnitPartToType::UNIT && !vm.isSinglePart());
     vm.updateToType().subscribe();
 }
 

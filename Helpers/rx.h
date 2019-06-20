@@ -10,6 +10,10 @@ namespace Rx {
 }
 using namespace Rx;
 
-extern const rxqt::run_loop* pLoop;
+extern const rxqt::run_loop* pRunLoop;
+
+#define APPLY_IO \
+    .subscribe_on(observe_on_event_loop()) \
+    .observe_on(pRunLoop->observe_on_run_loop())
 
 #endif // RX_H
