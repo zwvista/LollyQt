@@ -172,7 +172,11 @@ void SettingsDialog::on_cboToType_activated(int index)
     ui->cboPartTo->setEnabled(b && !vm.isSinglePart());
     ui->btnPrevious->setEnabled(!b);
     ui->btnNext->setEnabled(!b);
-    ui->cboPartFrom->setEnabled(vm.toType != UnitPartToType::UNIT && !vm.isSinglePart());
+    bool b2 = vm.toType != UnitPartToType::UNIT;
+    auto t = !b2 ? QString("Unit") : QString("Part");
+    ui->btnPrevious->setText("Previous " + t);
+    ui->btnNext->setText("Next " + t);
+    ui->cboPartFrom->setEnabled(b2 && !vm.isSinglePart());
     vm.updateToType().subscribe();
 }
 

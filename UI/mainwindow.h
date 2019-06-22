@@ -21,6 +21,10 @@ private slots:
 
     void on_actionSelectUnits_triggered();
 
+    void on_actionSettings_triggered();
+
+    void on_actionWords_in_Unit_triggered();
+
 private:
     Ui::MainWindow *ui;
     LollyDB db;

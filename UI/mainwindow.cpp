@@ -8,6 +8,7 @@
 #include "Models/munitword.h"
 #include "Helpers/restapi.h"
 #include "Models/mlanguage.h"
+#include "UI/wordsunitwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,9 +24,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionWordsOnline_triggered()
 {
-//    WordsOnlineDialog dlg;
-//    dlg.exec();
-    SettingsDialog dlg;
+    WordsOnlineDialog dlg;
     dlg.exec();
 }
 
@@ -33,4 +32,17 @@ void MainWindow::on_actionSelectUnits_triggered()
 {
     SelectUnitsDialog dlg;
     dlg.exec();
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+    SettingsDialog dlg;
+    dlg.exec();
+}
+
+void MainWindow::on_actionWords_in_Unit_triggered()
+{
+    auto w = new WordsUnitWindow(this);
+    w->setAttribute(Qt::WA_DeleteOnClose);
+    w->show();
 }

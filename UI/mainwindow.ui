@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>17</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuLolly">
@@ -29,9 +29,13 @@
     </property>
     <addaction name="actionWordsOnline"/>
     <addaction name="actionSelectUnits"/>
+    <addaction name="separator"/>
+    <addaction name="actionWords_in_Unit"/>
+    <addaction name="actionSettings"/>
    </widget>
    <addaction name="menuLolly"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -39,16 +43,30 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionSettings"/>
+   <addaction name="actionWordsOnline"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionWordsOnline">
    <property name="text">
     <string>Words Online</string>
    </property>
   </action>
+  <action name="actionWords_in_Unit">
+   <property name="text">
+    <string>Words in Unit</string>
+   </property>
+  </action>
   <action name="actionSelectUnits">
    <property name="text">
     <string>Select Units ...</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string> Settings ...</string>
+   </property>
+   <property name="toolTip">
+    <string>Settings</string>
    </property>
   </action>
  </widget>
