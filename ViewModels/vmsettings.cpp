@@ -50,10 +50,10 @@ void VMSettings::setUSValue(const MUserSettingInfo &info, const string &value)
         return o.ID == info.USERSETTINGID;
     });
     switch (info.VALUEID) {
-    case 1: o2.VALUE1 = value;
-    case 2: o2.VALUE2 = value;
-    case 3: o2.VALUE3 = value;
-    case 4: o2.VALUE4 = value;
+    case 1: o2.VALUE1 = value; break;
+    case 2: o2.VALUE2 = value; break;
+    case 3: o2.VALUE3 = value; break;
+    case 4: o2.VALUE4 = value; break;
     }
 }
 
