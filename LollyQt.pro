@@ -37,6 +37,7 @@ SOURCES += main.cpp \
     Models/munitphrase.cpp \
     Models/munitword.cpp \
     Models/musersetting.cpp \
+    Models/musmapping.cpp \
     Models/mvoice.cpp \
     Models/mwordfami.cpp \
     Old/lollydb.cpp \
@@ -53,6 +54,7 @@ SOURCES += main.cpp \
     Services/sunitphrase.cpp \
     Services/sunitword.cpp \
     Services/susersetting.cpp \
+    Services/susmapping.cpp \
     Services/svoice.cpp \
     Services/swordfami.cpp \
     Shared/commonapi.cpp \
@@ -77,6 +79,7 @@ HEADERS  += mainwindow.h \
     Models/munitphrase.h \
     Models/munitword.h \
     Models/musersetting.h \
+    Models/musmapping.h \
     Models/mvoice.h \
     Models/mwordfami.h \
     Old/lollydb.h \
@@ -93,6 +96,7 @@ HEADERS  += mainwindow.h \
     Services/sunitphrase.h \
     Services/sunitword.h \
     Services/susersetting.h \
+    Services/susmapping.h \
     Services/svoice.h \
     Shared/commonapi.h \
     UI/mainwindow.h \

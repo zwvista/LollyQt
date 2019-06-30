@@ -134,7 +134,7 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <widget class="QTableWidget" name="tableWidget">
+        <widget class="QTableWidget" name="tblWords">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -142,7 +142,7 @@
           </sizepolicy>
          </property>
         </widget>
-        <widget class="QWebEngineView" name="wvOnline" native="true">
+        <widget class="QWebEngineView" name="wvDict" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>

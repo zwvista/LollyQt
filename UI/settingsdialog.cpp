@@ -88,7 +88,7 @@ void SettingsDialog::onUpdateTextbook()
 void SettingsDialog::onUpdateUnitFrom()
 {
     int index = ranges::find_if(vm.getUnits(), [&](const MSelectItem& o){
-        return o.value == vm.getUSUNITFROM();
+        return o.value == vm.USUNITFROM();
     }) - vm.getUnits().begin();
     ui->cboUnitFrom->setCurrentIndex(index);
 }
@@ -96,7 +96,7 @@ void SettingsDialog::onUpdateUnitFrom()
 void SettingsDialog::onUpdatePartFrom()
 {
     int index = ranges::find_if(vm.getUnits(), [&](const MSelectItem& o){
-        return o.value == vm.getUSUNITTO();
+        return o.value == vm.USUNITTO();
     }) - vm.getUnits().begin();
     ui->cboUnitTo->setCurrentIndex(index);
 }
@@ -104,7 +104,7 @@ void SettingsDialog::onUpdatePartFrom()
 void SettingsDialog::onUpdateUnitTo()
 {
     int index = ranges::find_if(vm.getParts(), [&](const MSelectItem& o){
-        return o.value == vm.getUSPARTFROM();
+        return o.value == vm.USPARTFROM();
     }) - vm.getParts().begin();
     ui->cboPartFrom->setCurrentIndex(index);
 }
@@ -112,7 +112,7 @@ void SettingsDialog::onUpdateUnitTo()
 void SettingsDialog::onUpdatePartTo()
 {
     int index = ranges::find_if(vm.getParts(), [&](const MSelectItem& o){
-        return o.value == vm.getUSPARTTO();
+        return o.value == vm.USPARTTO();
     }) - vm.getParts().begin();
     ui->cboPartTo->setCurrentIndex(index);
 }
@@ -154,13 +154,13 @@ void SettingsDialog::on_cboTextbook_activated(int index)
 
 void SettingsDialog::on_cboUnitFrom_activated(int index)
 {
-    vm.setUSUNITFROM(vm.getUnits()[index].value);
+    vm.USUNITFROM(vm.getUnits()[index].value);
     vm.updateUnitFrom().subscribe();
 }
 
 void SettingsDialog::on_cboPartFrom_activated(int index)
 {
-    vm.setUSPARTFROM(vm.getParts()[index].value);
+    vm.USPARTFROM(vm.getParts()[index].value);
     vm.updatePartFrom().subscribe();
 }
 
@@ -182,13 +182,13 @@ void SettingsDialog::on_cboToType_activated(int index)
 
 void SettingsDialog::on_cboUnitTo_activated(int index)
 {
-    vm.setUSUNITTO(vm.getUnits()[index].value);
+    vm.USUNITTO(vm.getUnits()[index].value);
     vm.updateUnitTo().subscribe();
 }
 
 void SettingsDialog::on_cboPartTo_activated(int index)
 {
-    vm.setUSPARTFROM(vm.getParts()[index].value);
+    vm.USPARTFROM(vm.getParts()[index].value);
     vm.updatePartTo().subscribe();
 }
 

@@ -24,4 +24,10 @@ void to_json(json& j, const MUserSetting& p);
 void from_json(const json& j, MUserSetting& p);
 void from_json(const json& j, MUserSettings& p);
 
+struct MUserSettingInfo
+{
+    int USERSETTINGID = 0;
+    int VALUEID = 0;
+};
+
 #endif // MUSERSETTING_H
