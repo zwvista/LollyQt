@@ -171,7 +171,7 @@ struct RestApiBase {
 
 template<class T>
 struct RestApi : RestApiBase<T> {
-    RestApi() : RestApiBase<T>("https://zwvista.tk/lolly/api.php/records/") {}
+    RestApi() : RestApiBase<T>("https://zwvista2.tk/lolly/api.php/records/") {}
 };
 
 #endif // RESTAPI_H
