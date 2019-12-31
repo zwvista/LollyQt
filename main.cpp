@@ -1,8 +1,10 @@
 #include "UI/mainwindow.h"
 #include <QApplication>
 #include <rxqt.hpp>
+#include <ViewModels/vmsettings.h>
 
 const rxqt::run_loop* pRunLoop;
+VMSettings vmSettings;
 
 int main(int argc, char *argv[])
 {

@@ -55,7 +55,7 @@ private:
     virtual void onUpdatePartTo() override;
 
     Ui::SettingsDialog *ui;
-    VMSettings vm;
+    VMSettings& vm;
 };
 
 #endif // SETTINGSDIALOG_H

@@ -164,4 +164,6 @@ public:
     observable<string> nextUnitPart();
 };
 
+extern VMSettings vmSettings;
+
 #endif // VMSETTINGS_H

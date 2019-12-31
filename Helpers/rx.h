@@ -7,6 +7,7 @@ namespace Rx {
     using namespace rxcpp::sources;
     using namespace rxcpp::operators;
     using namespace rxcpp::util;
+    using observable_void = observable<void, dynamic_observable<void>>;
 }
 using namespace Rx;
 

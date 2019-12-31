@@ -1,3 +1,5 @@
+#include <range/v3/all.hpp>
+using namespace ranges;
 #include "mtextbook.h"
 
 void to_json(json& j, const MTextbook& p) {
@@ -21,4 +23,18 @@ void from_json(const json& j, MTextbook& p) {
 
 void from_json(const json& j, MTextbooks& p) {
     p.records = j.at("records").get<vector<MTextbook>>();
+}
+
+string MTextbook::UNITSTR(int unit) const
+{
+    return ranges::find_if(units, [&](const MSelectItem& o){
+        return o.value == unit;
+    })->label;
+}
+
+string MTextbook::PARTSTR(int part) const
+{
+    return ranges::find_if(parts, [&](const MSelectItem& o){
+        return o.value == part;
+    })->label;
 }

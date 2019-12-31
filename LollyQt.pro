@@ -62,6 +62,8 @@ SOURCES += main.cpp \
     UI/settingsdialog.cpp \
     UI/wordsunitwindow.cpp \
     ViewModels/vmsettings.cpp \
+    ViewModels/vmwordsunit.cpp \
+    UI/wordsunitwordsmodel.cpp
 
 HEADERS  += mainwindow.h \
     Helpers/optional2json.h \
@@ -104,6 +106,8 @@ HEADERS  += mainwindow.h \
     UI/wordsunitwindow.h \
     ViewModels/vmsettings.h \
     Services/swordfami.h \
+    ViewModels/vmwordsunit.h \
+    UI/wordsunitwordsmodel.h
 
 FORMS += \
     Old/selectunitsdialog.ui \

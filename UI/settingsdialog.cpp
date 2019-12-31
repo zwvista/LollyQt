@@ -5,7 +5,8 @@ using namespace ranges;
 
 SettingsDialog::SettingsDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::SettingsDialog)
+    ui(new Ui::SettingsDialog),
+    vm(vmSettings)
 {
     ui->setupUi(this);
 
@@ -19,6 +20,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 SettingsDialog::~SettingsDialog()
 {
     delete ui;
+    vm.delegate = nullptr;
 }
 
 void SettingsDialog::onGetData()

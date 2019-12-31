@@ -1,16 +1,22 @@
 #ifndef COMMONAPI_H
 #define COMMONAPI_H
 
+#include "Models/mcommon.h"
+
 enum class UnitPartToType {
     UNIT,
     PART,
     TO,
 };
 
-class CommonApi
+struct CommonApi
 {
-public:
-    CommonApi();
+    static string getAccuracy(int CORRECT, int TOTAL);
+};
+
+struct LollyInterface {
+    virtual void settingsChanged() = 0;
+    virtual ~LollyInterface() = default;
 };
 
 #endif // COMMONAPI_H

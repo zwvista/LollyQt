@@ -14,6 +14,9 @@ struct MTextbook
 
     vector<MSelectItem> units;
     vector<MSelectItem> parts;
+
+    string UNITSTR(int unit) const;
+    string PARTSTR(int part) const;
 };
 
 struct MTextbooks

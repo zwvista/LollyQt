@@ -1,7 +1,7 @@
 #ifndef MUNITWORD_H
 #define MUNITWORD_H
 
-#include "mcommon.h"
+#include "Shared/commonapi.h"
 #include "mtextbook.h"
 
 struct MUnitWord
@@ -22,6 +22,10 @@ struct MUnitWord
     int TOTAL = 0;
 
     const MTextbook *pTextbook = nullptr;
+
+    string UNITSTR() const { return pTextbook->UNITSTR(UNIT); }
+    string PARTSTR() const { return pTextbook->PARTSTR(PART); }
+    string ACCURACY() const { return CommonApi::getAccuracy(CORRECT, TOTAL); }
 };
 
 struct MUnitWords
