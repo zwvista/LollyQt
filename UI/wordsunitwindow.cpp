@@ -21,5 +21,9 @@ void WordsUnitWindow::settingsChanged()
     vmWordsUnit->reload().subscribe([&](int){
         tmWords.vmWordsUnit = vmWordsUnit.get();
         tmWords.layoutChanged();
+        for (int col=0; col<20; col++)
+        {
+           ui->tblWords->setColumnWidth(col,40);
+        }
     });
 }

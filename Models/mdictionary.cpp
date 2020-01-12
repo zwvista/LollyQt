@@ -67,7 +67,7 @@ void from_json(const json& j, MDictsTranslation& p) {
 
 void from_json(const nlohmann::json &j, MDictType &p)
 {
-    p.ID = j.at("ID").get<int>();
+    p.CODE = j.at("CODE").get<int>();
     p.NAME = j.at("NAME").get<string>();
 }
 

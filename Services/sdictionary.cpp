@@ -27,7 +27,7 @@ observable<vector<MDictTranslation> > SDictTranslation::getDataByLang(int langid
 
 observable<vector<MDictType> > SDictType::getData()
 {
-    auto url = "DICTTYPES";
+    auto url = "CODES?filter=KIND,eq,1";
     return apis.getObject(url).map([](const MDictTypes& o){
         return o.records;
     });

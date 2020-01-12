@@ -71,7 +71,7 @@ void from_json(const json& j, MDictsTranslation& p);
 
 struct MDictType
 {
-    int ID = 0;
+    int CODE = 0;
     string NAME;
 };
 
