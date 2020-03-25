@@ -9,7 +9,7 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
 {
     auto f = [](const wstring& units) -> vector<wstring> {
         boost::match_results<wstring::const_iterator> mr;
-        bool found = boost::regex_search(units, mr, boost::regex(R"(UNITS,(\d+))"));
+        bool found = boost::regex_search(units, mr, boost::wregex(LR"(UNITS,(\d+))"));
         if (found) {
             int n = stoi(mr[1]);
             vector<int> v = views::iota(1, n + 1) | ranges::to_vector;
@@ -17,7 +17,7 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
                 return to_wstring(i);
             }) | ranges::to_vector;
         }
-        found = boost::regex_search(units, mr, boost::regex(R"(PAGES,(\d+),(\d+))"));
+        found = boost::regex_search(units, mr, boost::wregex(LR"(PAGES,(\d+),(\d+))"));
         if (found) {
             int n1 = stoi(mr[1]), n2 = stoi(mr[2]);
             int n = n = (n1 + n2 - 1) / n2;
@@ -26,7 +26,7 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
                 return (boost::wformat(L"%1%~%2%") % (i * n2 - n2 + 1) % (i * n2)).str();
             }) | ranges::to_vector;
         }
-        found = boost::regex_search(units, mr, boost::regex(R"(CUSTOM,(.+))"));
+        found = boost::regex_search(units, mr, boost::wregex(LR"(CUSTOM,(.+))"));
         if (found) {
             vector<wstring> result = mr[1] | views::split(',') | ranges::to_vector;
             return result;

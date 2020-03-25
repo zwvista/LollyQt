@@ -45,7 +45,7 @@ observable<wstring> SLangWord::updateObject(const MLangWord &item)
 
 observable<wstring> SLangWord::createObject(const MLangWord &item)
 {
-    return api.createObject("LANGWORDS", item);
+    return api.createObject(L"LANGWORDS", item);
 }
 
 observable<wstring> SLangWord::deleteObject(int id)
