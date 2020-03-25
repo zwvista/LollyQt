@@ -7,9 +7,9 @@
 struct SUserSetting
 {
     observable<vector<MUserSetting>> getData(int userid);
-    observable<string> updateObject(int id, const string& body);
-    observable<string> updateObject(const MUserSettingInfo& info, int intValue);
-    observable<string> updateObject(const MUserSettingInfo& info, const string& stringValue);
+    observable<wstring> updateObject(int id, const wstring& body);
+    observable<wstring> updateObject(const MUserSettingInfo& info, int intValue);
+    observable<wstring> updateObject(const MUserSettingInfo& info, const wstring& stringValue);
 
     RestApi<MUserSettings> apis;
     RestApi<MUserSetting> api;

@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <wstring>Dialog</wstring>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="3" column="0">
@@ -28,7 +28,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Language:</string>
+        <wstring>Language:</wstring>
        </property>
        <property name="buddy">
         <cstring>cboLang</cstring>
@@ -57,7 +57,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Dictionary:</string>
+        <wstring>Dictionary:</wstring>
        </property>
        <property name="buddy">
         <cstring>cboDict</cstring>
@@ -89,7 +89,7 @@
      </property>
      <property name="url" stdset="0">
       <url>
-       <string>about:blank</string>
+       <wstring>about:blank</wstring>
       </url>
      </property>
     </widget>
@@ -105,7 +105,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Word:</string>
+        <wstring>Word:</wstring>
        </property>
        <property name="buddy">
         <cstring>edtWord</cstring>
@@ -121,7 +121,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>一人</string>
+        <wstring>一人</wstring>
        </property>
       </widget>
      </item>
@@ -134,7 +134,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Go</string>
+        <wstring>Go</wstring>
        </property>
       </widget>
      </item>

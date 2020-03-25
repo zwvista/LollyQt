@@ -3,26 +3,26 @@
 
 observable<vector<MUserSetting> > SUserSetting::getData(int userid)
 {
-    auto url = boost::format("USERSETTINGS?filter=USERID,eq,%1%") % userid;
+    auto url = boost::wformat(L"USERSETTINGS?filter=USERID,eq,%1%") % userid;
     return apis.getObject(url.str()).map([](const MUserSettings& o){
         return o.records;
     });
 }
 
-observable<string> SUserSetting::updateObject(int id, const string &body)
+observable<wstring> SUserSetting::updateObject(int id, const wstring &body)
 {
-    auto url = boost::format("USERSETTINGS/%1%") % id;
+    auto url = boost::wformat(L"USERSETTINGS/%1%") % id;
     return api.updateObject(url.str(), body);
 }
 
-observable<string> SUserSetting::updateObject(const MUserSettingInfo& info, int intValue)
+observable<wstring> SUserSetting::updateObject(const MUserSettingInfo& info, int intValue)
 {
-    return updateObject(info, to_string(intValue));
+    return updateObject(info, to_wstring(intValue));
 }
 
-observable<string> SUserSetting::updateObject(const MUserSettingInfo& info, const string& stringValue)
+observable<wstring> SUserSetting::updateObject(const MUserSettingInfo& info, const wstring& stringValue)
 {
-    string body;
+    wstring body;
     switch (info.VALUEID) {
     case 1: body = "VALUE1=" + stringValue; break;
     case 2: body = "VALUE2=" + stringValue; break;

@@ -31,7 +31,7 @@ INCLUDEPATH += C:\zw\home\vcpkg\installed\x86-windows\include\cpprest \
     C:\zw\home\vcpkg\installed\x86-windows\include\boost \
     C:\zw\home\vcpkg\installed\x86-windows\include\openssl \
     C:\zw\home\vcpkg\installed\x86-windows\include\nlohmann \
-    C:\zw\home\vcpkg\installed\x86-windows\include\range\v3 \
+    C:\zw\home\range-v3\include \
     C:\zw\home\vcpkg\installed\x86-windows\include\rxcpp \
     C:\zw\home\vcpkg\installed\x86-windows\include
 

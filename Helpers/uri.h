@@ -4,6 +4,6 @@
 #include <string>
 
 // https://stackoverflow.com/questions/3589936/c-urlencode-library-unicode-capable
-std::string urlencode(const std::string& url);
+std::wstring urlencode(const std::wstring& url);
 
 #endif // URI_H

@@ -8,9 +8,9 @@ struct MAutoCorrect
     int ID = 0;
     int LANGID = 0;
     int SEQNUM = 0;
-    string INPUT;
-    string EXTENDED;
-    string BASIC;
+    wstring INPUT;
+    wstring EXTENDED;
+    wstring BASIC;
 };
 
 struct MAutoCorrects
@@ -22,7 +22,7 @@ void to_json(json& j, const MAutoCorrect& p);
 void from_json(const json& j, MAutoCorrect& p);
 void from_json(const json& j, MAutoCorrects& p);
 
-string autoCorrect(const string& text, const vector<MAutoCorrect>& autoCorrects,
-                 function<string(const MAutoCorrect&)> f1, function<string(const MAutoCorrect&)> f2);
+wstring autoCorrect(const wstring& text, const vector<MAutoCorrect>& autoCorrects,
+                 function<wstring(const MAutoCorrect&)> f1, function<wstring(const MAutoCorrect&)> f2);
 
 #endif // MAUTOCORRECT_H

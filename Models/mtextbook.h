@@ -8,15 +8,15 @@ struct MTextbook
 {
     int ID = 0;
     int LANGID = 0;
-    string TEXTBOOKNAME;
-    string UNITS;
-    string PARTS;
+    wstring TEXTBOOKNAME;
+    wstring UNITS;
+    wstring PARTS;
 
     vector<MSelectItem> units;
     vector<MSelectItem> parts;
 
-    string UNITSTR(int unit) const;
-    string PARTSTR(int part) const;
+    wstring UNITSTR(int unit) const;
+    wstring PARTSTR(int part) const;
 };
 
 struct MTextbooks

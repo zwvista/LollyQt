@@ -31,22 +31,22 @@ void from_json(const json& j, MDictionary& p) {
     p.ID = j.at("ID").get<int>();
     p.DICTID = j.at("DICTID").get<int>();
     p.LANGIDFROM = j.at("LANGIDFROM").get<int>();
-    p.LANGNAMEFROM = j.at("LANGNAMEFROM").get<string>();
+    p.LANGNAMEFROM = j.at("LANGNAMEFROM").get<wstring>();
     p.LANGIDTO = j.at("LANGIDTO").get<int>();
-    p.LANGNAMETO = j.at("LANGNAMETO").get<string>();
+    p.LANGNAMETO = j.at("LANGNAMETO").get<wstring>();
     p.SEQNUM = j.at("SEQNUM").get<int>();
     p.DICTTYPEID = j.at("DICTTYPEID").get<int>();
-    p.DICTTYPENAME = j.at("DICTTYPENAME").get<string>();
-    p.DICTNAME = j.at("DICTNAME").get<string>();
-    p.URL = j.at("URL").get<boost::optional<string>>();
-    p.CHCONV = j.at("CHCONV").get<boost::optional<string>>();
-    p.AUTOMATION = j.at("AUTOMATION").get<boost::optional<string>>();
-    p.DICTTABLE = j.at("DICTTABLE").get<boost::optional<string>>();
-    p.TRANSFORM_WIN = j.at("TRANSFORM_WIN").get<boost::optional<string>>();
-    p.TRANSFORM = j.at("TRANSFORM").get<boost::optional<string>>();
+    p.DICTTYPENAME = j.at("DICTTYPENAME").get<wstring>();
+    p.DICTNAME = j.at("DICTNAME").get<wstring>();
+    p.URL = j.at("URL").get<boost::optional<wstring>>();
+    p.CHCONV = j.at("CHCONV").get<boost::optional<wstring>>();
+    p.AUTOMATION = j.at("AUTOMATION").get<boost::optional<wstring>>();
+    p.DICTTABLE = j.at("DICTTABLE").get<boost::optional<wstring>>();
+    p.TRANSFORM_WIN = j.at("TRANSFORM_WIN").get<boost::optional<wstring>>();
+    p.TRANSFORM = j.at("TRANSFORM").get<boost::optional<wstring>>();
     p.WAIT = j.at("WAIT").get<int>();
-    p.TEMPLATE = j.at("TEMPLATE").get<boost::optional<string>>();
-    p.TEMPLATE2 = j.at("TEMPLATE2").get<boost::optional<string>>();
+    p.TEMPLATE = j.at("TEMPLATE").get<boost::optional<wstring>>();
+    p.TEMPLATE2 = j.at("TEMPLATE2").get<boost::optional<wstring>>();
 }
 
 void from_json(const json& j, MDictsReference& p) {
@@ -57,7 +57,7 @@ void from_json(const json& j, MDictsNote& p) {
     p.records = j.at("records").get<vector<MDictNote>>();
 }
 
-vector<string> MDictItem::dictids() {
+vector<wstring> MDictItem::dictids() {
     return DICTID | views::split(',');
 }
 
@@ -68,7 +68,7 @@ void from_json(const json& j, MDictsTranslation& p) {
 void from_json(const nlohmann::json &j, MDictType &p)
 {
     p.CODE = j.at("CODE").get<int>();
-    p.NAME = j.at("NAME").get<string>();
+    p.NAME = j.at("NAME").get<wstring>();
 }
 
 void from_json(const nlohmann::json &j, MDictTypes &p)

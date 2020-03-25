@@ -9,13 +9,13 @@ struct MUnitPhrase
     int ID = 0;
     int LANGID = 0;
     int TEXTBOOKID = 0;
-    string TEXTBOOKNAME;
+    wstring TEXTBOOKNAME;
     int UNIT = 0;
     int PART = 0;
     int SEQNUM = 0;
     int PHRASEID = 0;
-    string PHRASE;
-    boost::optional<string> TRANSLATION;
+    wstring PHRASE;
+    boost::optional<wstring> TRANSLATION;
 
     const MTextbook *pTextbook = nullptr;
 };

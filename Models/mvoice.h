@@ -8,8 +8,8 @@ struct MVoice
     int ID = 0;
     int LANGID = 0;
     int VOICETYPEID = 0;
-    boost::optional<string> VOICELANG;
-    string VOICENAME;
+    boost::optional<wstring> VOICELANG;
+    wstring VOICENAME;
 };
 
 struct MVoices
