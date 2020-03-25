@@ -62,7 +62,7 @@ vector<int> VMSettings::getUSROWSPERPAGEOPTIONS() const
     vector<wstring> result = getUSValue(INFO_USROWSPERPAGEOPTIONS).get() | views::split(',') | to<vector<wstring>>;
     return result | views::transform([](const wstring& s){
         return stoi(s);
-    }) | ranges::to_vector;
+    }) | to<vector>;
 }
 
 observable<wstring> VMSettings::getData()
@@ -121,7 +121,7 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
             return d == L"0" ?
                 dictsReference | views::transform([](const auto& o2){
                     return MDictItem{ to_wstring(o2.DICTID), o2.DICTNAME };
-                }) | ranges::to_vector :
+                }) | to<vector> :
                 vector{MDictItem{ d, (boost::wformat(L"Custom%1%") % ++i).str() }};
         }) | action::join;
         int index = ranges::find_if(dictItems, [&](const MDictItem& o){
@@ -148,7 +148,7 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
         autoCorrects = get<4>(o);
         macVoices = get<5>(o) | views::filter([](const MVoice& o) {
             return o.VOICETYPEID == 2;
-        }) | ranges::to_vector;
+        }) | to<vector>;
         index = ranges::find_if(macVoices, [&](const MVoice& o){
             return o.ID == USMACVOICEID();
         }) - macVoices.begin();

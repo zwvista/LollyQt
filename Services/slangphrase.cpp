@@ -18,7 +18,7 @@ observable<vector<MLangPhrase> > SLangPhrase::getDataByLangPhrase(int langid, ws
     return apis.getObject(url.str()).map([&](const MLangPhrases& o){
         return o.records | views::filter([&](const MLangPhrase& o){
             return o.PHRASE == phrase;
-        }) | ranges::to_vector;
+        }) | to<vector>;
     });
 }
 
