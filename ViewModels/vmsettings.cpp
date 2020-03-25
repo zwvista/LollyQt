@@ -59,8 +59,8 @@ void VMSettings::setUSValue(const MUserSettingInfo &info, const wstring &value)
 
 vector<int> VMSettings::getUSROWSPERPAGEOPTIONS() const
 {
-    vector<wstring> result = getUSValue(INFO_USROWSPERPAGEOPTIONS).get() | view::split(',');
-    return result | view::transform([](const wstring& s){
+    vector<wstring> result = getUSValue(INFO_USROWSPERPAGEOPTIONS).get() | views::split(',');
+    return result | views::transform([](const wstring& s){
         return stoi(s);
     });
 }
@@ -118,7 +118,7 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
         int i = 0;
         // https://stackoverflow.com/questions/36051851/how-to-implement-flatmap-using-rangev3-ranges
         dictItems = dicts | view::transform([&](const wstring& d){
-            return d == "0" ?
+            return d == L"0" ?
                 dictsReference | view::transform([](const auto& o2){
                     return MDictItem{ to_wstring(o2.DICTID), o2.DICTNAME };
                 }) | ranges::to_vector :
@@ -148,7 +148,7 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
         autoCorrects = get<4>(o);
         macVoices = get<5>(o) | view::filter([](const MVoice& o) {
             return o.VOICETYPEID == 2;
-        });
+        }) | ranges::to_vector;
         index = ranges::find_if(macVoices, [&](const MVoice& o){
             return o.ID == USMACVOICEID();
         }) - macVoices.begin();
@@ -254,35 +254,35 @@ observable<wstring> VMSettings::updateUnitFrom()
     return doUpdateUnitFrom(USUNITFROM()).concat(
         toType == UnitPartToType::UNIT ? doUpdateSingleUnit() :
         toType == UnitPartToType::PART || isInvalidUnitPart() ? doUpdateUnitPartTo() :
-        static_cast<observable<wstring>>(empty<wstring>())) APPLY_IO;
+        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
 }
 
 observable<wstring> VMSettings::updatePartFrom()
 {
     return doUpdatePartFrom(USPARTFROM()).concat(
         toType == UnitPartToType::PART || isInvalidUnitPart() ? doUpdateUnitPartTo() :
-        static_cast<observable<wstring>>(empty<wstring>())) APPLY_IO;
+        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
 }
 
 observable<wstring> VMSettings::updateUnitTo()
 {
     return doUpdateUnitTo(USUNITTO()).concat(
         isInvalidUnitPart() ? doUpdateUnitPartFrom() :
-        static_cast<observable<wstring>>(empty<wstring>())) APPLY_IO;
+        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
 }
 
 observable<wstring> VMSettings::updatePartTo()
 {
     return doUpdatePartTo(USPARTTO()).concat(
         isInvalidUnitPart() ? doUpdateUnitPartFrom() :
-        static_cast<observable<wstring>>(empty<wstring>())) APPLY_IO;
+        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
 }
 
 observable<wstring> VMSettings::updateToType()
 {
     return (toType == UnitPartToType::UNIT ? doUpdateSingleUnit() :
         toType == UnitPartToType::PART ? doUpdateUnitPartTo() :
-        static_cast<observable<wstring>>(empty<wstring>())) APPLY_IO;
+        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
 }
 
 observable<wstring> VMSettings::previousUnitPart()
@@ -293,7 +293,7 @@ observable<wstring> VMSettings::previousUnitPart()
                 return wstring{};
             }) APPLY_IO;
         else
-            return empty<wstring>();
+            return rxcpp::sources::empty<wstring>();
     else if (USPARTFROM() > 1)
         return doUpdatePartFrom(USPARTFROM() - 1).zip(doUpdateUnitPartTo()).map([](const auto&){
             return wstring{};
@@ -303,7 +303,7 @@ observable<wstring> VMSettings::previousUnitPart()
             return wstring{};
         }) APPLY_IO;
     else
-        return empty<wstring>();
+        return rxcpp::sources::empty<wstring>();
 }
 
 observable<wstring> VMSettings::nextUnitPart()
@@ -314,7 +314,7 @@ observable<wstring> VMSettings::nextUnitPart()
                 return wstring{};
             }) APPLY_IO;
         else
-            return empty<wstring>();
+            return rxcpp::sources::empty<wstring>();
     else if (USPARTFROM() < getPartCount())
         return doUpdatePartFrom(USPARTFROM() + 1).zip(doUpdateUnitPartTo()).map([](const auto&){
             return wstring{};
@@ -324,7 +324,7 @@ observable<wstring> VMSettings::nextUnitPart()
             return wstring{};
         }) APPLY_IO;
     else
-        return empty<wstring>();
+        return rxcpp::sources::empty<wstring>();
 }
 
 observable<wstring> VMSettings::doUpdateUnitPartFrom()

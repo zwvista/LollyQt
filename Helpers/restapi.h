@@ -90,8 +90,10 @@ struct RestApiBase {
     observable<std::wstring> createObject(const std::wstring& url, const T& obj) {
         return observable<>::create<std::wstring>([=](subscriber<std::wstring> s){
             json j = obj;
+            auto s1 = j.dump();
+            std::wstring s2(s1.begin(), s1.end());
             client
-            .request(methods::POST, url, j.dump(), L"application/json")
+            .request(methods::POST, url, s2, L"application/json")
             .then([](http_response response) -> pplx::task<std::wstring> {
                 return response.extract_string();
             })
@@ -111,8 +113,10 @@ struct RestApiBase {
     observable<std::wstring> updateObject(const std::wstring& url, const T& obj) {
         return observable<>::create<std::wstring>([=](subscriber<std::wstring> s){
             json j = obj;
+            auto s1 = j.dump();
+            std::wstring s2(s1.begin(), s1.end());
             client
-            .request(methods::PUT, url, j.dump(), L"application/json")
+            .request(methods::PUT, url, s2, L"application/json")
             .then([](http_response response) -> pplx::task<std::wstring> {
                 return response.extract_string();
             })

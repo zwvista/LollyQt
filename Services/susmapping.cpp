@@ -2,7 +2,7 @@
 
 observable<vector<MUSMapping> > SUSMapping::getData()
 {
-    auto url = "USMAPPINGS";
+    auto url = L"USMAPPINGS";
     return apis.getObject(url).map([](const MUSMappings& o){
         return o.records;
     });

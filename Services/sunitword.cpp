@@ -48,7 +48,7 @@ observable<wstring> SUnitWord::updateObject(const MUnitWord &item)
 
 observable<wstring> SUnitWord::createObject(const MUnitWord &item)
 {
-    return api.createObject("UNITWORDS", item);
+    return api.createObject(L"UNITWORDS", item);
 }
 
 observable<wstring> SUnitWord::deleteObject(int id)

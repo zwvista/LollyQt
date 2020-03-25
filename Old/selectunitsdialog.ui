@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <wstring>Dialog</wstring>
+   <string>Dialog</string>
   </property>
   <property name="modal">
    <bool>false</bool>
@@ -37,7 +37,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <wstring>Language:</wstring>
+         <string>Language:</string>
         </property>
        </widget>
       </item>
@@ -64,7 +64,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <wstring>Textbook:</wstring>
+         <string>Textbook:</string>
         </property>
        </widget>
       </item>
@@ -101,7 +101,7 @@
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <wstring>Units:</wstring>
+         <string>Units:</string>
         </property>
        </widget>
       </item>
@@ -111,7 +111,7 @@
       <item>
        <widget class="QLabel" name="lblUnitsInAllFrom">
         <property name="text">
-         <wstring>(100 in all)</wstring>
+         <string>(100 in all)</string>
         </property>
        </widget>
       </item>
@@ -132,7 +132,7 @@
       <item>
        <widget class="QCheckBox" name="chkTo">
         <property name="text">
-         <wstring>To</wstring>
+         <string>To</string>
         </property>
        </widget>
       </item>
@@ -142,7 +142,7 @@
       <item>
        <widget class="QLabel" name="lblUnitsInAllTo">
         <property name="text">
-         <wstring>(100 in all)</wstring>
+         <string>(100 in all)</string>
         </property>
        </widget>
       </item>

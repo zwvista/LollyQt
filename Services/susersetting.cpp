@@ -24,10 +24,10 @@ observable<wstring> SUserSetting::updateObject(const MUserSettingInfo& info, con
 {
     wstring body;
     switch (info.VALUEID) {
-    case 1: body = "VALUE1=" + stringValue; break;
-    case 2: body = "VALUE2=" + stringValue; break;
-    case 3: body = "VALUE3=" + stringValue; break;
-    case 4: body = "VALUE4=" + stringValue; break;
+    case 1: body = L"VALUE1=" + stringValue; break;
+    case 2: body = L"VALUE2=" + stringValue; break;
+    case 3: body = L"VALUE3=" + stringValue; break;
+    case 4: body = L"VALUE4=" + stringValue; break;
     }
     return updateObject(info.USERSETTINGID, body);
 }

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <wstring>Dialog</wstring>
+   <string>Dialog</string>
   </property>
   <property name="modal">
    <bool>false</bool>
@@ -31,7 +31,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <wstring>Language:</wstring>
+        <string>Language:</string>
        </property>
       </widget>
      </item>
@@ -57,7 +57,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <wstring>Voice:</wstring>
+        <string>Voice:</string>
        </property>
       </widget>
      </item>
@@ -83,7 +83,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <wstring>Dictionary(Reference):</wstring>
+        <string>Dictionary(Reference):</string>
        </property>
       </widget>
      </item>
@@ -109,7 +109,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <wstring>Dictionary(Note):</wstring>
+        <string>Dictionary(Note):</string>
        </property>
       </widget>
      </item>
@@ -135,7 +135,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <wstring>Dictionary(Translation):</wstring>
+        <string>Dictionary(Translation):</string>
        </property>
       </widget>
      </item>
@@ -161,7 +161,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <wstring>Textbook:</wstring>
+        <string>Textbook:</string>
        </property>
       </widget>
      </item>
@@ -181,7 +181,7 @@
      <item row="6" column="0">
       <widget class="QLabel" name="lblUnits">
        <property name="text">
-        <wstring>Units:</wstring>
+        <string>Units:</string>
        </property>
       </widget>
      </item>
@@ -206,7 +206,7 @@
        <item>
         <widget class="QLabel" name="lblUnitsInAllFrom">
          <property name="text">
-          <wstring>(100 in all)</wstring>
+          <string>(100 in all)</string>
          </property>
         </widget>
        </item>
@@ -265,7 +265,7 @@
        <item>
         <widget class="QLabel" name="lblUnitsInAllTo">
          <property name="text">
-          <wstring>(100 in all)</wstring>
+          <string>(100 in all)</string>
          </property>
         </widget>
        </item>
@@ -292,7 +292,7 @@
        <item>
         <widget class="QPushButton" name="btnPrevious">
          <property name="text">
-          <wstring>Previous Part</wstring>
+          <string>Previous Part</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>
@@ -302,7 +302,7 @@
        <item>
         <widget class="QPushButton" name="btnNext">
          <property name="text">
-          <wstring>Next Part</wstring>
+          <string>Next Part</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>
@@ -316,7 +316,7 @@
        <item>
         <widget class="QPushButton" name="btnApplyAll">
          <property name="text">
-          <wstring>Apply to All Windows</wstring>
+          <string>Apply to All Windows</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>
@@ -326,7 +326,7 @@
        <item>
         <widget class="QPushButton" name="btnApplyCurrent">
          <property name="text">
-          <wstring>Apply to Current Window</wstring>
+          <string>Apply to Current Window</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>
@@ -336,7 +336,7 @@
        <item>
         <widget class="QPushButton" name="btnNext_2">
          <property name="text">
-          <wstring>Apply to None</wstring>
+          <string>Apply to None</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>

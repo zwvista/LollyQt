@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <wstring>Words In Unit</wstring>
+   <string>Words In Unit</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -43,7 +43,7 @@
            </sizepolicy>
           </property>
           <property name="placeholderText">
-           <wstring>New Word</wstring>
+           <string>New Word</string>
           </property>
          </widget>
         </item>
@@ -51,17 +51,17 @@
          <widget class="QComboBox" name="comboBox">
           <item>
            <property name="text">
-            <wstring>None</wstring>
+            <string>None</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <wstring>Word</wstring>
+            <string>Word</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <wstring>Note</wstring>
+            <string>Note</string>
            </property>
           </item>
          </widget>
@@ -75,28 +75,28 @@
            </sizepolicy>
           </property>
           <property name="placeholderText">
-           <wstring>Filter</wstring>
+           <string>Filter</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox">
           <property name="text">
-           <wstring>Level&gt;=0 Only</wstring>
+           <string>Level&gt;=0 Only</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="btnPrevious">
           <property name="text">
-           <wstring>Previous</wstring>
+           <string>Previous</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="btnNext">
           <property name="text">
-           <wstring>Next</wstring>
+           <string>Next</string>
           </property>
          </widget>
         </item>
@@ -109,14 +109,14 @@
            </sizepolicy>
           </property>
           <property name="placeholderText">
-           <wstring>URL</wstring>
+           <string>URL</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="btnOpen">
           <property name="text">
-           <wstring>Open</wstring>
+           <string>Open</string>
           </property>
          </widget>
         </item>
@@ -166,7 +166,7 @@
          </property>
          <property name="url" stdset="0">
           <url>
-           <wstring>about:blank</wstring>
+           <string>about:blank</string>
           </url>
          </property>
         </widget>

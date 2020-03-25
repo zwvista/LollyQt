@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <wstring>MainWindow</wstring>
+   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -25,7 +25,7 @@
    </property>
    <widget class="QMenu" name="menuLearn">
     <property name="title">
-     <wstring>Learn</wstring>
+     <string>Learn</string>
     </property>
     <addaction name="actionWordsOnline"/>
     <addaction name="actionSelectUnits"/>
@@ -49,25 +49,25 @@
   </widget>
   <action name="actionWordsOnline">
    <property name="text">
-    <wstring>Words Online</wstring>
+    <string>Words Online</string>
    </property>
   </action>
   <action name="actionWords_in_Unit">
    <property name="text">
-    <wstring>Words in Unit</wstring>
+    <string>Words in Unit</string>
    </property>
   </action>
   <action name="actionSelectUnits">
    <property name="text">
-    <wstring>Select Units ...</wstring>
+    <string>Select Units ...</string>
    </property>
   </action>
   <action name="actionSettings">
    <property name="text">
-    <wstring> Settings ...</wstring>
+    <string> Settings ...</string>
    </property>
    <property name="toolTip">
-    <wstring>Settings</wstring>
+    <string>Settings</string>
    </property>
   </action>
  </widget>
