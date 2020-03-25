@@ -58,7 +58,7 @@ void from_json(const json& j, MDictsNote& p) {
 }
 
 vector<wstring> MDictItem::dictids() {
-    return DICTID | views::split(',');
+    return DICTID | views::split(',') | to<vector<wstring>>;
 }
 
 void from_json(const json& j, MDictsTranslation& p) {

@@ -28,7 +28,7 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
         }
         found = boost::regex_search(units, mr, boost::wregex(LR"(CUSTOM,(.+))"));
         if (found) {
-            vector<wstring> result = mr[1] | views::split(',') | ranges::to_vector;
+            vector<wstring> result = mr[1] | views::split(',') | to<vector<wstring>>;
             return result;
         }
         return {};
@@ -41,7 +41,7 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
             o2.units = v2 | views::transform([&](const auto& o3){
                 return MSelectItem { static_cast<int>(o3.first + 1), o3.second };
             }) | ranges::to_vector;
-            vector<wstring> result = o2.PARTS | views::split(',') | ranges::to_vector;
+            vector<wstring> result = o2.PARTS | views::split(',') | to<vector<wstring>>;
             v2 = result | views::enumerate | ranges::to_vector;
             o2.parts = v2 | views::transform([&](const auto& o3){
                 return MSelectItem { static_cast<int>(o3.first + 1), o3.second };

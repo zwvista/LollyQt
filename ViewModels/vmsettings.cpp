@@ -59,10 +59,10 @@ void VMSettings::setUSValue(const MUserSettingInfo &info, const wstring &value)
 
 vector<int> VMSettings::getUSROWSPERPAGEOPTIONS() const
 {
-    vector<wstring> result = getUSValue(INFO_USROWSPERPAGEOPTIONS).get() | views::split(',');
+    vector<wstring> result = getUSValue(INFO_USROWSPERPAGEOPTIONS).get() | views::split(',') | to<vector<wstring>>;
     return result | views::transform([](const wstring& s){
         return stoi(s);
-    });
+    }) | ranges::to_vector;
 }
 
 observable<wstring> VMSettings::getData()
@@ -81,9 +81,9 @@ observable<wstring> VMSettings::getData()
         INFO_USLEVELCOLORS = getUSInfo(MUSMapping::NAME_USLEVELCOLORS);
         INFO_USSCANINTERVAL = getUSInfo(MUSMapping::NAME_USSCANINTERVAL);
         INFO_USREVIEWINTERVAL = getUSInfo(MUSMapping::NAME_USREVIEWINTERVAL);
-        vector<wstring> lines = getUSValue(INFO_USLEVELCOLORS).get() | view::split("\r\n"s);
+        vector<wstring> lines = getUSValue(INFO_USLEVELCOLORS).get() | views::split("\r\n"s) | to<vector<wstring>>;
         for(const wstring& s : lines) {
-            vector<wstring> colors = s | view::split(',');
+            vector<wstring> colors = s | views::split(',') | to<vector<wstring>>;
             USLEVELCOLORS[stoi(colors[0])] = {colors[1], colors[2]};
         }
         selectedLangIndex = ranges::find_if(languages, [&](const MLanguage& o){
@@ -107,7 +107,7 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
     INFO_USDICTTRANSLATIONID = getUSInfo(MUSMapping::NAME_USDICTTRANSLATIONID);
     INFO_USMACVOICEID = getUSInfo(MUSMapping::NAME_USMACVOICEID);
     auto s = USDICTITEMS();
-    vector<wstring> dicts = s | view::split("\r\n"s);
+    vector<wstring> dicts = s | views::split("\r\n"s) | to<vector<wstring>>;
     return sdictreference.getDataByLang(langid).zip(
                 sdictnote.getDataByLang(langid),
                 sdicttranslation.getDataByLang(langid),
@@ -117,9 +117,9 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
         dictsReference = get<0>(o);
         int i = 0;
         // https://stackoverflow.com/questions/36051851/how-to-implement-flatmap-using-rangev3-ranges
-        dictItems = dicts | view::transform([&](const wstring& d){
+        dictItems = dicts | views::transform([&](const wstring& d){
             return d == L"0" ?
-                dictsReference | view::transform([](const auto& o2){
+                dictsReference | views::transform([](const auto& o2){
                     return MDictItem{ to_wstring(o2.DICTID), o2.DICTNAME };
                 }) | ranges::to_vector :
                 vector{MDictItem{ d, (boost::wformat(L"Custom%1%") % ++i).str() }};
@@ -146,7 +146,7 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
         }) - textbooks.begin();
         setSelectedTextbook(index);
         autoCorrects = get<4>(o);
-        macVoices = get<5>(o) | view::filter([](const MVoice& o) {
+        macVoices = get<5>(o) | views::filter([](const MVoice& o) {
             return o.VOICETYPEID == 2;
         }) | ranges::to_vector;
         index = ranges::find_if(macVoices, [&](const MVoice& o){

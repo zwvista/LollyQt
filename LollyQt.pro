@@ -36,7 +36,7 @@ INCLUDEPATH += C:\zw\home\vcpkg\installed\x86-windows\include\cpprest \
     C:\zw\home\vcpkg\installed\x86-windows\include
 
 LIBS += -LC:\zw\home\vcpkg\installed\x86-windows\lib \
-    -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
+    -lcpprest_2_10 -boost_system-vc140-mt -lboost_thread-vc140-mt -lboost_chrono-vc140-mt -llibssl -llibcrypto -lboost_regex-vc140-mt
 
 SOURCES += main.cpp \
     Helpers/uri.cpp \
