@@ -12,31 +12,32 @@ TARGET = LollyQt
 TEMPLATE = app
 
 CONFIG += c++17
-QMAKE_CXXFLAGS += /std:c++17 /permissive- /experimental:preprocessor
 
-#INCLUDEPATH += /usr/local/Cellar/cpprestsdk/2.10.13/include \
-#    /usr/local/Cellar/boost/1.69.0_2/include \
-#    /usr/local/Cellar/libressl/2.8.3/include\
-#    /usr/local/Cellar/nlohmann_json/3.6.1/include \
-#    /usr/local/Cellar/range-v3/0.5.0/include \
-#    /Users/zhaowei/Documents/Programs/OSS/RxCpp/Rx/v2/src \
-#    /Users/zhaowei/Documents/Programs/OSS/rxqt/include
+INCLUDEPATH += /usr/local/Cellar/cpprestsdk/2.10.15/include \
+    /usr/local/Cellar/boost/1.72.0/include \
+    /usr/local/Cellar/libressl/2.8.3/include\
+    /usr/local/Cellar/nlohmann_json/3.7.3/include \
+    /usr/local/Cellar/range-v3/0.10.0/include \
+    /Users/zhaowei/Documents/Programs/OSS/RxCpp/Rx/v2/src \
+    /Users/zhaowei/Documents/Programs/OSS/rxqt/include
 
-#LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.13/lib \
-#    -L/usr/local/Cellar/boost/1.69.0_2/lib \
-#    -L/usr/local/Cellar/libressl/2.8.3/lib \
-#    -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
+LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.15/lib \
+    -L/usr/local/Cellar/boost/1.72.0/lib \
+    -L/usr/local/Cellar/libressl/2.8.3/lib \
+    -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
 
-INCLUDEPATH += C:\zw\home\vcpkg\installed\x86-windows\include\cpprest \
-    C:\zw\home\vcpkg\installed\x86-windows\include\boost \
-    C:\zw\home\vcpkg\installed\x86-windows\include\openssl \
-    C:\zw\home\vcpkg\installed\x86-windows\include\nlohmann \
-    C:\zw\home\range-v3\include \
-    C:\zw\home\vcpkg\installed\x86-windows\include\rxcpp \
-    C:\zw\home\vcpkg\installed\x86-windows\include
+#QMAKE_CXXFLAGS += /std:c++17 /permissive- /experimental:preprocessor
 
-LIBS += -LC:\zw\home\vcpkg\installed\x86-windows\lib \
-    -lcpprest_2_10 -boost_system-vc140-mt -lboost_thread-vc140-mt -lboost_chrono-vc140-mt -llibssl -llibcrypto -lboost_regex-vc140-mt
+#INCLUDEPATH += C:\zw\home\vcpkg\installed\x86-windows\include\cpprest \
+#    C:\zw\home\vcpkg\installed\x86-windows\include\boost \
+#    C:\zw\home\vcpkg\installed\x86-windows\include\openssl \
+#    C:\zw\home\vcpkg\installed\x86-windows\include\nlohmann \
+#    C:\zw\home\range-v3\include \
+#    C:\zw\home\vcpkg\installed\x86-windows\include\rxcpp \
+#    C:\zw\home\vcpkg\installed\x86-windows\include
+
+#LIBS += -LC:\zw\home\vcpkg\installed\x86-windows\lib \
+#    -lcpprest_2_10 -boost_system-vc140-mt -lboost_thread-vc140-mt -lboost_chrono-vc140-mt -llibssl -llibcrypto -lboost_regex-vc140-mt
 
 SOURCES += main.cpp \
     Helpers/uri.cpp \
