@@ -9,13 +9,13 @@ struct MUnitWord
     int ID = 0;
     int LANGID = 0;
     int TEXTBOOKID = 0;
-    wstring TEXTBOOKNAME;
+    string_t TEXTBOOKNAME;
     int UNIT = 0;
     int PART = 0;
     int SEQNUM = 0;
     int WORDID = 0;
-    wstring WORD;
-    boost::optional<wstring> NOTE;
+    string_t WORD;
+    boost::optional<string_t> NOTE;
     int FAMIID = 0;
     int LEVEL = 0;
     int CORRECT = 0;
@@ -23,9 +23,9 @@ struct MUnitWord
 
     const MTextbook *pTextbook = nullptr;
 
-    wstring UNITSTR() const { return pTextbook->UNITSTR(UNIT); }
-    wstring PARTSTR() const { return pTextbook->PARTSTR(PART); }
-    wstring ACCURACY() const { return CommonApi::getAccuracy(CORRECT, TOTAL); }
+    string_t UNITSTR() const { return pTextbook->UNITSTR(UNIT); }
+    string_t PARTSTR() const { return pTextbook->PARTSTR(PART); }
+    string_t ACCURACY() const { return CommonApi::getAccuracy(CORRECT, TOTAL); }
 };
 
 struct MUnitWords

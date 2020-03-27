@@ -34,12 +34,12 @@ struct VMSettingsDelegate
 class VMSettings
 {
     vector<MUSMapping> usmappings;
-    MUserSettingInfo getUSInfo(const wstring& name);
-    boost::optional<wstring> getUSValue(const MUserSettingInfo& info) const;
-    void setUSValue(const MUserSettingInfo& info, const wstring& value);
+    MUserSettingInfo getUSInfo(const string_t& name);
+    boost::optional<string_t> getUSValue(const MUserSettingInfo& info) const;
+    void setUSValue(const MUserSettingInfo& info, const string_t& value);
     MUserSettingInfo INFO_USLANGID;
     int USLANGID() const { return stoi(getUSValue(INFO_USLANGID).get()); }
-    void USLANGID(int value) { setUSValue(INFO_USLANGID, to_wstring(value)); }
+    void USLANGID(int value) { setUSValue(INFO_USLANGID, to_string_t(value)); }
     MUserSettingInfo INFO_USROWSPERPAGEOPTIONS;
     MUserSettingInfo INFO_USROWSPERPAGE;
     MUserSettingInfo INFO_USLEVELCOLORS;
@@ -67,41 +67,41 @@ class VMSettings
     STextbook stextbook;
     SAutoCorrect sautocorrect;
 
-    observable<wstring> doUpdateUnitPartFrom();
-    observable<wstring> doUpdateUnitPartTo();
-    observable<wstring> doUpdateSingleUnit();
-    observable<wstring> doUpdateUnitFrom(int v);
-    observable<wstring> doUpdatePartFrom(int v);
-    observable<wstring> doUpdateUnitTo(int v);
-    observable<wstring> doUpdatePartTo(int v);
+    observable<string_t> doUpdateUnitPartFrom();
+    observable<string_t> doUpdateUnitPartTo();
+    observable<string_t> doUpdateSingleUnit();
+    observable<string_t> doUpdateUnitFrom(int v);
+    observable<string_t> doUpdatePartFrom(int v);
+    observable<string_t> doUpdateUnitTo(int v);
+    observable<string_t> doUpdatePartTo(int v);
 
 public:
     vector<MUserSetting> userSettings;
     vector<int> getUSROWSPERPAGEOPTIONS() const;
     int USROWSPERPAGED() const { return stoi(getUSValue(INFO_USROWSPERPAGE).get()); }
-    std::map<int, vector<wstring>> USLEVELCOLORS;
+    std::map<int, vector<string_t>> USLEVELCOLORS;
     int USSCANINTERVAL() const { return stoi(getUSValue(INFO_USSCANINTERVAL).get()); }
     int USREVIEWINTERVAL() const { return stoi(getUSValue(INFO_USREVIEWINTERVAL).get()); }
     int USTEXTBOOKID() const { return stoi(getUSValue(INFO_USTEXTBOOKID).get()); }
-    void USTEXTBOOKID(int value) { setUSValue(INFO_USTEXTBOOKID, to_wstring(value)); }
-    wstring USDICTITEM() const { return getUSValue(INFO_USDICTITEM).get(); }
-    void USDICTITEM(const wstring& value) { setUSValue(INFO_USDICTITEM, value); }
-    int USDICTNOTEID() const { return stoi(getUSValue(INFO_USDICTNOTEID).get_value_or(L"0")); }
-    void USDICTNOTEID(int value) { setUSValue(INFO_USDICTNOTEID, to_wstring(value)); }
-    wstring USDICTITEMS() const { return getUSValue(INFO_USDICTITEMS).get_value_or(L"0"); }
-    void USDICTITEMS(const wstring& value) { setUSValue(INFO_USDICTITEMS, value); }
-    int USDICTTRANSLATIONID() const { return stoi(getUSValue(INFO_USDICTTRANSLATIONID).get_value_or(L"0")); }
-    void USDICTTRANSLATIONID(int value) { setUSValue(INFO_USDICTTRANSLATIONID, to_wstring(value)); }
-    int USMACVOICEID() const { return stoi(getUSValue(INFO_USMACVOICEID).get_value_or(L"0")); }
-    void USMACVOICEID(int value) { setUSValue(INFO_USMACVOICEID, to_wstring(value)); }
+    void USTEXTBOOKID(int value) { setUSValue(INFO_USTEXTBOOKID, to_string_t(value)); }
+    string_t USDICTITEM() const { return getUSValue(INFO_USDICTITEM).get(); }
+    void USDICTITEM(const string_t& value) { setUSValue(INFO_USDICTITEM, value); }
+    int USDICTNOTEID() const { return stoi(getUSValue(INFO_USDICTNOTEID).get_value_or(_XPLATSTR("0"))); }
+    void USDICTNOTEID(int value) { setUSValue(INFO_USDICTNOTEID, to_string_t(value)); }
+    string_t USDICTITEMS() const { return getUSValue(INFO_USDICTITEMS).get_value_or(_XPLATSTR("0")); }
+    void USDICTITEMS(const string_t& value) { setUSValue(INFO_USDICTITEMS, value); }
+    int USDICTTRANSLATIONID() const { return stoi(getUSValue(INFO_USDICTTRANSLATIONID).get_value_or(_XPLATSTR("0"))); }
+    void USDICTTRANSLATIONID(int value) { setUSValue(INFO_USDICTTRANSLATIONID, to_string_t(value)); }
+    int USMACVOICEID() const { return stoi(getUSValue(INFO_USMACVOICEID).get_value_or(_XPLATSTR("0"))); }
+    void USMACVOICEID(int value) { setUSValue(INFO_USMACVOICEID, to_string_t(value)); }
     int USUNITFROM() const { return stoi(getUSValue(INFO_USUNITFROM).get()); }
-    void USUNITFROM(int value) { setUSValue(INFO_USUNITFROM, to_wstring(value)); }
+    void USUNITFROM(int value) { setUSValue(INFO_USUNITFROM, to_string_t(value)); }
     int USPARTFROM() const { return stoi(getUSValue(INFO_USPARTFROM).get()); }
-    void USPARTFROM(int value) { setUSValue(INFO_USPARTFROM, to_wstring(value)); }
+    void USPARTFROM(int value) { setUSValue(INFO_USPARTFROM, to_string_t(value)); }
     int USUNITTO() const { return stoi(getUSValue(INFO_USUNITTO).get()); }
-    void USUNITTO(int value) { setUSValue(INFO_USUNITTO, to_wstring(value)); }
+    void USUNITTO(int value) { setUSValue(INFO_USUNITTO, to_string_t(value)); }
     int USPARTTO() const { return stoi(getUSValue(INFO_USPARTTO).get()); }
-    void USPARTTO(int value) { setUSValue(INFO_USPARTTO, to_wstring(value)); }
+    void USPARTTO(int value) { setUSValue(INFO_USPARTTO, to_string_t(value)); }
     int USUNITPARTFROM() const { return USUNITFROM() * 10 + USPARTFROM(); }
     int USUNITPARTTO() const { return USUNITTO() * 10 + USPARTTO(); }
     bool isSingleUnitPart() const { return USUNITPARTFROM() == USUNITPARTTO(); }
@@ -110,7 +110,7 @@ public:
     vector<MLanguage> languages;
     int selectedLangIndex = 0;
     const MLanguage& selectedLang() const { return languages[selectedLangIndex]; }
-    observable<wstring> setSelectedLang(int langIndex);
+    observable<string_t> setSelectedLang(int langIndex);
     vector<MVoice> macVoices;
     int selectedMacVoiceIndex = 0;
     const MVoice& selectedMacVoice() const { return macVoices[selectedMacVoiceIndex]; }
@@ -135,7 +135,7 @@ public:
 
     const vector<MSelectItem>& getUnits() const { return selectedTextbook().units; }
     int getUnitCount() const { return getUnits().size(); }
-    wstring getUnitsInAll() const { return (boost::wformat(L"(%1% in all)") % getUnitCount()).str(); }
+    string_t getUnitsInAll() const { return (boost::format_t(_XPLATSTR("(%1% in all)")) % getUnitCount()).str(); }
     const vector<MSelectItem>& getParts() const { return selectedTextbook().parts; }
     int getPartCount() const { return getParts().size(); }
     bool isSingleUnit() const { return USUNITFROM() == USUNITTO() && USPARTFROM() == 1 && USPARTTO() == getPartCount(); }
@@ -143,25 +143,25 @@ public:
 
     vector<MAutoCorrect> autoCorrects;
     vector<MDictType> dictTypes;
-    vector<wstring> toTypes = { L"Unit", L"Part", L"To" };
+    vector<string_t> toTypes = { _XPLATSTR("Unit"), _XPLATSTR("Part"), _XPLATSTR("To") };
     UnitPartToType toType = UnitPartToType::PART;
     VMSettingsDelegate* delegate = nullptr;
 
-    observable<wstring> getData();
-    observable<wstring> updateLang();
-    observable<wstring> updateDictItem();
-    observable<wstring> updateDictNote();
-    observable<wstring> updateDictTranslation();
-    observable<wstring> updateTextbook();
-    observable<wstring> updateMacVoice();
-    wstring autoCorrectInput(const wstring& text);
-    observable<wstring> updateUnitFrom();
-    observable<wstring> updatePartFrom();
-    observable<wstring> updateUnitTo();
-    observable<wstring> updatePartTo();
-    observable<wstring> updateToType();
-    observable<wstring> previousUnitPart();
-    observable<wstring> nextUnitPart();
+    observable<string_t> getData();
+    observable<string_t> updateLang();
+    observable<string_t> updateDictItem();
+    observable<string_t> updateDictNote();
+    observable<string_t> updateDictTranslation();
+    observable<string_t> updateTextbook();
+    observable<string_t> updateMacVoice();
+    string_t autoCorrectInput(const string_t& text);
+    observable<string_t> updateUnitFrom();
+    observable<string_t> updatePartFrom();
+    observable<string_t> updateUnitTo();
+    observable<string_t> updatePartTo();
+    observable<string_t> updateToType();
+    observable<string_t> previousUnitPart();
+    observable<string_t> nextUnitPart();
 };
 
 extern VMSettings vmSettings;

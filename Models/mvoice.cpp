@@ -15,8 +15,8 @@ void from_json(const json& j, MVoice& p) {
     p.ID = j.at("ID").get<int>();
     p.LANGID = j.at("LANGID").get<int>();
     p.VOICETYPEID = j.at("VOICETYPEID").get<int>();
-    p.VOICELANG = j.at("VOICELANG").get<boost::optional<wstring>>();
-    p.VOICENAME = j.at("VOICENAME").get<wstring>();
+    p.VOICELANG = j.at("VOICELANG").get<boost::optional<string_t>>();
+    p.VOICENAME = j.at("VOICENAME").get<string_t>();
 }
 
 void from_json(const json& j, MVoices& p) {

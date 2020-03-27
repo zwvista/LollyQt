@@ -13,8 +13,8 @@ void to_json(json& j, const MLangPhrase& p) {
 void from_json(const json& j, MLangPhrase& p) {
     p.ID = j.at("ID").get<int>();
     p.LANGID = j.at("LANGID").get<int>();
-    p.PHRASE = j.at("PHRASE").get<wstring>();
-    p.TRANSLATION = j.at("TRANSLATION").get<boost::optional<wstring>>();
+    p.PHRASE = j.at("PHRASE").get<string_t>();
+    p.TRANSLATION = j.at("TRANSLATION").get<boost::optional<string_t>>();
 }
 
 void from_json(const json& j, MLangPhrases& p) {

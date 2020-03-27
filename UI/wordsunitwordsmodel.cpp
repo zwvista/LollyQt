@@ -48,13 +48,13 @@ QVariant WordsUnitWordsModel::data(const QModelIndex &index, int role) const
 
     const auto& o = vmWordsUnit->unitwords[index.row()];
     switch (index.column()) {
-    case 0: return QVariant(QString::fromStdWString(o.UNITSTR()));
-    case 1: return QVariant(QString::fromStdWString(o.PARTSTR()));
+    case 0: return QVariant(QString::fromStdString_t(o.UNITSTR()));
+    case 1: return QVariant(QString::fromStdString_t(o.PARTSTR()));
     case 2: return QVariant(o.SEQNUM);
-    case 3: return QVariant(QString::fromStdWString(o.WORD));
-    case 4: return QVariant(QString::fromStdWString(o.NOTE.get_value_or(L"")));
+    case 3: return QVariant(QString::fromStdString_t(o.WORD));
+    case 4: return QVariant(QString::fromStdString_t(o.NOTE.get_value_or(L"")));
     case 5: return QVariant(o.LEVEL);
-    case 6: return QVariant(QString::fromStdWString(o.ACCURACY()));
+    case 6: return QVariant(QString::fromStdString_t(o.ACCURACY()));
     case 7: return QVariant(o.WORDID);
     case 8: return QVariant(o.ID);
     default: return QVariant();

@@ -3,7 +3,7 @@
 
 observable<vector<MVoice>> SVoice::getDataByLang(int langid)
 {
-    auto url = boost::wformat(L"VVOICES?filter=LANGID,eq,%1%") % langid;
+    auto url = boost::format_t(_XPLATSTR("VVOICES?filter=LANGID,eq,%1%")) % langid;
     return apis.getObject(url.str()).map([](const MVoices& o){
         return o.records;
     });

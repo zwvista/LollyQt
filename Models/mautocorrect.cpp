@@ -19,18 +19,18 @@ void from_json(const json& j, MAutoCorrect& p) {
     p.ID = j.at("ID").get<int>();
     p.LANGID = j.at("LANGID").get<int>();
     p.SEQNUM = j.at("SEQNUM").get<int>();
-    p.INPUT = j.at("INPUT").get<wstring>();
-    p.EXTENDED = j.at("EXTENDED").get<wstring>();
-    p.BASIC = j.at("BASIC").get<wstring>();
+    p.INPUT = j.at("INPUT").get<string_t>();
+    p.EXTENDED = j.at("EXTENDED").get<string_t>();
+    p.BASIC = j.at("BASIC").get<string_t>();
 }
 
 void from_json(const json& j, MAutoCorrects& p) {
     p.records = j.at("records").get<vector<MAutoCorrect>>();
 }
 
-wstring autoCorrect(const wstring& text, const vector<MAutoCorrect> &autoCorrects, function<wstring (const MAutoCorrect &)> f1, function<wstring (const MAutoCorrect &)> f2)
+string_t autoCorrect(const string_t& text, const vector<MAutoCorrect> &autoCorrects, function<string_t (const MAutoCorrect &)> f1, function<string_t (const MAutoCorrect &)> f2)
 {
-    return ranges::accumulate(autoCorrects, text, [&](const wstring& str, const MAutoCorrect& row){
-       return boost::replace_all_copy<wstring>(str, f1(row), f2(row));
+    return ranges::accumulate(autoCorrects, text, [&](const string_t& str, const MAutoCorrect& row){
+       return boost::replace_all_copy<string_t>(str, f1(row), f2(row));
     });
 }

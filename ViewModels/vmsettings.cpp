@@ -15,7 +15,7 @@ void VMSettingsDelegate::onUpdateUnitTo() {}
 void VMSettingsDelegate::onUpdatePartTo() {}
 void VMSettingsDelegate::onUpdateMacVoice() {}
 
-MUserSettingInfo VMSettings::getUSInfo(const wstring &name)
+MUserSettingInfo VMSettings::getUSInfo(const string_t &name)
 {
     const auto& o = *ranges::find_if(usmappings, [&](const MUSMapping& o3){
         return o3.NAME == name;
@@ -30,7 +30,7 @@ MUserSettingInfo VMSettings::getUSInfo(const wstring &name)
     return {o2.ID, o.VALUEID};
 }
 
-boost::optional<wstring> VMSettings::getUSValue(const MUserSettingInfo &info) const
+boost::optional<string_t> VMSettings::getUSValue(const MUserSettingInfo &info) const
 {
     const auto& o2 = *ranges::find_if(userSettings, [&](const MUserSetting& o){
         return o.ID == info.USERSETTINGID;
@@ -44,7 +44,7 @@ boost::optional<wstring> VMSettings::getUSValue(const MUserSettingInfo &info) co
     }
 }
 
-void VMSettings::setUSValue(const MUserSettingInfo &info, const wstring &value)
+void VMSettings::setUSValue(const MUserSettingInfo &info, const string_t &value)
 {
     auto& o2 = *ranges::find_if(userSettings, [&](const MUserSetting& o){
         return o.ID == info.USERSETTINGID;
@@ -59,13 +59,13 @@ void VMSettings::setUSValue(const MUserSettingInfo &info, const wstring &value)
 
 vector<int> VMSettings::getUSROWSPERPAGEOPTIONS() const
 {
-    vector<wstring> result = getUSValue(INFO_USROWSPERPAGEOPTIONS).get() | views::split(',') | to<vector<wstring>>;
-    return result | views::transform([](const wstring& s){
+    vector<string_t> result = getUSValue(INFO_USROWSPERPAGEOPTIONS).get() | views::split(',') | to<vector<string_t>>;
+    return result | views::transform([](const string_t& s){
         return stoi(s);
     }) | to<vector>;
 }
 
-observable<wstring> VMSettings::getData()
+observable<string_t> VMSettings::getData()
 {
     return slanguage.getData().zip(
                 susmapping.getData(),
@@ -81,9 +81,9 @@ observable<wstring> VMSettings::getData()
         INFO_USLEVELCOLORS = getUSInfo(MUSMapping::NAME_USLEVELCOLORS);
         INFO_USSCANINTERVAL = getUSInfo(MUSMapping::NAME_USSCANINTERVAL);
         INFO_USREVIEWINTERVAL = getUSInfo(MUSMapping::NAME_USREVIEWINTERVAL);
-        vector<wstring> lines = getUSValue(INFO_USLEVELCOLORS).get() | views::split("\r\n"s) | to<vector<wstring>>;
-        for(const wstring& s : lines) {
-            vector<wstring> colors = s | views::split(',') | to<vector<wstring>>;
+        vector<string_t> lines = getUSValue(INFO_USLEVELCOLORS).get() | views::split("\r\n"s) | to<vector<string_t>>;
+        for(const string_t& s : lines) {
+            vector<string_t> colors = s | views::split(',') | to<vector<string_t>>;
             USLEVELCOLORS[stoi(colors[0])] = {colors[1], colors[2]};
         }
         selectedLangIndex = ranges::find_if(languages, [&](const MLanguage& o){
@@ -94,7 +94,7 @@ observable<wstring> VMSettings::getData()
     }) APPLY_IO;
 }
 
-observable<wstring> VMSettings::setSelectedLang(int langIndex)
+observable<string_t> VMSettings::setSelectedLang(int langIndex)
 {
     bool isinit = selectedLangIndex == langIndex;
     selectedLangIndex = langIndex;
@@ -107,22 +107,22 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
     INFO_USDICTTRANSLATIONID = getUSInfo(MUSMapping::NAME_USDICTTRANSLATIONID);
     INFO_USMACVOICEID = getUSInfo(MUSMapping::NAME_USMACVOICEID);
     auto s = USDICTITEMS();
-    vector<wstring> dicts = s | views::split("\r\n"s) | to<vector<wstring>>;
+    vector<string_t> dicts = s | views::split("\r\n"s) | to<vector<string_t>>;
     return sdictreference.getDataByLang(langid).zip(
                 sdictnote.getDataByLang(langid),
                 sdicttranslation.getDataByLang(langid),
                 stextbook.getDataByLang(langid),
                 sautocorrect.getDataByLang(langid),
-                svoice.getDataByLang(langid)).flat_map([&, dicts](const auto& o) -> observable<wstring> {
+                svoice.getDataByLang(langid)).flat_map([&, dicts](const auto& o) -> observable<string_t> {
         dictsReference = get<0>(o);
         int i = 0;
         // https://stackoverflow.com/questions/36051851/how-to-implement-flatmap-using-rangev3-ranges
-        dictItems = dicts | views::transform([&](const wstring& d){
-            return d == L"0" ?
+        dictItems = dicts | views::transform([&](const string_t& d){
+            return d == _XPLATSTR("0") ?
                 dictsReference | views::transform([](const auto& o2){
-                    return MDictItem{ to_wstring(o2.DICTID), o2.DICTNAME };
+                    return MDictItem{ to_string_t(o2.DICTID), o2.DICTNAME };
                 }) | to<vector> :
-                vector{MDictItem{ d, (boost::wformat(L"Custom%1%") % ++i).str() }};
+                vector{MDictItem{ d, (boost::format_t(_XPLATSTR("Custom%1%")) % ++i).str() }};
         }) | action::join;
         int index = ranges::find_if(dictItems, [&](const MDictItem& o){
             return o.DICTID == USDICTITEM();
@@ -155,7 +155,7 @@ observable<wstring> VMSettings::setSelectedLang(int langIndex)
         setSelectedMacVoice(index);
         if (isinit) {
             if (delegate) delegate->onUpdateLang();
-            return just(wstring{});
+            return just(string_t{});
         } else {
             return updateLang();
         }
@@ -198,49 +198,49 @@ void VMSettings::setSelectedTextbook(int index)
     toType = isSingleUnit() ? UnitPartToType::UNIT : isSingleUnitPart() ? UnitPartToType::PART : UnitPartToType::TO;
 }
 
-observable<wstring> VMSettings::updateLang()
+observable<string_t> VMSettings::updateLang()
 {
     return susersetting.updateObject(INFO_USLANGID, USLANGID()).tap([&](const auto& ){
         if (delegate) delegate->onUpdateLang();
     }) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updateTextbook()
+observable<string_t> VMSettings::updateTextbook()
 {
     return susersetting.updateObject(INFO_USTEXTBOOKID, USTEXTBOOKID()).tap([&](const auto&){
         if (delegate) delegate->onUpdateTextbook();
     }) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updateDictItem()
+observable<string_t> VMSettings::updateDictItem()
 {
     return susersetting.updateObject(INFO_USDICTITEM, USDICTITEM()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictItem();
     }) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updateDictNote()
+observable<string_t> VMSettings::updateDictNote()
 {
     return susersetting.updateObject(INFO_USDICTNOTEID, USDICTNOTEID()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictNote();
     }) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updateDictTranslation()
+observable<string_t> VMSettings::updateDictTranslation()
 {
     return susersetting.updateObject(INFO_USDICTTRANSLATIONID, USDICTTRANSLATIONID()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictTranslation();
     }) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updateMacVoice()
+observable<string_t> VMSettings::updateMacVoice()
 {
     return susersetting.updateObject(INFO_USMACVOICEID, USMACVOICEID()).tap([&](const auto&){
         if (delegate) delegate->onUpdateMacVoice();
     }) APPLY_IO;
 }
 
-wstring VMSettings::autoCorrectInput(const wstring &text)
+string_t VMSettings::autoCorrectInput(const string_t &text)
 {
     return autoCorrect(text, autoCorrects, [](const MAutoCorrect& row){
         return row.INPUT;
@@ -249,106 +249,106 @@ wstring VMSettings::autoCorrectInput(const wstring &text)
     });
 }
 
-observable<wstring> VMSettings::updateUnitFrom()
+observable<string_t> VMSettings::updateUnitFrom()
 {
     return doUpdateUnitFrom(USUNITFROM()).concat(
         toType == UnitPartToType::UNIT ? doUpdateSingleUnit() :
         toType == UnitPartToType::PART || isInvalidUnitPart() ? doUpdateUnitPartTo() :
-        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
+        static_cast<observable<string_t>>(rxcpp::sources::empty<string_t>())) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updatePartFrom()
+observable<string_t> VMSettings::updatePartFrom()
 {
     return doUpdatePartFrom(USPARTFROM()).concat(
         toType == UnitPartToType::PART || isInvalidUnitPart() ? doUpdateUnitPartTo() :
-        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
+        static_cast<observable<string_t>>(rxcpp::sources::empty<string_t>())) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updateUnitTo()
+observable<string_t> VMSettings::updateUnitTo()
 {
     return doUpdateUnitTo(USUNITTO()).concat(
         isInvalidUnitPart() ? doUpdateUnitPartFrom() :
-        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
+        static_cast<observable<string_t>>(rxcpp::sources::empty<string_t>())) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updatePartTo()
+observable<string_t> VMSettings::updatePartTo()
 {
     return doUpdatePartTo(USPARTTO()).concat(
         isInvalidUnitPart() ? doUpdateUnitPartFrom() :
-        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
+        static_cast<observable<string_t>>(rxcpp::sources::empty<string_t>())) APPLY_IO;
 }
 
-observable<wstring> VMSettings::updateToType()
+observable<string_t> VMSettings::updateToType()
 {
     return (toType == UnitPartToType::UNIT ? doUpdateSingleUnit() :
         toType == UnitPartToType::PART ? doUpdateUnitPartTo() :
-        static_cast<observable<wstring>>(rxcpp::sources::empty<wstring>())) APPLY_IO;
+        static_cast<observable<string_t>>(rxcpp::sources::empty<string_t>())) APPLY_IO;
 }
 
-observable<wstring> VMSettings::previousUnitPart()
+observable<string_t> VMSettings::previousUnitPart()
 {
     if (toType == UnitPartToType::UNIT)
         if (USUNITFROM() > 1)
             return doUpdateUnitFrom(USUNITFROM() - 1).zip(doUpdateUnitTo(USUNITFROM())).map([](const auto&){
-                return wstring{};
+                return string_t{};
             }) APPLY_IO;
         else
-            return rxcpp::sources::empty<wstring>();
+            return rxcpp::sources::empty<string_t>();
     else if (USPARTFROM() > 1)
         return doUpdatePartFrom(USPARTFROM() - 1).zip(doUpdateUnitPartTo()).map([](const auto&){
-            return wstring{};
+            return string_t{};
         }) APPLY_IO;
     else if (USUNITFROM() > 1)
         return doUpdateUnitFrom(USUNITFROM() - 1).zip(doUpdatePartFrom(getPartCount()), doUpdateUnitPartTo()).map([](const auto&){
-            return wstring{};
+            return string_t{};
         }) APPLY_IO;
     else
-        return rxcpp::sources::empty<wstring>();
+        return rxcpp::sources::empty<string_t>();
 }
 
-observable<wstring> VMSettings::nextUnitPart()
+observable<string_t> VMSettings::nextUnitPart()
 {
     if (toType == UnitPartToType::UNIT)
         if (USUNITFROM() < getUnitCount())
             return doUpdateUnitFrom(USUNITFROM() + 1).zip(doUpdateUnitTo(USUNITFROM())).map([](const auto&){
-                return wstring{};
+                return string_t{};
             }) APPLY_IO;
         else
-            return rxcpp::sources::empty<wstring>();
+            return rxcpp::sources::empty<string_t>();
     else if (USPARTFROM() < getPartCount())
         return doUpdatePartFrom(USPARTFROM() + 1).zip(doUpdateUnitPartTo()).map([](const auto&){
-            return wstring{};
+            return string_t{};
         }) APPLY_IO;
     else if (USUNITFROM() < getUnitCount())
         return doUpdateUnitFrom(USUNITFROM() + 1).zip(doUpdatePartFrom(1), doUpdateUnitPartTo()).map([](const auto&){
-            return wstring{};
+            return string_t{};
         }) APPLY_IO;
     else
-        return rxcpp::sources::empty<wstring>();
+        return rxcpp::sources::empty<string_t>();
 }
 
-observable<wstring> VMSettings::doUpdateUnitPartFrom()
+observable<string_t> VMSettings::doUpdateUnitPartFrom()
 {
     return doUpdateUnitFrom(USUNITTO()).zip(doUpdatePartFrom(USPARTTO())).map([](const auto&){
-        return wstring{};
+        return string_t{};
     });
 }
 
-observable<wstring> VMSettings::doUpdateUnitPartTo()
+observable<string_t> VMSettings::doUpdateUnitPartTo()
 {
     return doUpdateUnitTo(USUNITFROM()).zip(doUpdatePartTo(USPARTFROM())).map([](const auto&){
-        return wstring{};
+        return string_t{};
     });
 }
 
-observable<wstring> VMSettings::doUpdateSingleUnit()
+observable<string_t> VMSettings::doUpdateSingleUnit()
 {
     return doUpdateUnitTo(USUNITFROM()).zip(doUpdatePartFrom(1), doUpdatePartTo(getPartCount())).map([](const auto&){
-        return wstring{};
+        return string_t{};
     });
 }
 
-observable<wstring> VMSettings::doUpdateUnitFrom(int v)
+observable<string_t> VMSettings::doUpdateUnitFrom(int v)
 {
     USUNITFROM(v);
     return susersetting.updateObject(INFO_USUNITFROM, v).tap([&](const auto&){
@@ -356,7 +356,7 @@ observable<wstring> VMSettings::doUpdateUnitFrom(int v)
     });
 }
 
-observable<wstring> VMSettings::doUpdatePartFrom(int v)
+observable<string_t> VMSettings::doUpdatePartFrom(int v)
 {
     USPARTFROM(v);
     return susersetting.updateObject(INFO_USPARTFROM, v).tap([&](const auto&){
@@ -364,7 +364,7 @@ observable<wstring> VMSettings::doUpdatePartFrom(int v)
     });
 }
 
-observable<wstring> VMSettings::doUpdateUnitTo(int v)
+observable<string_t> VMSettings::doUpdateUnitTo(int v)
 {
     USUNITTO(v);
     return susersetting.updateObject(INFO_USUNITTO, v).tap([&](const auto&){
@@ -372,7 +372,7 @@ observable<wstring> VMSettings::doUpdateUnitTo(int v)
     });
 }
 
-observable<wstring> VMSettings::doUpdatePartTo(int v)
+observable<string_t> VMSettings::doUpdatePartTo(int v)
 {
     USPARTTO(v);
     return susersetting.updateObject(INFO_USPARTTO, v).tap([&](const auto&){

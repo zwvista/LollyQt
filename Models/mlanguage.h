@@ -6,7 +6,7 @@
 struct MLanguage
 {
     int ID = 0;
-    wstring LANGNAME;
+    string_t LANGNAME;
 };
 
 struct MLanguages

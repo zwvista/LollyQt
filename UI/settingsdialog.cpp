@@ -11,7 +11,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->setupUi(this);
 
     for (auto& s : vm.toTypes)
-        ui->cboToType->addItem(QString::fromStdWString(s));
+        ui->cboToType->addItem(QString::fromStdString_t(s));
 
     vm.delegate = this;
     vm.getData().subscribe();
@@ -26,7 +26,7 @@ SettingsDialog::~SettingsDialog()
 void SettingsDialog::onGetData()
 {
     for (auto& o : vm.languages)
-        ui->cboLang->addItem(QString::fromStdWString(o.LANGNAME));
+        ui->cboLang->addItem(QString::fromStdString_t(o.LANGNAME));
     ui->cboLang->setCurrentIndex(vm.selectedLangIndex);
 }
 
@@ -34,27 +34,27 @@ void SettingsDialog::onUpdateLang()
 {
     ui->cboMacVoice->clear();
     for (auto& o : vm.macVoices)
-        ui->cboMacVoice->addItem(QString::fromStdWString(o.VOICENAME));
+        ui->cboMacVoice->addItem(QString::fromStdString_t(o.VOICENAME));
     ui->cboMacVoice->setCurrentIndex(vm.selectedMacVoiceIndex);
 
     ui->cboDictItem->clear();
     for (auto& o : vm.dictItems)
-        ui->cboDictItem->addItem(QString::fromStdWString(o.DICTNAME));
+        ui->cboDictItem->addItem(QString::fromStdString_t(o.DICTNAME));
     ui->cboDictItem->setCurrentIndex(vm.selectedDictItemIndex);
 
     ui->cboDictNote->clear();
     for (auto& o : vm.dictsNote)
-        ui->cboDictNote->addItem(QString::fromStdWString(o.DICTNAME));
+        ui->cboDictNote->addItem(QString::fromStdString_t(o.DICTNAME));
     ui->cboDictNote->setCurrentIndex(vm.selectedDictNoteIndex);
 
     ui->cboDictTranslation->clear();
     for (auto& o : vm.dictsTranslation)
-        ui->cboDictTranslation->addItem(QString::fromStdWString(o.DICTNAME));
+        ui->cboDictTranslation->addItem(QString::fromStdString_t(o.DICTNAME));
     ui->cboDictTranslation->setCurrentIndex(vm.selectedDictTranslationIndex);
 
     ui->cboTextbook->clear();
     for (auto& o : vm.textbooks)
-        ui->cboTextbook->addItem(QString::fromStdWString(o.TEXTBOOKNAME));
+        ui->cboTextbook->addItem(QString::fromStdString_t(o.TEXTBOOKNAME));
     ui->cboTextbook->setCurrentIndex(vm.selectedTextbookIndex);
 
     onUpdateTextbook();
@@ -65,8 +65,8 @@ void SettingsDialog::onUpdateTextbook()
     ui->cboUnitFrom->clear();
     ui->cboUnitTo->clear();
     for (auto& o : vm.getUnits()) {
-        ui->cboUnitFrom->addItem(QString::fromStdWString(o.label));
-        ui->cboUnitTo->addItem(QString::fromStdWString(o.label));
+        ui->cboUnitFrom->addItem(QString::fromStdString_t(o.label));
+        ui->cboUnitTo->addItem(QString::fromStdString_t(o.label));
     }
     onUpdateUnitFrom();
     onUpdatePartFrom();
@@ -74,14 +74,14 @@ void SettingsDialog::onUpdateTextbook()
     ui->cboPartFrom->clear();
     ui->cboPartTo->clear();
     for (auto& o : vm.getParts()) {
-        ui->cboPartFrom->addItem(QString::fromStdWString(o.label));
-        ui->cboPartTo->addItem(QString::fromStdWString(o.label));
+        ui->cboPartFrom->addItem(QString::fromStdString_t(o.label));
+        ui->cboPartTo->addItem(QString::fromStdString_t(o.label));
     }
     onUpdateUnitTo();
     onUpdatePartTo();
 
-    ui->lblUnitsInAllFrom->setText(QString::fromStdWString(vm.getUnitsInAll()));
-    ui->lblUnitsInAllTo->setText(QString::fromStdWString(vm.getUnitsInAll()));
+    ui->lblUnitsInAllFrom->setText(QString::fromStdString_t(vm.getUnitsInAll()));
+    ui->lblUnitsInAllTo->setText(QString::fromStdString_t(vm.getUnitsInAll()));
 
     ui->cboToType->setCurrentIndex(static_cast<int>(vm.toType));
     on_cboToType_activated(static_cast<int>(vm.toType));

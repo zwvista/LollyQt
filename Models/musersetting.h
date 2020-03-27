@@ -9,10 +9,10 @@ struct MUserSetting
     int USERID = 0;
     int KIND = 0;
     int ENTITYID = 0;
-    boost::optional<wstring> VALUE1;
-    boost::optional<wstring> VALUE2;
-    boost::optional<wstring> VALUE3;
-    boost::optional<wstring> VALUE4;
+    boost::optional<string_t> VALUE1;
+    boost::optional<string_t> VALUE2;
+    boost::optional<string_t> VALUE3;
+    boost::optional<string_t> VALUE4;
 };
 
 struct MUserSettings

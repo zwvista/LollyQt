@@ -7,7 +7,7 @@ using namespace std;
 struct MSelectItem
 {
     int value = 0;
-    wstring label;
+    string_t label;
 };
 
 #endif // MSELECTITEM_H

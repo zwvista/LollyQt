@@ -17,8 +17,8 @@ void to_json(json& j, const MLangWord& p) {
 void from_json(const json& j, MLangWord& p) {
     p.ID = j.at("ID").get<int>();
     p.LANGID = j.at("LANGID").get<int>();
-    p.WORD = j.at("WORD").get<wstring>();
-    p.NOTE = j.at("NOTE").get<boost::optional<wstring>>();
+    p.WORD = j.at("WORD").get<string_t>();
+    p.NOTE = j.at("NOTE").get<boost::optional<string_t>>();
     p.FAMIID = j.at("FAMIID").get<int>();
     p.LEVEL = j.at("LEVEL").get<int>();
     p.CORRECT = j.at("CORRECT").get<int>();

@@ -20,13 +20,13 @@ void from_json(const json& j, MUnitPhrase& p) {
     p.ID = j.at("ID").get<int>();
     p.LANGID = j.at("LANGID").get<int>();
     p.TEXTBOOKID = j.at("TEXTBOOKID").get<int>();
-    p.TEXTBOOKNAME = j.at("TEXTBOOKNAME").get<wstring>();
+    p.TEXTBOOKNAME = j.at("TEXTBOOKNAME").get<string_t>();
     p.UNIT = j.at("UNIT").get<int>();
     p.PART = j.at("PART").get<int>();
     p.SEQNUM = j.at("SEQNUM").get<int>();
     p.PHRASEID = j.at("PHRASEID").get<int>();
-    p.PHRASE = j.at("PHRASE").get<wstring>();
-    p.TRANSLATION = j.at("TRANSLATION").get<boost::optional<wstring>>();
+    p.PHRASE = j.at("PHRASE").get<string_t>();
+    p.TRANSLATION = j.at("TRANSLATION").get<boost::optional<string_t>>();
 }
 
 void from_json(const json& j, MUnitPhrases& p) {

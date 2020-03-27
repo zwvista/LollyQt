@@ -8,9 +8,9 @@
 #include <iomanip>
 
 namespace {
-  std::wstring encimpl(std::wstring::value_type v) {
+  string_t encimpl(string_t::value_type v) {
     if (isalnum(v))
-      return std::wstring()+v;
+      return string_t()+v;
 
     std::wostringstream enc;
     enc << '%' << std::setw(2) << std::setfill(L'0') << std::hex << std::uppercase << int(static_cast<unsigned char>(v));
@@ -18,20 +18,20 @@ namespace {
   }
 }
 
-std::wstring urlencode(const std::wstring& url) {
-  // Find the start of the query wstring
-  const std::wstring::const_iterator start = std::find(url.begin(), url.end(), '?');
+string_t urlencode(const string_t& url) {
+  // Find the start of the query string_t
+  const string_t::const_iterator start = std::find(url.begin(), url.end(), '?');
 
   // If there isn't one there's nothing to do!
   if (start == url.end())
     return url;
 
-  // store the modified query wstring
-  std::wstring qstr;
+  // store the modified query string_t
+  string_t qstr;
 
   std::transform(start+1, url.end(),
                  // Append the transform result to qstr
-                 boost::make_function_output_iterator(boost::bind(static_cast<std::wstring& (std::wstring::*)(const std::wstring&)>(&std::wstring::append),&qstr,_1)),
+                 boost::make_function_output_iterator(boost::bind(static_cast<string_t& (string_t::*)(const string_t&)>(&string_t::append),&qstr,_1)),
                  encimpl);
-  return std::wstring(url.begin(), start+1) + qstr;
+  return string_t(url.begin(), start+1) + qstr;
 }

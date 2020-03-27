@@ -16,7 +16,7 @@ void to_json(nlohmann::json &j, const MUSMapping &p)
 void from_json(const nlohmann::json &j, MUSMapping &p)
 {
     p.ID = j.at("ID").get<int>();
-    p.NAME = j.at("NAME").get<wstring>();
+    p.NAME = j.at("NAME").get<string_t>();
     p.KIND = j.at("KIND").get<int>();
     p.ENTITYID = j.at("ENTITYID").get<int>();
     p.VALUEID = j.at("VALUEID").get<int>();
@@ -28,24 +28,24 @@ void from_json(const nlohmann::json &j, MUSMappings &p)
     p.records = j.at("records").get<vector<MUSMapping>>();
 }
 
-const wstring MUSMapping::NAME_USLANGID = L"USLANGID";
-const wstring MUSMapping::NAME_USROWSPERPAGEOPTIONS = L"USROWSPERPAGEOPTIONS";
-const wstring MUSMapping::NAME_USROWSPERPAGE = L"USROWSPERPAGE";
-const wstring MUSMapping::NAME_USLEVELCOLORS = L"USLEVELCOLORS";
-const wstring MUSMapping::NAME_USSCANINTERVAL = L"USSCANINTERVAL";
-const wstring MUSMapping::NAME_USREVIEWINTERVAL = L"USREVIEWINTERVAL";
-const wstring MUSMapping::NAME_USTEXTBOOKID = L"USTEXTBOOKID";
-const wstring MUSMapping::NAME_USDICTITEM = L"USDICTITEM";
-const wstring MUSMapping::NAME_USDICTNOTEID = L"USDICTNOTEID";
-const wstring MUSMapping::NAME_USDICTITEMS = L"USDICTITEMS";
-const wstring MUSMapping::NAME_USDICTTRANSLATIONID = L"USDICTTRANSLATIONID";
-const wstring MUSMapping::NAME_USMACVOICEID = L"USMACVOICEID";
-const wstring MUSMapping::NAME_USIOSVOICEID = L"USIOSVOICEID";
-const wstring MUSMapping::NAME_USANDROIDVOICEID = L"USANDROIDVOICEID";
-const wstring MUSMapping::NAME_USWEBVOICEID = L"USWEBVOICEID";
-const wstring MUSMapping::NAME_USWINDOWSVOICEID = L"USWINDOWSVOICEID";
-const wstring MUSMapping::NAME_USUNITFROM = L"USUNITFROM";
-const wstring MUSMapping::NAME_USPARTFROM = L"USPARTFROM";
-const wstring MUSMapping::NAME_USUNITTO = L"USUNITTO";
-const wstring MUSMapping::NAME_USPARTTO = L"USPARTTO";
+const string_t MUSMapping::NAME_USLANGID = _XPLATSTR("USLANGID");
+const string_t MUSMapping::NAME_USROWSPERPAGEOPTIONS = _XPLATSTR("USROWSPERPAGEOPTIONS");
+const string_t MUSMapping::NAME_USROWSPERPAGE = _XPLATSTR("USROWSPERPAGE");
+const string_t MUSMapping::NAME_USLEVELCOLORS = _XPLATSTR("USLEVELCOLORS");
+const string_t MUSMapping::NAME_USSCANINTERVAL = _XPLATSTR("USSCANINTERVAL");
+const string_t MUSMapping::NAME_USREVIEWINTERVAL = _XPLATSTR("USREVIEWINTERVAL");
+const string_t MUSMapping::NAME_USTEXTBOOKID = _XPLATSTR("USTEXTBOOKID");
+const string_t MUSMapping::NAME_USDICTITEM = _XPLATSTR("USDICTITEM");
+const string_t MUSMapping::NAME_USDICTNOTEID = _XPLATSTR("USDICTNOTEID");
+const string_t MUSMapping::NAME_USDICTITEMS = _XPLATSTR("USDICTITEMS");
+const string_t MUSMapping::NAME_USDICTTRANSLATIONID = _XPLATSTR("USDICTTRANSLATIONID");
+const string_t MUSMapping::NAME_USMACVOICEID = _XPLATSTR("USMACVOICEID");
+const string_t MUSMapping::NAME_USIOSVOICEID = _XPLATSTR("USIOSVOICEID");
+const string_t MUSMapping::NAME_USANDROIDVOICEID = _XPLATSTR("USANDROIDVOICEID");
+const string_t MUSMapping::NAME_USWEBVOICEID = _XPLATSTR("USWEBVOICEID");
+const string_t MUSMapping::NAME_USWINDOWSVOICEID = _XPLATSTR("USWINDOWSVOICEID");
+const string_t MUSMapping::NAME_USUNITFROM = _XPLATSTR("USUNITFROM");
+const string_t MUSMapping::NAME_USPARTFROM = _XPLATSTR("USPARTFROM");
+const string_t MUSMapping::NAME_USUNITTO = _XPLATSTR("USUNITTO");
+const string_t MUSMapping::NAME_USPARTTO = _XPLATSTR("USPARTTO");
 

@@ -11,7 +11,7 @@ enum class UnitPartToType {
 
 struct CommonApi
 {
-    static wstring getAccuracy(int CORRECT, int TOTAL);
+    static string_t getAccuracy(int CORRECT, int TOTAL);
 };
 
 struct LollyInterface {

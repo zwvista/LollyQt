@@ -19,10 +19,10 @@ void from_json(const json& j, MUserSetting& p) {
     p.USERID = j.at("USERID").get<int>();
     p.KIND = j.at("KIND").get<int>();
     p.ENTITYID = j.at("ENTITYID").get<int>();
-    p.VALUE1 = j.at("VALUE1").get<boost::optional<wstring>>();
-    p.VALUE2 = j.at("VALUE2").get<boost::optional<wstring>>();
-    p.VALUE3 = j.at("VALUE3").get<boost::optional<wstring>>();
-    p.VALUE4 = j.at("VALUE4").get<boost::optional<wstring>>();
+    p.VALUE1 = j.at("VALUE1").get<boost::optional<string_t>>();
+    p.VALUE2 = j.at("VALUE2").get<boost::optional<string_t>>();
+    p.VALUE3 = j.at("VALUE3").get<boost::optional<string_t>>();
+    p.VALUE4 = j.at("VALUE4").get<boost::optional<string_t>>();
 }
 
 void from_json(const json& j, MUserSettings& p) {

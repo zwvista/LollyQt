@@ -7,8 +7,8 @@ struct MLangWord
 {
     int ID = 0;
     int LANGID = 0;
-    wstring WORD;
-    boost::optional<wstring> NOTE;
+    string_t WORD;
+    boost::optional<string_t> NOTE;
     int FAMIID = 0;
     int LEVEL = 0;
     int CORRECT = 0;

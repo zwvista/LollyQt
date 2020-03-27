@@ -8,22 +8,22 @@ struct MDictionary
     int ID = 0;
     int DICTID = 0;
     int LANGIDFROM = 0;
-    wstring LANGNAMEFROM;
+    string_t LANGNAMEFROM;
     int LANGIDTO = 0;
-    wstring LANGNAMETO;
+    string_t LANGNAMETO;
     int SEQNUM = 0;
     int DICTTYPEID = 0;
-    wstring DICTTYPENAME;
-    wstring DICTNAME;
-    boost::optional<wstring> URL;
-    boost::optional<wstring> CHCONV;
-    boost::optional<wstring> AUTOMATION;
-    boost::optional<wstring> DICTTABLE;
-    boost::optional<wstring> TRANSFORM_WIN;
-    boost::optional<wstring> TRANSFORM;
+    string_t DICTTYPENAME;
+    string_t DICTNAME;
+    boost::optional<string_t> URL;
+    boost::optional<string_t> CHCONV;
+    boost::optional<string_t> AUTOMATION;
+    boost::optional<string_t> DICTTABLE;
+    boost::optional<string_t> TRANSFORM_WIN;
+    boost::optional<string_t> TRANSFORM;
     int WAIT = 0;
-    boost::optional<wstring> TEMPLATE;
-    boost::optional<wstring> TEMPLATE2;
+    boost::optional<string_t> TEMPLATE;
+    boost::optional<string_t> TEMPLATE2;
 };
 
 void to_json(json& j, const MDictionary& p);
@@ -40,9 +40,9 @@ struct MDictsReference
 
 struct MDictItem
 {
-    wstring DICTID;
-    wstring DICTNAME;
-    vector<wstring> dictids();
+    string_t DICTID;
+    string_t DICTNAME;
+    vector<string_t> dictids();
 };
 
 void from_json(const json& j, MDictsReference& p);
@@ -72,7 +72,7 @@ void from_json(const json& j, MDictsTranslation& p);
 struct MDictType
 {
     int CODE = 0;
-    wstring NAME;
+    string_t NAME;
 };
 
 struct MDictTypes
