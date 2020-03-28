@@ -9,9 +9,12 @@ using namespace utility;
     #define to_string_t to_wstring
     #define fromStdString_t fromStdWString
     #define format_t wformat
+    #define regex_t wregex
 #else
     #define to_string_t to_string
+    #define fromStdString_t fromStdString
     #define format_t format
+    #define regex_t regex
 #endif
 
 #endif // STRING_T_H

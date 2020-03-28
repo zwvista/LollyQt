@@ -122,8 +122,8 @@ observable<string_t> VMSettings::setSelectedLang(int langIndex)
                 dictsReference | views::transform([](const auto& o2){
                     return MDictItem{ to_string_t(o2.DICTID), o2.DICTNAME };
                 }) | to<vector> :
-                vector{MDictItem{ d, (boost::format_t(_XPLATSTR("Custom%1%")) % ++i).str() }};
-        }) | action::join;
+                vector<MDictItem>{ MDictItem{d, (boost::format_t(_XPLATSTR("Custom%1%")) % ++i).str()} };
+        }) | actions::join;
         int index = ranges::find_if(dictItems, [&](const MDictItem& o){
             return o.DICTID == USDICTITEM();
         }) - dictItems.begin();

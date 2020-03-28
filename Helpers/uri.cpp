@@ -12,8 +12,8 @@ namespace {
     if (isalnum(v))
       return string_t()+v;
 
-    std::wostringstream enc;
-    enc << '%' << std::setw(2) << std::setfill(L'0') << std::hex << std::uppercase << int(static_cast<unsigned char>(v));
+    ostringstream_t enc;
+    enc << _XPLATSTR('%') << std::setw(2) << std::setfill(_XPLATSTR('0')) << std::hex << std::uppercase << int(static_cast<unsigned char>(v));
     return enc.str();
   }
 }

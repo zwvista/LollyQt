@@ -52,7 +52,7 @@ QVariant WordsUnitWordsModel::data(const QModelIndex &index, int role) const
     case 1: return QVariant(QString::fromStdString_t(o.PARTSTR()));
     case 2: return QVariant(o.SEQNUM);
     case 3: return QVariant(QString::fromStdString_t(o.WORD));
-    case 4: return QVariant(QString::fromStdString_t(o.NOTE.get_value_or(L"")));
+    case 4: return QVariant(QString::fromStdString_t(o.NOTE.get_value_or(_XPLATSTR(""))));
     case 5: return QVariant(o.LEVEL);
     case 6: return QVariant(QString::fromStdString_t(o.ACCURACY()));
     case 7: return QVariant(o.WORDID);
