@@ -4,6 +4,7 @@
 #include <ViewModels/vmsettings.h>
 
 const rxqt::run_loop* pRunLoop;
+const uri base_uri{_XPLATSTR("https://zwvista2.tk/lolly/api.php/records/")};
 VMSettings vmSettings;
 
 int main(int argc, char *argv[])

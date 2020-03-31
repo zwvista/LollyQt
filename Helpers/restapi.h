@@ -174,9 +174,11 @@ struct RestApiBase {
     }
 };
 
+const extern uri base_uri;
+
 template<class T>
 struct RestApi : RestApiBase<T> {
-    RestApi() : RestApiBase<T>(_XPLATSTR("https://zwvista2.tk/lolly/api.php/records/")) {}
+    RestApi() : RestApiBase<T>(base_uri) {}
 };
 
 #endif // RESTAPI_H
