@@ -21,7 +21,7 @@ struct MUSMapping
     static const string_t NAME_USTEXTBOOKID;
     static const string_t NAME_USDICTITEM ;
     static const string_t NAME_USDICTNOTEID;
-    static const string_t NAME_USDICTITEMS;
+    static const string_t NAME_USDICTSREFERENCE;
     static const string_t NAME_USDICTTRANSLATIONID;
     static const string_t NAME_USMACVOICEID;
     static const string_t NAME_USIOSVOICEID;

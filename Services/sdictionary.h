@@ -7,27 +7,13 @@
 struct SDictionary
 {
 
-};
-
-struct SDictReference
-{
-    observable<vector<MDictReference>> getDataByLang(int langid);
-    RestApi<MDictReference> api;
-    RestApi<MDictsReference> apis;
-};
-
-struct SDictNote
-{
-    observable<vector<MDictNote>> getDataByLang(int langid);
-    RestApi<MDictNote> api;
-    RestApi<MDictsNote> apis;
-};
-
-struct SDictTranslation
-{
-    observable<vector<MDictTranslation>> getDataByLang(int langid);
-    RestApi<MDictTranslation> api;
-    RestApi<MDictsTranslation> apis;
+    observable<vector<MDictionary>> getDictsReferenceByLang(int langid);
+    observable<vector<MDictionary>> getDictsNoteByLang(int langid);
+    observable<vector<MDictionary>> getDictsTranslationByLang(int langid);
+    RestApi<MDictionary> api;
+    RestApi<MDictsReference> apisReference;
+    RestApi<MDictsNote> apisNote;
+    RestApi<MDictsTranslation> apisTranslation;
 };
 
 struct SDictType

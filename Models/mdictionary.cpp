@@ -50,19 +50,15 @@ void from_json(const json& j, MDictionary& p) {
 }
 
 void from_json(const json& j, MDictsReference& p) {
-    p.records = j.at("records").get<vector<MDictReference>>();
+    p.records = j.at("records").get<vector<MDictionary>>();
 }
 
 void from_json(const json& j, MDictsNote& p) {
-    p.records = j.at("records").get<vector<MDictNote>>();
-}
-
-vector<string_t> MDictItem::dictids() {
-    return DICTID | views::split(',') | to<vector<string_t>>;
+    p.records = j.at("records").get<vector<MDictionary>>();
 }
 
 void from_json(const json& j, MDictsTranslation& p) {
-    p.records = j.at("records").get<vector<MDictTranslation>>();
+    p.records = j.at("records").get<vector<MDictionary>>();
 }
 
 void from_json(const nlohmann::json &j, MDictType &p)

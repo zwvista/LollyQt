@@ -37,10 +37,10 @@ void SettingsDialog::onUpdateLang()
         ui->cboMacVoice->addItem(QString::fromStdString_t(o.VOICENAME));
     ui->cboMacVoice->setCurrentIndex(vm.selectedMacVoiceIndex);
 
-    ui->cboDictItem->clear();
-    for (auto& o : vm.dictItems)
-        ui->cboDictItem->addItem(QString::fromStdString_t(o.DICTNAME));
-    ui->cboDictItem->setCurrentIndex(vm.selectedDictItemIndex);
+    ui->cboDictReference->clear();
+    for (auto& o : vm.dictsReference)
+        ui->cboDictReference->addItem(QString::fromStdString_t(o.DICTNAME));
+    ui->cboDictReference->setCurrentIndex(vm.selectedDictReferenceIndex);
 
     ui->cboDictNote->clear();
     for (auto& o : vm.dictsNote)
@@ -130,16 +130,16 @@ void SettingsDialog::on_cboMacVoice_activated(int index)
     vm.updateMacVoice().subscribe();
 }
 
-void SettingsDialog::on_cboDictItem_activated(int index)
+void SettingsDialog::on_cboDictReference_activated(int index)
 {
-    vm.setSelectedDictItem(index);
-    vm.updateDictItem().subscribe();
+    vm.setSelectedDictReference(index);
+    vm.updateDictReference().subscribe();
 }
 
 void SettingsDialog::on_cboDictNote_activated(int index)
 {
     vm.setSelectedDictNote(index);
-    vm.updateDictItem().subscribe();
+    vm.updateDictReference().subscribe();
 }
 
 void SettingsDialog::on_cboDictTranslation_activated(int index)

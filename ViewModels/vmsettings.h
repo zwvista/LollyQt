@@ -20,7 +20,7 @@ struct VMSettingsDelegate
     virtual ~VMSettingsDelegate();
     virtual void onGetData();
     virtual void onUpdateLang();
-    virtual void onUpdateDictItem();
+    virtual void onUpdateDictReference();
     virtual void onUpdateDictNote();
     virtual void onUpdateDictTranslation();
     virtual void onUpdateTextbook();
@@ -48,7 +48,7 @@ class VMSettings
     MUserSettingInfo INFO_USTEXTBOOKID;
     MUserSettingInfo INFO_USDICTITEM;
     MUserSettingInfo INFO_USDICTNOTEID;
-    MUserSettingInfo INFO_USDICTITEMS;
+    MUserSettingInfo INFO_USDICTSREFERENCE;
     MUserSettingInfo INFO_USDICTTRANSLATIONID;
     MUserSettingInfo INFO_USMACVOICEID;
     MUserSettingInfo INFO_USUNITFROM;
@@ -61,9 +61,7 @@ class VMSettings
     SUserSetting susersetting;
     SDictType sdicttype;
     SVoice svoice;
-    SDictReference sdictreference;
-    SDictNote sdictnote;
-    SDictTranslation sdicttranslation;
+    SDictionary sdictionary;
     STextbook stextbook;
     SAutoCorrect sautocorrect;
 
@@ -84,14 +82,14 @@ public:
     int USREVIEWINTERVAL() const { return stoi(getUSValue(INFO_USREVIEWINTERVAL).get()); }
     int USTEXTBOOKID() const { return stoi(getUSValue(INFO_USTEXTBOOKID).get()); }
     void USTEXTBOOKID(int value) { setUSValue(INFO_USTEXTBOOKID, to_string_t(value)); }
-    string_t USDICTITEM() const { return getUSValue(INFO_USDICTITEM).get(); }
-    void USDICTITEM(const string_t& value) { setUSValue(INFO_USDICTITEM, value); }
-    int USDICTNOTEID() const { return stoi(getUSValue(INFO_USDICTNOTEID).get_value_or(_XPLATSTR("0"))); }
-    void USDICTNOTEID(int value) { setUSValue(INFO_USDICTNOTEID, to_string_t(value)); }
-    string_t USDICTITEMS() const { return getUSValue(INFO_USDICTITEMS).get_value_or(_XPLATSTR("0")); }
-    void USDICTITEMS(const string_t& value) { setUSValue(INFO_USDICTITEMS, value); }
-    int USDICTTRANSLATIONID() const { return stoi(getUSValue(INFO_USDICTTRANSLATIONID).get_value_or(_XPLATSTR("0"))); }
-    void USDICTTRANSLATIONID(int value) { setUSValue(INFO_USDICTTRANSLATIONID, to_string_t(value)); }
+    string_t USDICTREFERENCE() const { return getUSValue(INFO_USDICTITEM).get(); }
+    void USDICTREFERENCE(const string_t& value) { setUSValue(INFO_USDICTITEM, value); }
+    int USDICTNOTE() const { return stoi(getUSValue(INFO_USDICTNOTEID).get_value_or(_XPLATSTR("0"))); }
+    void USDICTNOTE(int value) { setUSValue(INFO_USDICTNOTEID, to_string_t(value)); }
+    string_t USDICTSREFERENCE() const { return getUSValue(INFO_USDICTSREFERENCE).get_value_or(_XPLATSTR("0")); }
+    void USDICTSREFERENCE(const string_t& value) { setUSValue(INFO_USDICTSREFERENCE, value); }
+    int USDICTTRANSLATION() const { return stoi(getUSValue(INFO_USDICTTRANSLATIONID).get_value_or(_XPLATSTR("0"))); }
+    void USDICTTRANSLATION(int value) { setUSValue(INFO_USDICTTRANSLATIONID, to_string_t(value)); }
     int USMACVOICEID() const { return stoi(getUSValue(INFO_USMACVOICEID).get_value_or(_XPLATSTR("0"))); }
     void USMACVOICEID(int value) { setUSValue(INFO_USMACVOICEID, to_string_t(value)); }
     int USUNITFROM() const { return stoi(getUSValue(INFO_USUNITFROM).get()); }
@@ -115,18 +113,17 @@ public:
     int selectedMacVoiceIndex = 0;
     const MVoice& selectedMacVoice() const { return macVoices[selectedMacVoiceIndex]; }
     void setSelectedMacVoice(int index);
-    vector<MDictReference> dictsReference;
-    vector<MDictItem> dictItems;
-    int selectedDictItemIndex = 0;
-    const MDictItem& selectedDictItem() const { return dictItems[selectedDictItemIndex]; }
-    void setSelectedDictItem(int index);
-    vector<MDictNote> dictsNote;
+    vector<MDictionary> dictsReference;
+    int selectedDictReferenceIndex = 0;
+    const MDictionary& selectedDictReference() const { return dictsReference[selectedDictReferenceIndex]; }
+    void setSelectedDictReference(int index);
+    vector<MDictionary> dictsNote;
     int selectedDictNoteIndex = 0;
-    const MDictNote& selectedDictNote() const { return dictsNote[selectedDictNoteIndex]; }
+    const MDictionary& selectedDictNote() const { return dictsNote[selectedDictNoteIndex]; }
     void setSelectedDictNote(int index);
-    vector<MDictTranslation> dictsTranslation;
+    vector<MDictionary> dictsTranslation;
     int selectedDictTranslationIndex = 0;
-    const MDictTranslation& selectedDictTranslation() const { return dictsTranslation[selectedDictTranslationIndex]; }
+    const MDictionary& selectedDictTranslation() const { return dictsTranslation[selectedDictTranslationIndex]; }
     void setSelectedDictTranslation(int index);
     vector<MTextbook> textbooks;
     int selectedTextbookIndex = 0;
@@ -149,7 +146,7 @@ public:
 
     observable<string_t> getData();
     observable<string_t> updateLang();
-    observable<string_t> updateDictItem();
+    observable<string_t> updateDictReference();
     observable<string_t> updateDictNote();
     observable<string_t> updateDictTranslation();
     observable<string_t> updateTextbook();

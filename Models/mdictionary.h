@@ -29,42 +29,23 @@ struct MDictionary
 void to_json(json& j, const MDictionary& p);
 void from_json(const json& j, MDictionary& p);
 
-struct MDictReference : MDictionary {
-
-};
-
 struct MDictsReference
 {
-    vector<MDictReference> records;
-};
-
-struct MDictItem
-{
-    string_t DICTID;
-    string_t DICTNAME;
-    vector<string_t> dictids();
+    vector<MDictionary> records;
 };
 
 void from_json(const json& j, MDictsReference& p);
 
-struct MDictNote : MDictionary {
-
-};
-
 struct MDictsNote
 {
-    vector<MDictNote> records;
+    vector<MDictionary> records;
 };
 
 void from_json(const json& j, MDictsNote& p);
 
-struct MDictTranslation : MDictionary {
-
-};
-
 struct MDictsTranslation
 {
-    vector<MDictTranslation> records;
+    vector<MDictionary> records;
 };
 
 void from_json(const json& j, MDictsTranslation& p);

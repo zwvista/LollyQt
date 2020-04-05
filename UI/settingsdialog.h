@@ -22,7 +22,7 @@ private slots:
 
     void on_cboMacVoice_activated(int index);
 
-    void on_cboDictItem_activated(int index);
+    void on_cboDictReference_activated(int index);
 
     void on_cboDictNote_activated(int index);
 

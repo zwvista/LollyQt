@@ -5,7 +5,7 @@ using namespace ranges;
 VMSettingsDelegate::~VMSettingsDelegate() {}
 void VMSettingsDelegate::onGetData() {}
 void VMSettingsDelegate::onUpdateLang() {}
-void VMSettingsDelegate::onUpdateDictItem() {}
+void VMSettingsDelegate::onUpdateDictReference() {}
 void VMSettingsDelegate::onUpdateDictNote() {}
 void VMSettingsDelegate::onUpdateDictTranslation() {}
 void VMSettingsDelegate::onUpdateTextbook() {}
@@ -103,40 +103,29 @@ observable<string_t> VMSettings::setSelectedLang(int langIndex)
     INFO_USTEXTBOOKID = getUSInfo(MUSMapping::NAME_USTEXTBOOKID);
     INFO_USDICTITEM = getUSInfo(MUSMapping::NAME_USDICTITEM);
     INFO_USDICTNOTEID = getUSInfo(MUSMapping::NAME_USDICTNOTEID);
-    INFO_USDICTITEMS = getUSInfo(MUSMapping::NAME_USDICTITEMS);
+    INFO_USDICTSREFERENCE = getUSInfo(MUSMapping::NAME_USDICTSREFERENCE);
     INFO_USDICTTRANSLATIONID = getUSInfo(MUSMapping::NAME_USDICTTRANSLATIONID);
     INFO_USMACVOICEID = getUSInfo(MUSMapping::NAME_USMACVOICEID);
-    auto s = USDICTITEMS();
-    vector<string_t> dicts = s | views::split("\r\n"s) | to<vector<string_t>>;
-    return sdictreference.getDataByLang(langid).zip(
-                sdictnote.getDataByLang(langid),
-                sdicttranslation.getDataByLang(langid),
+    return sdictionary.getDictsReferenceByLang(langid).zip(
+                sdictionary.getDictsNoteByLang(langid),
+                sdictionary.getDictsTranslationByLang(langid),
                 stextbook.getDataByLang(langid),
                 sautocorrect.getDataByLang(langid),
-                svoice.getDataByLang(langid)).flat_map([&, dicts](const auto& o) -> observable<string_t> {
+                svoice.getDataByLang(langid)).flat_map([&](const auto& o) -> observable<string_t> {
         dictsReference = get<0>(o);
-        int i = 0;
-        // https://stackoverflow.com/questions/36051851/how-to-implement-flatmap-using-rangev3-ranges
-        dictItems = dicts | views::transform([&](const string_t& d){
-            return d == _XPLATSTR("0") ?
-                dictsReference | views::transform([](const auto& o2){
-                    return MDictItem{ to_string_t(o2.DICTID), o2.DICTNAME };
-                }) | to<vector> :
-                vector<MDictItem>{ MDictItem{d, (boost::format_t(_XPLATSTR("Custom%1%")) % ++i).str()} };
-        }) | actions::join;
-        int index = ranges::find_if(dictItems, [&](const MDictItem& o){
-            return o.DICTID == USDICTITEM();
-        }) - dictItems.begin();
-        setSelectedDictItem(index);
+        int index = ranges::find_if(dictsReference, [&](const MDictionary& o){
+            return to_string_t(o.DICTID) == USDICTREFERENCE();
+        }) - dictsReference.begin();
+        setSelectedDictReference(index);
         dictsNote = get<1>(o);
-        index = ranges::find_if(dictsNote, [&](const MDictNote& o){
-            return o.DICTID == USDICTNOTEID();
+        index = ranges::find_if(dictsNote, [&](const MDictionary& o){
+            return o.DICTID == USDICTNOTE();
         }) - dictsNote.begin();
         if (dictsNote.empty()) dictsNote.emplace_back();
         setSelectedDictNote(index);
         dictsTranslation = get<2>(o);
-        index = ranges::find_if(dictsTranslation, [&](const MDictTranslation& o){
-            return o.DICTID == USDICTTRANSLATIONID();
+        index = ranges::find_if(dictsTranslation, [&](const MDictionary& o){
+            return o.DICTID == USDICTTRANSLATION();
         }) - dictsTranslation.begin();
         if (dictsTranslation.empty()) dictsTranslation.emplace_back();
         setSelectedDictTranslation(index);
@@ -168,22 +157,22 @@ void VMSettings::setSelectedMacVoice(int index)
    USMACVOICEID(selectedMacVoice().ID);
 }
 
-void VMSettings::setSelectedDictItem(int index)
+void VMSettings::setSelectedDictReference(int index)
 {
-   selectedDictItemIndex = index;
-   USDICTITEM(selectedDictItem().DICTID);
+   selectedDictReferenceIndex = index;
+   USDICTREFERENCE(to_string_t(selectedDictReference().DICTID));
 }
 
 void VMSettings::setSelectedDictNote(int index)
 {
    selectedDictNoteIndex = index;
-   USDICTNOTEID(selectedDictNote().DICTID);
+   USDICTNOTE(selectedDictNote().DICTID);
 }
 
 void VMSettings::setSelectedDictTranslation(int index)
 {
     selectedDictTranslationIndex = index;
-    USDICTTRANSLATIONID(selectedDictTranslation().DICTID);
+    USDICTTRANSLATION(selectedDictTranslation().DICTID);
 }
 
 void VMSettings::setSelectedTextbook(int index)
@@ -212,23 +201,23 @@ observable<string_t> VMSettings::updateTextbook()
     }) APPLY_IO;
 }
 
-observable<string_t> VMSettings::updateDictItem()
+observable<string_t> VMSettings::updateDictReference()
 {
-    return susersetting.updateObject(INFO_USDICTITEM, USDICTITEM()).tap([&](const auto&){
-        if (delegate) delegate->onUpdateDictItem();
+    return susersetting.updateObject(INFO_USDICTITEM, USDICTREFERENCE()).tap([&](const auto&){
+        if (delegate) delegate->onUpdateDictReference();
     }) APPLY_IO;
 }
 
 observable<string_t> VMSettings::updateDictNote()
 {
-    return susersetting.updateObject(INFO_USDICTNOTEID, USDICTNOTEID()).tap([&](const auto&){
+    return susersetting.updateObject(INFO_USDICTNOTEID, USDICTNOTE()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictNote();
     }) APPLY_IO;
 }
 
 observable<string_t> VMSettings::updateDictTranslation()
 {
-    return susersetting.updateObject(INFO_USDICTTRANSLATIONID, USDICTTRANSLATIONID()).tap([&](const auto&){
+    return susersetting.updateObject(INFO_USDICTTRANSLATIONID, USDICTTRANSLATION()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictTranslation();
     }) APPLY_IO;
 }
