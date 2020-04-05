@@ -19,7 +19,6 @@ struct MDictionary
     boost::optional<string_t> CHCONV;
     boost::optional<string_t> AUTOMATION;
     boost::optional<string_t> DICTTABLE;
-    boost::optional<string_t> TRANSFORM_WIN;
     boost::optional<string_t> TRANSFORM;
     int WAIT = 0;
     boost::optional<string_t> TEMPLATE;

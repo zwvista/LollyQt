@@ -18,7 +18,6 @@ void to_json(json& j, const MDictionary& p) {
         {"CHCONV", p.CHCONV},
         {"AUTOMATION", p.AUTOMATION},
         {"DICTTABLE", p.DICTTABLE},
-        {"TRANSFORM_WIN", p.TRANSFORM_WIN},
         {"TRANSFORM", p.TRANSFORM},
         {"WAIT", p.WAIT},
         {"TEMPLATE", p.TEMPLATE},
@@ -42,7 +41,6 @@ void from_json(const json& j, MDictionary& p) {
     p.CHCONV = j.at("CHCONV").get<boost::optional<string_t>>();
     p.AUTOMATION = j.at("AUTOMATION").get<boost::optional<string_t>>();
     p.DICTTABLE = j.at("DICTTABLE").get<boost::optional<string_t>>();
-    p.TRANSFORM_WIN = j.at("TRANSFORM_WIN").get<boost::optional<string_t>>();
     p.TRANSFORM = j.at("TRANSFORM").get<boost::optional<string_t>>();
     p.WAIT = j.at("WAIT").get<int>();
     p.TEMPLATE = j.at("TEMPLATE").get<boost::optional<string_t>>();

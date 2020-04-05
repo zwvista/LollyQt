@@ -46,7 +46,7 @@ class VMSettings
     MUserSettingInfo INFO_USSCANINTERVAL;
     MUserSettingInfo INFO_USREVIEWINTERVAL;
     MUserSettingInfo INFO_USTEXTBOOKID;
-    MUserSettingInfo INFO_USDICTITEM;
+    MUserSettingInfo INFO_USDICTREFERENCE;
     MUserSettingInfo INFO_USDICTNOTEID;
     MUserSettingInfo INFO_USDICTSREFERENCE;
     MUserSettingInfo INFO_USDICTTRANSLATIONID;
@@ -82,8 +82,8 @@ public:
     int USREVIEWINTERVAL() const { return stoi(getUSValue(INFO_USREVIEWINTERVAL).get()); }
     int USTEXTBOOKID() const { return stoi(getUSValue(INFO_USTEXTBOOKID).get()); }
     void USTEXTBOOKID(int value) { setUSValue(INFO_USTEXTBOOKID, to_string_t(value)); }
-    string_t USDICTREFERENCE() const { return getUSValue(INFO_USDICTITEM).get(); }
-    void USDICTREFERENCE(const string_t& value) { setUSValue(INFO_USDICTITEM, value); }
+    string_t USDICTREFERENCE() const { return getUSValue(INFO_USDICTREFERENCE).get(); }
+    void USDICTREFERENCE(const string_t& value) { setUSValue(INFO_USDICTREFERENCE, value); }
     int USDICTNOTE() const { return stoi(getUSValue(INFO_USDICTNOTEID).get_value_or(_XPLATSTR("0"))); }
     void USDICTNOTE(int value) { setUSValue(INFO_USDICTNOTEID, to_string_t(value)); }
     string_t USDICTSREFERENCE() const { return getUSValue(INFO_USDICTSREFERENCE).get_value_or(_XPLATSTR("0")); }

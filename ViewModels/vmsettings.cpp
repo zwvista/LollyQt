@@ -101,7 +101,7 @@ observable<string_t> VMSettings::setSelectedLang(int langIndex)
     int langid = selectedLang().ID;
     USLANGID(langid);
     INFO_USTEXTBOOKID = getUSInfo(MUSMapping::NAME_USTEXTBOOKID);
-    INFO_USDICTITEM = getUSInfo(MUSMapping::NAME_USDICTITEM);
+    INFO_USDICTREFERENCE = getUSInfo(MUSMapping::NAME_USDICTREFERENCE);
     INFO_USDICTNOTEID = getUSInfo(MUSMapping::NAME_USDICTNOTEID);
     INFO_USDICTSREFERENCE = getUSInfo(MUSMapping::NAME_USDICTSREFERENCE);
     INFO_USDICTTRANSLATIONID = getUSInfo(MUSMapping::NAME_USDICTTRANSLATIONID);
@@ -203,7 +203,7 @@ observable<string_t> VMSettings::updateTextbook()
 
 observable<string_t> VMSettings::updateDictReference()
 {
-    return susersetting.updateObject(INFO_USDICTITEM, USDICTREFERENCE()).tap([&](const auto&){
+    return susersetting.updateObject(INFO_USDICTREFERENCE, USDICTREFERENCE()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictReference();
     }) APPLY_IO;
 }
