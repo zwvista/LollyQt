@@ -102,9 +102,9 @@ observable<string_t> VMSettings::setSelectedLang(int langIndex)
     USLANGID(langid);
     INFO_USTEXTBOOKID = getUSInfo(MUSMapping::NAME_USTEXTBOOKID);
     INFO_USDICTREFERENCE = getUSInfo(MUSMapping::NAME_USDICTREFERENCE);
-    INFO_USDICTNOTEID = getUSInfo(MUSMapping::NAME_USDICTNOTEID);
+    INFO_USDICTNOTE = getUSInfo(MUSMapping::NAME_USDICTNOTE);
     INFO_USDICTSREFERENCE = getUSInfo(MUSMapping::NAME_USDICTSREFERENCE);
-    INFO_USDICTTRANSLATIONID = getUSInfo(MUSMapping::NAME_USDICTTRANSLATIONID);
+    INFO_USDICTTRANSLATION = getUSInfo(MUSMapping::NAME_USDICTTRANSLATION);
     INFO_USMACVOICEID = getUSInfo(MUSMapping::NAME_USMACVOICEID);
     return sdictionary.getDictsReferenceByLang(langid).zip(
                 sdictionary.getDictsNoteByLang(langid),
@@ -210,14 +210,14 @@ observable<string_t> VMSettings::updateDictReference()
 
 observable<string_t> VMSettings::updateDictNote()
 {
-    return susersetting.updateObject(INFO_USDICTNOTEID, USDICTNOTE()).tap([&](const auto&){
+    return susersetting.updateObject(INFO_USDICTNOTE, USDICTNOTE()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictNote();
     }) APPLY_IO;
 }
 
 observable<string_t> VMSettings::updateDictTranslation()
 {
-    return susersetting.updateObject(INFO_USDICTTRANSLATIONID, USDICTTRANSLATION()).tap([&](const auto&){
+    return susersetting.updateObject(INFO_USDICTTRANSLATION, USDICTTRANSLATION()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictTranslation();
     }) APPLY_IO;
 }

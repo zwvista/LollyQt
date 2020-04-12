@@ -20,9 +20,9 @@ struct MUSMapping
     static const string_t NAME_USREVIEWINTERVAL;
     static const string_t NAME_USTEXTBOOKID;
     static const string_t NAME_USDICTREFERENCE ;
-    static const string_t NAME_USDICTNOTEID;
+    static const string_t NAME_USDICTNOTE;
     static const string_t NAME_USDICTSREFERENCE;
-    static const string_t NAME_USDICTTRANSLATIONID;
+    static const string_t NAME_USDICTTRANSLATION;
     static const string_t NAME_USMACVOICEID;
     static const string_t NAME_USIOSVOICEID;
     static const string_t NAME_USANDROIDVOICEID;
