@@ -47,9 +47,9 @@ class VMSettings
     MUserSettingInfo INFO_USREVIEWINTERVAL;
     MUserSettingInfo INFO_USTEXTBOOKID;
     MUserSettingInfo INFO_USDICTREFERENCE;
-    MUserSettingInfo INFO_USDICTNOTEID;
+    MUserSettingInfo INFO_USDICTNOTE;
     MUserSettingInfo INFO_USDICTSREFERENCE;
-    MUserSettingInfo INFO_USDICTTRANSLATIONID;
+    MUserSettingInfo INFO_USDICTTRANSLATION;
     MUserSettingInfo INFO_USMACVOICEID;
     MUserSettingInfo INFO_USUNITFROM;
     MUserSettingInfo INFO_USPARTFROM;
@@ -84,12 +84,12 @@ public:
     void USTEXTBOOKID(int value) { setUSValue(INFO_USTEXTBOOKID, to_string_t(value)); }
     string_t USDICTREFERENCE() const { return getUSValue(INFO_USDICTREFERENCE).get(); }
     void USDICTREFERENCE(const string_t& value) { setUSValue(INFO_USDICTREFERENCE, value); }
-    int USDICTNOTE() const { return stoi(getUSValue(INFO_USDICTNOTEID).get_value_or(_XPLATSTR("0"))); }
-    void USDICTNOTE(int value) { setUSValue(INFO_USDICTNOTEID, to_string_t(value)); }
+    int USDICTNOTE() const { return stoi(getUSValue(INFO_USDICTNOTE).get_value_or(_XPLATSTR("0"))); }
+    void USDICTNOTE(int value) { setUSValue(INFO_USDICTNOTE, to_string_t(value)); }
     string_t USDICTSREFERENCE() const { return getUSValue(INFO_USDICTSREFERENCE).get_value_or(_XPLATSTR("0")); }
     void USDICTSREFERENCE(const string_t& value) { setUSValue(INFO_USDICTSREFERENCE, value); }
-    int USDICTTRANSLATION() const { return stoi(getUSValue(INFO_USDICTTRANSLATIONID).get_value_or(_XPLATSTR("0"))); }
-    void USDICTTRANSLATION(int value) { setUSValue(INFO_USDICTTRANSLATIONID, to_string_t(value)); }
+    int USDICTTRANSLATION() const { return stoi(getUSValue(INFO_USDICTTRANSLATION).get_value_or(_XPLATSTR("0"))); }
+    void USDICTTRANSLATION(int value) { setUSValue(INFO_USDICTTRANSLATION, to_string_t(value)); }
     int USMACVOICEID() const { return stoi(getUSValue(INFO_USMACVOICEID).get_value_or(_XPLATSTR("0"))); }
     void USMACVOICEID(int value) { setUSValue(INFO_USMACVOICEID, to_string_t(value)); }
     int USUNITFROM() const { return stoi(getUSValue(INFO_USUNITFROM).get()); }

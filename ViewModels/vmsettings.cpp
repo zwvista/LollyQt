@@ -102,9 +102,9 @@ observable<string_t> VMSettings::setSelectedLang(int langIndex)
     USLANGID(langid);
     INFO_USTEXTBOOKID = getUSInfo(MUSMapping::NAME_USTEXTBOOKID);
     INFO_USDICTREFERENCE = getUSInfo(MUSMapping::NAME_USDICTREFERENCE);
-    INFO_USDICTNOTEID = getUSInfo(MUSMapping::NAME_USDICTNOTEID);
+    INFO_USDICTNOTE = getUSInfo(MUSMapping::NAME_USDICTNOTE);
     INFO_USDICTSREFERENCE = getUSInfo(MUSMapping::NAME_USDICTSREFERENCE);
-    INFO_USDICTTRANSLATIONID = getUSInfo(MUSMapping::NAME_USDICTTRANSLATIONID);
+    INFO_USDICTTRANSLATION = getUSInfo(MUSMapping::NAME_USDICTTRANSLATION);
     INFO_USMACVOICEID = getUSInfo(MUSMapping::NAME_USMACVOICEID);
     return sdictionary.getDictsReferenceByLang(langid).zip(
                 sdictionary.getDictsNoteByLang(langid),
@@ -113,34 +113,39 @@ observable<string_t> VMSettings::setSelectedLang(int langIndex)
                 sautocorrect.getDataByLang(langid),
                 svoice.getDataByLang(langid)).flat_map([&](const auto& o) -> observable<string_t> {
         dictsReference = get<0>(o);
-        int index = ranges::find_if(dictsReference, [&](const MDictionary& o){
+        auto g = [](auto v, auto f) {
+            int i = ranges::find_if(v, f) - v.begin();
+            if (i == v.size()) i = 0;
+            return i;
+        };
+        int index = g(dictsReference, [&](const MDictionary& o){
             return to_string_t(o.DICTID) == USDICTREFERENCE();
-        }) - dictsReference.begin();
+        });
         setSelectedDictReference(index);
         dictsNote = get<1>(o);
-        index = ranges::find_if(dictsNote, [&](const MDictionary& o){
+        index = g(dictsNote, [&](const MDictionary& o){
             return o.DICTID == USDICTNOTE();
-        }) - dictsNote.begin();
+        });
         if (dictsNote.empty()) dictsNote.emplace_back();
         setSelectedDictNote(index);
         dictsTranslation = get<2>(o);
-        index = ranges::find_if(dictsTranslation, [&](const MDictionary& o){
+        index = g(dictsTranslation, [&](const MDictionary& o){
             return o.DICTID == USDICTTRANSLATION();
-        }) - dictsTranslation.begin();
+        });
         if (dictsTranslation.empty()) dictsTranslation.emplace_back();
         setSelectedDictTranslation(index);
         textbooks = get<3>(o);
-        index = ranges::find_if(textbooks, [&](const MTextbook& o){
+        index = g(textbooks, [&](const MTextbook& o){
             return o.ID == USTEXTBOOKID();
-        }) - textbooks.begin();
+        });
         setSelectedTextbook(index);
         autoCorrects = get<4>(o);
         macVoices = get<5>(o) | views::filter([](const MVoice& o) {
             return o.VOICETYPEID == 2;
         }) | to<vector>;
-        index = ranges::find_if(macVoices, [&](const MVoice& o){
+        index = g(macVoices, [&](const MVoice& o){
             return o.ID == USMACVOICEID();
-        }) - macVoices.begin();
+        });
         setSelectedMacVoice(index);
         if (isinit) {
             if (delegate) delegate->onUpdateLang();
@@ -210,14 +215,14 @@ observable<string_t> VMSettings::updateDictReference()
 
 observable<string_t> VMSettings::updateDictNote()
 {
-    return susersetting.updateObject(INFO_USDICTNOTEID, USDICTNOTE()).tap([&](const auto&){
+    return susersetting.updateObject(INFO_USDICTNOTE, USDICTNOTE()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictNote();
     }) APPLY_IO;
 }
 
 observable<string_t> VMSettings::updateDictTranslation()
 {
-    return susersetting.updateObject(INFO_USDICTTRANSLATIONID, USDICTTRANSLATION()).tap([&](const auto&){
+    return susersetting.updateObject(INFO_USDICTTRANSLATION, USDICTTRANSLATION()).tap([&](const auto&){
         if (delegate) delegate->onUpdateDictTranslation();
     }) APPLY_IO;
 }
