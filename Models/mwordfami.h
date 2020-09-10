@@ -8,7 +8,6 @@ struct MWordFami
     int ID = 0;
     int USERID = 0;
     int WORDID = 0;
-    int LEVEL = 0;
     int CORRECT = 0;
     int TOTAL = 0;
 };

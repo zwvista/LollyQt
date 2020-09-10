@@ -13,7 +13,6 @@ void to_json(json& j, const MUnitWord& p) {
         {"WORD", p.WORD},
         {"NOTE", p.NOTE},
         {"FAMIID", p.FAMIID},
-        {"LEVEL", p.LEVEL},
         {"CORRECT", p.CORRECT},
         {"TOTAL", p.TOTAL},
     };
@@ -32,7 +31,6 @@ void from_json(const json& j, MUnitWord& p) {
     p.WORD = j.at("WORD").get<string_t>();
     p.NOTE = j.at("NOTE").get<boost::optional<string_t>>();
     p.FAMIID = j.at("FAMIID").get<int>();
-    p.LEVEL = j.at("LEVEL").get<int>();
     p.CORRECT = j.at("CORRECT").get<int>();
     p.TOTAL = j.at("TOTAL").get<int>();
 }

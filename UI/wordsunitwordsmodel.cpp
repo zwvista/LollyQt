@@ -17,10 +17,9 @@ QVariant WordsUnitWordsModel::headerData(int section, Qt::Orientation orientatio
     case 2: return QVariant(QString("SEQNUM"));
     case 3: return QVariant(QString("WORD"));
     case 4: return QVariant(QString("NOTE"));
-    case 5: return QVariant(QString("LEVEL"));
-    case 6: return QVariant(QString("ACCURACY"));
-    case 7: return QVariant(QString("WORDID"));
-    case 8: return QVariant(QString("ID"));
+    case 5: return QVariant(QString("ACCURACY"));
+    case 6: return QVariant(QString("WORDID"));
+    case 7: return QVariant(QString("ID"));
     default: return QVariant();
     }
 }
@@ -38,7 +37,7 @@ int WordsUnitWordsModel::columnCount(const QModelIndex &parent) const
     if (parent.isValid() || !vmWordsUnit)
         return 0;
 
-    return 9;
+    return 8;
 }
 
 QVariant WordsUnitWordsModel::data(const QModelIndex &index, int role) const
@@ -53,10 +52,9 @@ QVariant WordsUnitWordsModel::data(const QModelIndex &index, int role) const
     case 2: return QVariant(o.SEQNUM);
     case 3: return QVariant(QString::fromStdString_t(o.WORD));
     case 4: return QVariant(QString::fromStdString_t(o.NOTE.get_value_or(_XPLATSTR(""))));
-    case 5: return QVariant(o.LEVEL);
-    case 6: return QVariant(QString::fromStdString_t(o.ACCURACY()));
-    case 7: return QVariant(o.WORDID);
-    case 8: return QVariant(o.ID);
+    case 5: return QVariant(QString::fromStdString_t(o.ACCURACY()));
+    case 6: return QVariant(o.WORDID);
+    case 7: return QVariant(o.ID);
     default: return QVariant();
     }
 }

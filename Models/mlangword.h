@@ -10,7 +10,6 @@ struct MLangWord
     string_t WORD;
     boost::optional<string_t> NOTE;
     int FAMIID = 0;
-    int LEVEL = 0;
     int CORRECT = 0;
     int TOTAL = 0;
 };
