@@ -87,6 +87,7 @@ HEADERS  += mainwindow.h \
     Helpers/rx.h \
     Helpers/string_t.h \
     Helpers/uri.h \
+    Helpers/wstring2json.h \
     Models/mautocorrect.h \
     Models/mcommon.h \
     Models/mdictionary.h \

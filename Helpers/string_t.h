@@ -10,6 +10,7 @@ using namespace utility;
     #define fromStdString_t fromStdWString
     #define format_t wformat
     #define regex_t wregex
+    #include "Helpers/wstring2json.h"
 #else
     #define to_string_t to_string
     #define fromStdString_t fromStdString
