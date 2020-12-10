@@ -26,7 +26,7 @@ void from_json(const json& j, MUnitPhrase& p) {
     p.SEQNUM = j.at("SEQNUM").get<int>();
     p.PHRASEID = j.at("PHRASEID").get<int>();
     p.PHRASE = j.at("PHRASE").get<string_t>();
-    p.TRANSLATION = j.at("TRANSLATION").get<boost::optional<string_t>>();
+    p.TRANSLATION = j.at("TRANSLATION").get<string_t>();
 }
 
 void from_json(const json& j, MUnitPhrases& p) {

@@ -15,7 +15,7 @@ struct MUnitPhrase
     int SEQNUM = 0;
     int PHRASEID = 0;
     string_t PHRASE;
-    boost::optional<string_t> TRANSLATION;
+    string_t TRANSLATION;
 
     const MTextbook *pTextbook = nullptr;
 };

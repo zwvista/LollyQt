@@ -15,7 +15,7 @@ struct MUnitWord
     int SEQNUM = 0;
     int WORDID = 0;
     string_t WORD;
-    boost::optional<string_t> NOTE;
+    string_t NOTE;
     int FAMIID = 0;
     int CORRECT = 0;
     int TOTAL = 0;

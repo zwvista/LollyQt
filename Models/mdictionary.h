@@ -15,14 +15,14 @@ struct MDictionary
     int DICTTYPEID = 0;
     string_t DICTTYPENAME;
     string_t DICTNAME;
-    boost::optional<string_t> URL;
-    boost::optional<string_t> CHCONV;
-    boost::optional<string_t> AUTOMATION;
-    boost::optional<string_t> DICTTABLE;
-    boost::optional<string_t> TRANSFORM;
+    string_t URL;
+    string_t CHCONV;
+    string_t AUTOMATION;
+    string_t DICTTABLE;
+    string_t TRANSFORM;
     int WAIT = 0;
-    boost::optional<string_t> TEMPLATE;
-    boost::optional<string_t> TEMPLATE2;
+    string_t TEMPLATE;
+    string_t TEMPLATE2;
 };
 
 void to_json(json& j, const MDictionary& p);

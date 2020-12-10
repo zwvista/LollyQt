@@ -37,14 +37,14 @@ void from_json(const json& j, MDictionary& p) {
     p.DICTTYPEID = j.at("DICTTYPEID").get<int>();
     p.DICTTYPENAME = j.at("DICTTYPENAME").get<string_t>();
     p.DICTNAME = j.at("DICTNAME").get<string_t>();
-    p.URL = j.at("URL").get<boost::optional<string_t>>();
-    p.CHCONV = j.at("CHCONV").get<boost::optional<string_t>>();
-    p.AUTOMATION = j.at("AUTOMATION").get<boost::optional<string_t>>();
-    p.DICTTABLE = j.at("DICTTABLE").get<boost::optional<string_t>>();
-    p.TRANSFORM = j.at("TRANSFORM").get<boost::optional<string_t>>();
+    p.URL = j.at("URL").get<string_t>();
+    p.CHCONV = j.at("CHCONV").get<string_t>();
+    p.AUTOMATION = j.at("AUTOMATION").get<string_t>();
+    p.DICTTABLE = j.at("DICTTABLE").get<string_t>();
+    p.TRANSFORM = j.at("TRANSFORM").get<string_t>();
     p.WAIT = j.at("WAIT").get<int>();
-    p.TEMPLATE = j.at("TEMPLATE").get<boost::optional<string_t>>();
-    p.TEMPLATE2 = j.at("TEMPLATE2").get<boost::optional<string_t>>();
+    p.TEMPLATE = j.at("TEMPLATE").get<string_t>();
+    p.TEMPLATE2 = j.at("TEMPLATE2").get<string_t>();
 }
 
 void from_json(const json& j, MDictsReference& p) {

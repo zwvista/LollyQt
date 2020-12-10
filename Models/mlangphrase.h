@@ -8,7 +8,7 @@ struct MLangPhrase
     int ID = 0;
     int LANGID = 0;
     string_t PHRASE;
-    boost::optional<string_t> TRANSLATION;
+    string_t TRANSLATION;
 };
 
 struct MLangPhrases

@@ -29,7 +29,7 @@ void from_json(const json& j, MUnitWord& p) {
     p.SEQNUM = j.at("SEQNUM").get<int>();
     p.WORDID = j.at("WORDID").get<int>();
     p.WORD = j.at("WORD").get<string_t>();
-    p.NOTE = j.at("NOTE").get<boost::optional<string_t>>();
+    p.NOTE = j.at("NOTE").get<string_t>();
     p.FAMIID = j.at("FAMIID").get<int>();
     p.CORRECT = j.at("CORRECT").get<int>();
     p.TOTAL = j.at("TOTAL").get<int>();
