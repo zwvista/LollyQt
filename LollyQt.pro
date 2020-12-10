@@ -13,34 +13,34 @@ TEMPLATE = app
 
 CONFIG += c++17
 
-#INCLUDEPATH += /usr/local/Cellar/cpprestsdk/2.10.15/include \
-#    /usr/local/Cellar/boost/1.72.0/include \
-#    /usr/local/Cellar/libressl/2.8.3/include\
-#    /usr/local/Cellar/nlohmann_json/3.7.3/include \
-#    /usr/local/Cellar/range-v3/0.10.0/include \
-#    /Users/zhaowei/Documents/Programs/OSS/RxCpp/Rx/v2/src \
-#    /Users/zhaowei/Documents/Programs/OSS/rxqt/include
+INCLUDEPATH += /usr/local/Cellar/cpprestsdk/2.10.16/include \
+    /usr/local/Cellar/boost/1.74.0/include \
+    /usr/local/Cellar/libressl/3.2.2/include\
+    /usr/local/Cellar/nlohmann_json/3.9.1/include \
+    /usr/local/Cellar/range-v3/0.11.0/include \
+    /Users/zhaowei/Documents/Programs/OSS/RxCpp/Rx/v2/src \
+    /Users/zhaowei/Documents/Programs/OSS/rxqt/include
 
-#LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.15/lib \
-#    -L/usr/local/Cellar/boost/1.72.0/lib \
-#    -L/usr/local/Cellar/libressl/2.8.3/lib \
-#    -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
+LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.16/lib \
+    -L/usr/local/Cellar/boost/1.74.0/lib \
+    -L/usr/local/Cellar/libressl/3.2.2/lib \
+    -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
 
-QMAKE_CXXFLAGS += /std:c++17 /permissive- /Zc:preprocessor /bigobj
+#QMAKE_CXXFLAGS += /std:c++17 /permissive- /Zc:preprocessor /bigobj
 
-INCLUDEPATH += C:\zw\vcpkg\installed\x86-windows\include\cpprest \
-    C:\zw\vcpkg\installed\x86-windows\include\boost \
-    C:\zw\vcpkg\installed\x86-windows\include\openssl \
-    C:\zw\vcpkg\installed\x86-windows\include\nlohmann \
-    C:\zw\range-v3\include \
-    C:\zw\vcpkg\installed\x86-windows\include\rxcpp \
-    C:\zw\vcpkg\installed\x86-windows\include
+#INCLUDEPATH += C:\zw\vcpkg\installed\x86-windows\include\cpprest \
+#    C:\zw\vcpkg\installed\x86-windows\include\boost \
+#    C:\zw\vcpkg\installed\x86-windows\include\openssl \
+#    C:\zw\vcpkg\installed\x86-windows\include\nlohmann \
+#    C:\zw\range-v3\include \
+#    C:\zw\vcpkg\installed\x86-windows\include\rxcpp \
+#    C:\zw\vcpkg\installed\x86-windows\include
 
 #LIBS += -LC:\zw\vcpkg\installed\x86-windows\lib \
 #    -lcpprest_2_10 -lboost_system-vc140-mt -lboost_thread-vc140-mt -lboost_chrono-vc140-mt -llibssl -llibcrypto -lboost_regex-vc140-mt
 
-LIBS += -LC:\zw\vcpkg\installed\x86-windows\debug\lib \
-    -lcpprest_2_10d -lboost_system-vc140-mt-gd -lboost_thread-vc140-mt-gd -lboost_chrono-vc140-mt-gd -llibssl -llibcrypto -lboost_regex-vc140-mt-gd
+#LIBS += -LC:\zw\vcpkg\installed\x86-windows\debug\lib \
+#    -lcpprest_2_10d -lboost_system-vc140-mt-gd -lboost_thread-vc140-mt-gd -lboost_chrono-vc140-mt-gd -llibssl -llibcrypto -lboost_regex-vc140-mt-gd
 
 SOURCES += main.cpp \
     Helpers/uri.cpp \

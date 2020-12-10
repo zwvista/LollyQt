@@ -11,9 +11,7 @@ struct SDictionary
     observable<vector<MDictionary>> getDictsNoteByLang(int langid);
     observable<vector<MDictionary>> getDictsTranslationByLang(int langid);
     RestApi<MDictionary> api;
-    RestApi<MDictsReference> apisReference;
-    RestApi<MDictsNote> apisNote;
-    RestApi<MDictsTranslation> apisTranslation;
+    RestApi<MDictionaries> apis;
 };
 
 struct SDictType

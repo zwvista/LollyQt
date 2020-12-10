@@ -47,15 +47,7 @@ void from_json(const json& j, MDictionary& p) {
     p.TEMPLATE2 = j.at("TEMPLATE2").get<string_t>();
 }
 
-void from_json(const json& j, MDictsReference& p) {
-    p.records = j.at("records").get<vector<MDictionary>>();
-}
-
-void from_json(const json& j, MDictsNote& p) {
-    p.records = j.at("records").get<vector<MDictionary>>();
-}
-
-void from_json(const json& j, MDictsTranslation& p) {
+void from_json(const json& j, MDictionaries& p) {
     p.records = j.at("records").get<vector<MDictionary>>();
 }
 
