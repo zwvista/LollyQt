@@ -34,8 +34,9 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
         return {};
     };
     auto url = boost::format_t(_XPLATSTR("TEXTBOOKS?filter=LANGID,eq,%1%")) % langid;
-    return apis.getObject(url.str()).map([&](MTextbooks& o){
-        for (auto& o2 : o.records) {
+    return apis.getObject(url.str()).map([&](const MTextbooks& o){
+        auto oo = o;
+        for (auto& o2 : oo.records) {
             auto v = f(o2.UNITS);
             auto v2 = v | views::enumerate | to<vector>;
             o2.units = v2 | views::transform([&](const auto& o3){
@@ -47,6 +48,6 @@ observable<vector<MTextbook>> STextbook::getDataByLang(int langid)
                 return MSelectItem { static_cast<int>(o3.first + 1), o3.second };
             }) | to<vector>;
         }
-        return o.records;
+        return oo.records;
     });
 }

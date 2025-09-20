@@ -6,22 +6,24 @@ using namespace ranges;
 observable<vector<MUnitPhrase> > SUnitPhrase::getDataByTextbookUnitPart(const MTextbook &textbook, int unitPartFrom, int unitPartTo)
 {
     auto url = boost::format_t(_XPLATSTR("VUNITPHRASES?filter=TEXTBOOKID,eq,%1%&filter=UNITPART,bt,%2%,%3%&order=UNITPART&order=SEQNUM")) % textbook.ID % unitPartFrom % unitPartTo;
-    return apis.getObject(url.str()).map([&](MUnitPhrases& o){
-        for (auto& o2 : o.records)
+    return apis.getObject(url.str()).map([&](const MUnitPhrases& o){
+        auto oo = o;
+        for (auto& o2 : oo.records)
             o2.pTextbook = &textbook;
-        return o.records;
+        return oo.records;
     });
 }
 
 observable<vector<MUnitPhrase> > SUnitPhrase::getDataByLang(int langid, const vector<MTextbook> &textbooks)
 {
     auto url = boost::format_t(_XPLATSTR("VUNITPHRASES?filter=LANGID,eq,%1%&order=TEXTBOOKID&order=UNIT&order=PART&order=SEQNUM")) % langid;
-    return apis.getObject(url.str()).map([&](MUnitPhrases& o){
-        for (auto& o2 : o.records)
-            o2.pTextbook = &*ranges::find_if(textbooks, [&](const MTextbook& o){
-                return o.ID == o2.TEXTBOOKID;
+    return apis.getObject(url.str()).map([&](const MUnitPhrases& o){
+        auto oo = o;
+        for (auto& o2 : oo.records)
+            o2.pTextbook = &*ranges::find_if(textbooks, [&](const MTextbook& o3){
+                return o3.ID == o2.TEXTBOOKID;
             });
-        return o.records;
+        return oo.records;
     });
 }
 

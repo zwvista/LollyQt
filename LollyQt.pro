@@ -13,15 +13,14 @@ TEMPLATE = app
 
 CONFIG += c++17
 
-INCLUDEPATH += /opt/homebrew/Cellar/cpprestsdk/2.10.16/include \
+INCLUDEPATH += /opt/homebrew/Cellar/cpprestsdk/2.10.19_3/include \
     /opt/homebrew/Cellar/boost/1.89.0/include \
     /opt/homebrew/Cellar/libressl/4.1.0/include\
-    /opt/homebrew/Cellar/nlohmann_json/3.12.0/include \
+    /opt/homebrew/Cellar/nlohmann-json/3.12.0/include \
     /opt/homebrew/Cellar/range-v3/0.12.0/include \
     /Users/zwvista/Documents/Programs/Misc/RxCpp/Rx/v2/src \
     /Users/zwvista/Documents/Programs/Misc/rxqt/include
-
-LIBS += -L/opt/homebrew/Cellar/cpprestsdk/2.10.16/lib \
+LIBS += -L/opt/homebrew/Cellar/cpprestsdk/2.10.19_3/lib \
     -L/opt/homebrew/Cellar/boost/1.89.0/lib \
     -L/opt/homebrew/Cellar/libressl/4.1.0/lib \
     -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
@@ -81,7 +80,7 @@ SOURCES += main.cpp \
     ViewModels/vmwordsunit.cpp \
     UI/wordsunitwordsmodel.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     Helpers/optional2json.h \
     Helpers/restapi.h \
     Helpers/rx.h \
