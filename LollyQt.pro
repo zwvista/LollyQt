@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql network webengine webenginewidgets
+QT       += core gui sql network webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,17 +13,17 @@ TEMPLATE = app
 
 CONFIG += c++17
 
-INCLUDEPATH += /usr/local/Cellar/cpprestsdk/2.10.16/include \
-    /usr/local/Cellar/boost/1.74.0/include \
-    /usr/local/Cellar/libressl/3.2.2/include\
-    /usr/local/Cellar/nlohmann_json/3.9.1/include \
-    /usr/local/Cellar/range-v3/0.11.0/include \
-    /Users/zhaowei/Documents/Programs/OSS/RxCpp/Rx/v2/src \
-    /Users/zhaowei/Documents/Programs/OSS/rxqt/include
+INCLUDEPATH += /opt/homebrew/Cellar/cpprestsdk/2.10.16/include \
+    /opt/homebrew/Cellar/boost/1.89.0/include \
+    /opt/homebrew/Cellar/libressl/4.1.0/include\
+    /opt/homebrew/Cellar/nlohmann_json/3.12.0/include \
+    /opt/homebrew/Cellar/range-v3/0.12.0/include \
+    /Users/zwvista/Documents/Programs/Misc/RxCpp/Rx/v2/src \
+    /Users/zwvista/Documents/Programs/Misc/rxqt/include
 
-LIBS += -L/usr/local/Cellar/cpprestsdk/2.10.16/lib \
-    -L/usr/local/Cellar/boost/1.74.0/lib \
-    -L/usr/local/Cellar/libressl/3.2.2/lib \
+LIBS += -L/opt/homebrew/Cellar/cpprestsdk/2.10.16/lib \
+    -L/opt/homebrew/Cellar/boost/1.89.0/lib \
+    -L/opt/homebrew/Cellar/libressl/4.1.0/lib \
     -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
 
 #QMAKE_CXXFLAGS += /std:c++17 /permissive- /Zc:preprocessor /bigobj
