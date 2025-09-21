@@ -12,6 +12,7 @@ TARGET = LollyQt
 TEMPLATE = app
 
 CONFIG += c++17
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 26.0
 
 INCLUDEPATH += /opt/homebrew/Cellar/cpprestsdk/2.10.19_3/include \
     /opt/homebrew/Cellar/boost/1.89.0/include \
@@ -23,7 +24,7 @@ INCLUDEPATH += /opt/homebrew/Cellar/cpprestsdk/2.10.19_3/include \
 LIBS += -L/opt/homebrew/Cellar/cpprestsdk/2.10.19_3/lib \
     -L/opt/homebrew/Cellar/boost/1.89.0/lib \
     -L/opt/homebrew/Cellar/libressl/4.1.0/lib \
-    -lcpprest -lboost_system -lboost_thread-mt -lboost_chrono-mt -lssl -lcrypto -lboost_regex
+    -lcpprest -lboost_thread -lboost_chrono -lssl -lcrypto -lboost_regex
 
 #QMAKE_CXXFLAGS += /std:c++17 /permissive- /Zc:preprocessor /bigobj
 
